@@ -6,9 +6,9 @@
   <title>SHOHJAHON (@woxjahon_224) | Personal Link Hub</title>
   
   <!-- Meta tags -->
-  <meta name="description" content="Shohjahon - Personal Link Hub & Portfolio. Bahor fasli, qaldirg'ochlar va gullagan daraxtli shaxsiy sahifa.">
+  <meta name="description" content="Shohjahon - IT Sohasi (5 ta yo'nalish) va Koreys Tili talabasi. Farg'ona, Qo'shtepa. Shaxsiy Link Hub & Portfolio sahifasi.">
   <meta property="og:title" content="SHOHJAHON (@wox_224) - Link Hub">
-  <meta property="og:description" content="Dasturchi, IT kontent muallifi va kontaktlar.">
+  <meta property="og:description" content="IT sohasi (5 ta yo'nalish) & Koreys tili talabasi. Farg'ona, Qo'shtepa.">
   <meta property="og:image" content="profile.jpg">
   
   <!-- Google Fonts: Plus Jakarta Sans -->
@@ -34,8 +34,9 @@
             'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
             'spin-slow': 'spin 35s linear infinite',
             'tree-sway': 'treeSway 9s ease-in-out infinite',
-            'storm-cloud-1': 'stormFloat 60s linear infinite',
-            'storm-cloud-2': 'stormFloat 80s linear infinite reverse',
+            'cloud-float-1': 'cloudFloat1 50s linear infinite',
+            'cloud-float-2': 'cloudFloat2 70s linear infinite',
+            'cloud-float-3': 'cloudFloat3 60s linear infinite',
           },
           keyframes: {
             fadeIn: {
@@ -51,9 +52,17 @@
               '35%': { transform: 'rotate(0.9deg) skewX(0.4deg)' },
               '70%': { transform: 'rotate(-0.6deg) skewX(-0.3deg)' },
             },
-            stormFloat: {
-              '0%': { transform: 'translateX(-80px)' },
-              '100%': { transform: 'translateX(calc(100vw + 80px))' },
+            cloudFloat1: {
+              '0%': { transform: 'translateX(-20%)' },
+              '100%': { transform: 'translateX(120%)' },
+            },
+            cloudFloat2: {
+              '0%': { transform: 'translateX(120%)' },
+              '100%': { transform: 'translateX(-30%)' },
+            },
+            cloudFloat3: {
+              '0%': { transform: 'translateX(-10%)' },
+              '100%': { transform: 'translateX(130%)' },
             }
           }
         }
@@ -72,50 +81,44 @@
     .delay-500 { animation-delay: 500ms; }
     .delay-600 { animation-delay: 600ms; }
 
-    /* Canvas (Dinamik ob-havo, bahor gulbarglari & qaldirg'ochlar) */
+    /* Canvas (Dinamik ob-havo, yulduzlar, meteorlar, yomg'ir & gullar) */
     #weatherCanvas {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
-      z-index: -10;
+      z-index: 1;
+    }
+
+    /* Qora va qalin bo'ron bulutlari */
+    .storm-cloud {
+      filter: blur(14px);
+      opacity: 0.9;
     }
   </style>
 </head>
-<body id="pageBody" class="bg-gradient-to-b from-sky-100/90 via-rose-50/40 to-emerald-50/40 text-slate-800 dark:bg-none dark:bg-[#070913] dark:text-zinc-100 min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-1000 selection:bg-pink-500 selection:text-white relative overflow-x-hidden">
+<body id="pageBody" class="bg-gradient-to-b from-sky-100/90 via-rose-50/40 to-emerald-50/40 text-slate-800 dark:bg-none dark:bg-[#050714] dark:text-zinc-100 min-h-screen flex flex-col items-center justify-between transition-colors duration-700 selection:bg-pink-500 selection:text-white relative overflow-x-hidden">
 
-  <!-- Interaktiv Weather Canvas (Kunduzi: Qaldirg'ochlar & Pushti Gulbarglar / Tunda: Yulduzlar & Yomg'ir) -->
+  <!-- WEATHER CANVAS (HAR DOIM KO'RINADIGAN DINAMIK CANVAS Z-INDEX: 1) -->
   <canvas id="weatherCanvas"></canvas>
 
-  <!-- ========================================================================= -->
-  <!-- KUNDUZGI BAHOR: BIR TOMONDA KATTA VA HAQIQIY GULLAGAN BAHOR DARAXTI       -->
-  <!-- ========================================================================= -->
-  <div id="springTreeContainer" class="fixed bottom-0 -left-16 sm:-left-10 md:-left-4 lg:left-2 pointer-events-none -z-10 select-none block dark:hidden origin-bottom transition-all duration-700">
+  <!-- KUNDUZGI BAHOR: BIR TOMONDA KATTA VA HAQIQIY GULLAGAN BAHOR DARAXTI -->
+  <div id="springTreeContainer" class="fixed bottom-0 -left-16 sm:-left-10 md:-left-4 lg:left-2 pointer-events-none z-[2] select-none block dark:hidden origin-bottom transition-all duration-700">
     <div class="relative origin-bottom animate-tree-sway">
-      <!-- Haqiqiy Katta Daraxt (Lush photorealistic sakura/apricot tree) -->
       <img src="sakura_tree.png" alt="Haqiqiy Gullagan Bahor Daraxti" 
            class="h-[58vh] sm:h-[72vh] md:h-[86vh] lg:h-[94vh] max-h-[960px] w-auto object-contain filter drop-shadow-[0_20px_35px_rgba(244,114,182,0.3)] opacity-45 sm:opacity-90 md:opacity-100 transition-all duration-500" />
-      
-      <!-- Daraxt ildizi va zaminining tabiiy maysazor soyasi (Grounding shadow) -->
       <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-gradient-to-t from-emerald-800/25 via-emerald-600/10 to-transparent blur-md rounded-full pointer-events-none"></div>
-
-      <!-- Bahoriy quyosh nuri yog'dusi (Sunlight bloom on blossoms) -->
       <div class="absolute top-1/4 right-1/4 w-80 h-80 rounded-full bg-rose-200/20 blur-3xl pointer-events-none"></div>
     </div>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- KUNDUZGI BAHOR: IKKINCHI TOMONDA QUYOSH (Spring Radiant Sun)              -->
-  <!-- ========================================================================= -->
-  <div id="springSunContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none -z-10 select-none block dark:hidden transition-all duration-700 animate-pulse-glow">
-    <!-- Quyoshning iliq nurlari (Warm Golden Halo) -->
+  <!-- KUNDUZGI BAHOR: IKKINCHI TOMONDA QUYOSH -->
+  <div id="springSunContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none z-[2] select-none block dark:hidden transition-all duration-700 animate-pulse-glow">
     <div class="absolute -inset-14 rounded-full bg-amber-300/35 blur-3xl"></div>
     <div class="absolute -inset-8 rounded-full bg-rose-200/30 blur-2xl"></div>
     <div class="absolute -inset-6 rounded-full bg-yellow-400/25 blur-xl"></div>
-    
-    <!-- Aylanuvchi mayin nurlar (Rotating Sun Rays) -->
     <div class="absolute -inset-6 flex items-center justify-center animate-spin-slow">
       <svg class="w-36 h-36 text-amber-400/60" viewBox="0 0 100 100" fill="currentColor">
         <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -127,33 +130,20 @@
           <line x1="76.9" y1="76.9" x2="84" y2="84"/>
           <line x1="23.1" y1="76.9" x2="16" y2="84"/>
           <line x1="76.9" y1="23.1" x2="84" y2="16"/>
-          <line x1="36.6" y1="16.6" x2="32.6" y2="7.5" stroke-width="1.8"/>
-          <line x1="63.4" y1="83.4" x2="67.4" y2="92.5" stroke-width="1.8"/>
-          <line x1="16.6" y1="63.4" x2="7.5" y2="67.4" stroke-width="1.8"/>
-          <line x1="83.4" y1="36.6" x2="92.5" y2="32.6" stroke-width="1.8"/>
-          <line x1="63.4" y1="16.6" x2="67.4" y2="7.5" stroke-width="1.8"/>
-          <line x1="36.6" y1="83.4" x2="32.6" y2="92.5" stroke-width="1.8"/>
-          <line x1="16.6" y1="36.6" x2="7.5" y2="32.6" stroke-width="1.8"/>
-          <line x1="83.4" y1="63.4" x2="92.5" y2="67.4" stroke-width="1.8"/>
         </g>
       </svg>
     </div>
-
-    <!-- Quyosh shari (Sun Disc) -->
     <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-100 shadow-[0_0_55px_rgba(251,191,36,0.7)] border-2 border-yellow-200/90 flex items-center justify-center overflow-hidden">
       <div class="absolute top-1.5 left-2.5 w-10 h-6 bg-white/60 rounded-full blur-[2px] transform -rotate-12"></div>
     </div>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- TUNGI REJIM ELEMENTI 1: TABIIYROQ VA REALISTIK OY                         -->
-  <!-- ========================================================================= -->
-  <div id="moonContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none -z-10 select-none hidden dark:block transition-all duration-700 animate-pulse-glow">
+  <!-- TUNGI REJIM: 3D REALISTIK TO'LIN OY -->
+  <div id="moonContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none z-[2] select-none hidden dark:block transition-all duration-700 animate-pulse-glow">
     <div class="absolute -inset-10 rounded-full bg-slate-200/20 dark:bg-amber-100/15 blur-3xl"></div>
     <div class="absolute -inset-4 rounded-full bg-white/30 dark:bg-amber-100/20 blur-xl"></div>
     
-    <!-- Oy shari va haqiqiy lunar kartografiya relyeflari -->
-    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.3)] border border-slate-200/40 overflow-hidden bg-[#d9dde4]">
+    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.35)] border border-slate-200/40 overflow-hidden bg-[#d9dde4]">
       <svg class="w-full h-full" viewBox="0 0 200 200">
         <defs>
           <radialGradient id="moon3dShading" cx="35%" cy="32%" r="68%">
@@ -165,337 +155,593 @@
             <feGaussianBlur stdDeviation="3"/>
           </filter>
         </defs>
-
         <circle cx="100" cy="100" r="100" fill="#e2e8f0"/>
-
-        <!-- Oy dengizlari (Maria) -->
         <g filter="url(#lunarMariaBlur)" fill="#64748b" opacity="0.65">
           <ellipse cx="65" cy="70" rx="35" ry="30"/>
           <path d="M50 40 Q80 20 110 45 Q130 80 100 95 Q60 110 50 40 Z"/>
           <ellipse cx="125" cy="75" rx="25" ry="20"/>
           <ellipse cx="135" cy="105" rx="28" ry="22"/>
-          <ellipse cx="160" cy="80" rx="14" ry="12"/>
           <ellipse cx="75" cy="135" rx="22" ry="18"/>
           <ellipse cx="115" cy="140" rx="30" ry="20"/>
-          <ellipse cx="50" cy="125" rx="15" ry="14"/>
         </g>
-
-        <!-- Mashhur kraterlar: Tycho, Copernicus, Kepler -->
         <g opacity="0.85">
-          <path d="M95 160 L35 115 M95 160 L145 115 M95 160 L90 195 M95 160 L165 160 M95 160 L20 160" stroke="#f8fafc" stroke-width="0.9" opacity="0.6"/>
           <circle cx="95" cy="160" r="5.5" fill="#475569"/>
           <circle cx="95" cy="160" r="3.2" fill="#e2e8f0"/>
-          <circle cx="95" cy="160" r="1.2" fill="#334155"/>
+          <circle cx="68" cy="88" r="6.5" fill="#475569" opacity="0.8"/>
+          <circle cx="68" cy="88" r="4.2" fill="#f1f5f9" opacity="0.9"/>
+          <circle cx="45" cy="85" r="4" fill="#475569" opacity="0.75"/>
         </g>
-
-        <circle cx="68" cy="88" r="6.5" fill="#475569" opacity="0.8"/>
-        <circle cx="68" cy="88" r="4.2" fill="#f1f5f9" opacity="0.9"/>
-        <circle cx="68" cy="88" r="1.5" fill="#334155"/>
-
-        <circle cx="45" cy="85" r="4" fill="#475569" opacity="0.75"/>
-        <circle cx="45" cy="85" r="2" fill="#f8fafc"/>
-        <circle cx="38" cy="65" r="3.5" fill="#ffffff" opacity="0.95"/>
-        <ellipse cx="90" cy="45" rx="5" ry="3.5" fill="#334155" opacity="0.85"/>
-
-        <g fill="#334155" opacity="0.4">
-          <circle cx="150" cy="145" r="2.5"/><circle cx="130" cy="165" r="3"/>
-          <circle cx="110" cy="175" r="2.2"/><circle cx="80" cy="180" r="2"/>
-          <circle cx="165" cy="120" r="2.8"/><circle cx="170" cy="60" r="2.2"/>
-        </g>
-
         <circle cx="100" cy="100" r="100" fill="url(#moon3dShading)"/>
       </svg>
     </div>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- TUNGI REJIM ELEMENTI 2: YOMG'IR BULUTLARI                                  -->
-  <!-- ========================================================================= -->
-  <div id="stormCloudsContainer" class="fixed inset-0 pointer-events-none -z-20 overflow-hidden opacity-0 transition-opacity duration-1000 hidden dark:block">
-    <div class="absolute -top-16 -left-20 w-[120vw] h-64 bg-gradient-to-b from-slate-900/90 via-slate-800/70 to-transparent blur-3xl"></div>
-    <div class="absolute top-10 -left-40 w-[600px] h-48 bg-slate-950/70 rounded-full blur-3xl animate-storm-cloud-1"></div>
-    <div class="absolute top-28 -right-40 w-[650px] h-52 bg-slate-900/60 rounded-full blur-3xl animate-storm-cloud-2"></div>
+  <!-- TUNGI REJIM: DINAMIK VA HAQIQIY BO'RON BULUTLARI -->
+  <div id="stormCloudsContainer" class="fixed inset-0 pointer-events-none z-[2] overflow-hidden opacity-0 transition-opacity duration-1000">
+    <div class="absolute -top-12 -left-20 w-[140vw] h-64 bg-gradient-to-b from-[#020617] via-[#090d1f]/95 to-transparent blur-2xl"></div>
+    <div class="absolute top-2 -left-60 w-[550px] h-36 bg-[#0f172a]/90 rounded-full storm-cloud animate-cloud-float-1"></div>
+    <div class="absolute top-12 left-1/3 w-[650px] h-44 bg-[#0a0e27]/85 rounded-full storm-cloud animate-cloud-float-3"></div>
+    <div class="absolute top-20 -right-40 w-[600px] h-40 bg-[#020617]/95 rounded-full storm-cloud animate-cloud-float-2"></div>
+    <div class="absolute top-36 left-10 w-[480px] h-32 bg-[#1e1b4b]/60 rounded-full storm-cloud animate-cloud-float-1"></div>
   </div>
 
-  <!-- Yuqori Panel: O'zbekiston Bayrog'i, Ob-havo ko'rsatkichi, Ulashish va Mavzu almashuvi -->
-  <header class="w-full max-w-md flex items-center justify-between py-2 animate-fade-in z-10">
-    <!-- Bir chekkadagi O'zbekiston Bayrog'i -->
-    <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 shadow-sm hover:scale-105 transition-all">
-      <svg class="w-5 h-3.5 rounded-[2px] shadow-sm overflow-hidden" viewBox="0 0 500 250">
-        <rect width="500" height="80" fill="#0099B5" y="0"/>
-        <rect width="500" height="5" fill="#CE1126" y="80"/>
-        <rect width="500" height="80" fill="#FFFFFF" y="85"/>
-        <rect width="500" height="5" fill="#CE1126" y="165"/>
-        <rect width="500" height="85" fill="#1EB53A" y="170"/>
-        <circle cx="55" cy="40" r="30" fill="#FFFFFF"/>
-        <circle cx="65" cy="40" r="30" fill="#0099B5"/>
-        <g fill="#FFFFFF">
-          <circle cx="95" cy="18" r="4"/><circle cx="115" cy="18" r="4"/><circle cx="135" cy="18" r="4"/>
-          <circle cx="95" cy="35" r="4"/><circle cx="115" cy="35" r="4"/><circle cx="135" cy="35" r="4"/><circle cx="155" cy="35" r="4"/>
-          <circle cx="75" cy="52" r="4"/><circle cx="95" cy="52" r="4"/><circle cx="115" cy="52" r="4"/><circle cx="135" cy="52" r="4"/><circle cx="155" cy="52" r="4"/>
-        </g>
-      </svg>
-      <span class="text-xs font-bold text-slate-700 dark:text-zinc-200 tracking-tight">O‘zbekiston</span>
-    </div>
+  <!-- ASOSIY INTERAKTIV INTERFEYS -->
+  <div class="relative z-10 w-full flex flex-col items-center justify-between min-h-screen p-4 sm:p-6">
 
-    <!-- O'ng tomondagi tugmalar -->
-    <div class="flex items-center gap-2">
-      <!-- Ulashish -->
-      <button id="copyProfileBtn" title="Havolani nusxalash" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all">
-        <i class="fa-solid fa-share-nodes text-xs text-pink-500"></i>
-        <span>Ulashish</span>
-      </button>
-
-      <!-- Mavzu almashuvi (Kunduz / Kechqurun) -->
-      <button id="themeToggle" title="Mavzuni almashtirish (Kunduz / Kechqurun)" aria-label="Mavzuni almashtirish" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:scale-105 active:scale-95 transition-all">
-        <i id="themeIcon" class="fa-solid fa-moon text-sm text-amber-400"></i>
-        <span id="themeToggleText" class="text-xs font-bold">Tun</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- ========================================================================= -->
-  <!-- 3 TA ASOSIY REJIM TANLASH PANELI                                         -->
-  <!-- 1. Kunduzgi Bahor (Quyosh, Haqiqiy Katta Daraxt, Qaldirg'ochlar)           -->
-  <!-- 2. Kechqurun: Yulduzli Tun & 3D Tabiiy Oy & Meteorlar                     -->
-  <!-- 3. Kechqurun: Bo'ronli Yomg'ir & Chaqmoq                                  -->
-  <!-- ========================================================================= -->
-  <div class="w-full max-w-md my-2.5 z-20 animate-fade-in delay-100">
-    <div class="flex items-center justify-between p-1.5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-zinc-800 shadow-lg gap-1.5">
-      <!-- 1. Kunduzgi Bahor -->
-      <button id="modeBtnDay" type="button" title="Kunduzgi Bahor fasli: Katta daraxt, quyosh va qaldirg'ochlar" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
-        <i class="fa-solid fa-seedling text-sm text-emerald-500"></i>
-        <span class="tracking-tight">Bahor (Kunduz)</span>
-      </button>
-
-      <!-- 2. Yulduzli Tun & Oy -->
-      <button id="modeBtnStars" type="button" title="Kechqurun: Yulduzli tun, 3D Oy va oqar yulduzlar" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
-        <i class="fa-solid fa-moon text-sm text-amber-400"></i>
-        <span class="tracking-tight">Yulduz & Oy</span>
-      </button>
-
-      <!-- 3. Yomg'ir & Chaqmoq -->
-      <button id="modeBtnRain" type="button" title="Kechqurun: Yomg'ir, bulutlar va chaqmoqlar" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
-        <i class="fa-solid fa-cloud-bolt text-sm text-sky-400"></i>
-        <span class="tracking-tight">Yomg‘ir</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Asosiy Konteyner -->
-  <main class="w-full max-w-md flex flex-col items-center mb-8 z-10">
-    
-    <!-- Profil Qismi -->
-    <section class="flex flex-col items-center text-center animate-fade-in delay-100">
-      <!-- Profil Rasmi (Local profile.jpg) -->
-      <div class="relative group mb-4">
-        <div class="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full blur opacity-45 group-hover:opacity-85 transition duration-500"></div>
-        <img 
-          src="profile.jpg" 
-          alt="SHOHJAHON" 
-          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop';"
-          class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-[center_18%] ring-4 ring-white dark:ring-zinc-900 shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
-        />
-        <!-- Faollik belgisi -->
-        <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center shadow" title="Faol">
-          <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
-        </span>
-      </div>
-
-      <!-- Ism va Verified nishoni -->
-      <div class="flex items-center gap-1.5">
-        <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          SHOHJAHON
-        </h1>
-        <i class="fa-solid fa-circle-check text-blue-500 text-lg" title="Tasdiqlangan profil"></i>
-      </div>
-
-      <!-- Bio / Kasb -->
-      <p class="mt-1.5 text-sm font-medium text-slate-600 dark:text-zinc-400 max-w-xs leading-relaxed">
-        Full Stack Developer & IT Kontent Muallifi. Zamonaviy web va mobil loyihalar ustida ishlayman.
-      </p>
-
-      <!-- Joylashuv & Bahor fasli ko'rsatkichi -->
-      <div class="mt-2.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/85 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-xs font-semibold text-slate-600 dark:text-zinc-400 shadow-sm">
-        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-rose-500 text-xs"></i> Toshkent</span>
-        <span class="text-slate-300 dark:text-zinc-700">•</span>
-        <span id="activeWeatherBadge" class="flex items-center gap-1.5 text-emerald-600 dark:text-sky-400 font-medium">
-          <i class="fa-solid fa-seedling text-emerald-500"></i> Bahor Fasli & Qaldirg‘ochlar
-        </span>
-      </div>
-    </section>
-
-    <!-- Asosiy Havolalar Bloki -->
-    <section class="w-full mt-6 space-y-3.5">
-
-      <!-- Havola 1: Telegram Kanalim (https://t.me/idrok_fikr) -->
-      <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 shadow-sm shadow-sky-500/20 transition-all duration-200">
-          <i class="fa-solid fa-bullhorn"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="flex items-center gap-1.5">
-            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Telegram Kanalim</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300">Kanal</span>
-          </div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400">@idrok_fikr • Idrok va Fikr, tahlil va kontentlar</div>
-        </div>
-        <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-chevron-right text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 2: Shaxsiy Telegramim (@wox_224) -->
-      <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
-        <div class="w-11 h-11 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200">
-          <i class="fa-brands fa-telegram"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Shaxsiy Telegramim (@wox_224)</div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400">Menga to‘g‘ridan-to‘g‘ri shaxsiy xabar yozish</div>
-        </div>
-        <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-chevron-right text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 3: Instagram (@woxjahon_224) -->
-      <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-pink-500/50 dark:hover:border-pink-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-xl flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200">
-          <i class="fa-brands fa-instagram"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-pink-500 transition-colors">Instagram (@woxjahon_224)</div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400">Kundalik stories, postlar va hayotiy blog</div>
-        </div>
-        <div class="text-slate-400 group-hover:text-pink-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-chevron-right text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 4: Telefon Raqam (+998 95 544 90 80) -->
-      <a href="tel:+998955449080" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
-        <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-200">
-          <i class="fa-solid fa-phone-volume"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">Telefon Raqamim</div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400 font-mono font-semibold">+998 95 544 90 80 • Qo‘ng‘iroq qilish</div>
-        </div>
-        <div class="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 5: Yaqin Do'stim (@Nematov_shuhratjon - Zaxira Aloqa) -->
-      <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-purple-200/80 dark:border-purple-900/40 shadow-sm hover:shadow-md hover:border-purple-500/60 dark:hover:border-purple-500/60 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
-        <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-200">
-          <i class="fa-solid fa-user-group"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="flex items-center gap-1.5">
-            <span class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Yaqin Do‘stim (@Nematov_shuhratjon)</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">Zaxira</span>
-          </div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400">Menga tusholmasangiz, do‘stimga murojaat qiling</div>
-        </div>
-        <div class="text-purple-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-chevron-right text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 6: Portfolio & Shaxsiy Saytim -->
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
-        <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-200">
-          <i class="fa-solid fa-globe"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">Portfolio & Shaxsiy Saytim</div>
-          <div class="text-xs text-slate-500 dark:text-zinc-400">Ish tajribam va bajargan loyihalarim</div>
-        </div>
-        <div class="text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-chevron-right text-xs"></i>
-        </div>
-      </a>
-
-      <!-- Havola 7: Bog‘lanish / Aloqa -->
-      <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
-         class="group relative flex items-center p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-500">
-        <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-xl flex-shrink-0 text-white backdrop-blur-sm">
-          <i class="fa-solid fa-paper-plane"></i>
-        </div>
-        <div class="ml-3.5 flex-1 text-left">
-          <div class="text-sm font-bold text-white">Bog‘lanish / Aloqa</div>
-          <div class="text-xs text-indigo-100">Telegram orqali to‘g‘ridan-to‘g‘ri yozish (@wox_224)</div>
-        </div>
-        <div class="text-indigo-200 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 pr-1">
-          <i class="fa-solid fa-arrow-right text-xs"></i>
-        </div>
-      </a>
-
-    </section>
-
-    <!-- Dumaloq Ijtimoiy Tarmoq Ikonkalari -->
-    <section class="mt-8 flex items-center justify-center gap-3.5 animate-fade-in delay-500">
-      <!-- Telegram Kanal (@idrok_fikr) -->
-      <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" aria-label="Telegram Kanal" title="Telegram Kanal: @idrok_fikr"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
-        <i class="fa-solid fa-bullhorn text-base"></i>
-      </a>
-
-      <!-- Telegram Shaxsiy (@wox_224) -->
-      <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" aria-label="Shaxsiy Telegram" title="Shaxsiy Telegram: @wox_224"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
-        <i class="fa-brands fa-telegram text-lg"></i>
-      </a>
+    <!-- 1. YUQORI PANEL: TIL TANLASH (UZ, RU, EN, KO), ULASHISH VA KUN/TUN (Z-INDEX: 50) -->
+    <header class="w-full max-w-md flex items-center justify-between py-2 animate-fade-in relative z-50">
       
-      <!-- Instagram (@woxjahon_224) -->
-      <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram: @woxjahon_224"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:border-transparent hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-200">
-        <i class="fa-brands fa-instagram text-lg"></i>
-      </a>
+      <!-- Ko'p tilli menyu (Language Switcher Dropdown) -->
+      <div class="relative" id="langDropdownContainer">
+        <button id="langToggleBtn" type="button" class="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-2 border-slate-200 dark:border-zinc-700 shadow-md hover:scale-105 active:scale-95 transition-all text-xs font-extrabold text-slate-800 dark:text-zinc-100 cursor-pointer">
+          <span id="currentFlag" class="text-base">🇺🇿</span>
+          <span id="currentLangText">O‘zbek</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300" id="langChevron"></i>
+        </button>
 
-      <!-- Telefon (+998 95 544 90 80) -->
-      <a href="tel:+998955449080" aria-label="Telefon" title="Telefon: +998 95 544 90 80"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200">
-        <i class="fa-solid fa-phone text-base"></i>
-      </a>
+        <!-- Dropdown menyusi: TO'LIQ QORALASHTIRILGAN VA USTIDA TURADIGAN (Z-INDEX 50) -->
+        <div id="langMenu" class="absolute top-full left-0 mt-2 w-48 py-2 rounded-2xl bg-white dark:bg-[#0e1328] border-2 border-slate-300 dark:border-indigo-500/60 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hidden z-50 transition-all">
+          <button type="button" data-lang="uz" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇺🇿</span> <span>O‘zbekcha</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon" id="check-uz"></i>
+          </button>
+          <button type="button" data-lang="ru" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇷🇺</span> <span>Русский</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-ru"></i>
+          </button>
+          <button type="button" data-lang="en" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇬🇧</span> <span>English</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-en"></i>
+          </button>
+          <button type="button" data-lang="ko" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇰🇷</span> <span>한국어</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-ko"></i>
+          </button>
+        </div>
+      </div>
 
-      <!-- Do'stim (@Nematov_shuhratjon) -->
-      <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" aria-label="Do'stim Shuhratjon" title="Do'stim: @Nematov_shuhratjon"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-purple-600 hover:border-purple-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-600/30 transition-all duration-200">
-        <i class="fa-solid fa-user-group text-base"></i>
-      </a>
+      <!-- O'ng tomondagi tugmalar: Ulashish va Kun/Tun -->
+      <div class="flex items-center gap-2">
+        <!-- Ulashish -->
+        <button id="copyProfileBtn" title="Havolani nusxalash" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all">
+          <i class="fa-solid fa-share-nodes text-xs text-pink-500"></i>
+          <span id="txtShare">Ulashish</span>
+        </button>
 
-      <!-- GitHub -->
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"
-         class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-zinc-900 hover:border-zinc-900 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
-        <i class="fa-brands fa-github text-lg"></i>
-      </a>
-    </section>
+        <!-- Mavzu almashuvi (Kunduz / Kechqurun) -->
+        <button id="themeToggle" title="Mavzuni almashtirish" aria-label="Mavzuni almashtirish" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:scale-105 active:scale-95 transition-all">
+          <i id="themeIcon" class="fa-solid fa-moon text-sm text-amber-400"></i>
+          <span id="themeToggleText" class="text-xs font-bold">Tun</span>
+        </button>
+      </div>
+    </header>
 
-  </main>
+    <!-- 2. REJIM TANLASH PANELI (3 TA REJIM: BAHOR, YULDUZ & OY, YOMG'IR) -->
+    <div class="w-full max-w-md my-2.5 animate-fade-in delay-100 relative z-20">
+      <div class="flex items-center justify-between p-1.5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-zinc-800 shadow-lg gap-1.5">
+        <!-- 1. Kunduzgi Bahor -->
+        <button id="modeBtnDay" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-seedling text-sm text-emerald-500"></i>
+          <span id="txtModeDay" class="tracking-tight">Bahor (Kunduz)</span>
+        </button>
 
-  <!-- Footer -->
-  <footer class="w-full max-w-md text-center py-4 border-t border-slate-200/60 dark:border-zinc-800/60 text-xs text-slate-400 dark:text-zinc-500 animate-fade-in delay-600 z-10">
-    <p>© <span id="year"></span> SHOHJAHON. Barcha huquqlar himoyalangan.</p>
-  </footer>
+        <!-- 2. Yulduzli Tun & Oy -->
+        <button id="modeBtnStars" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-moon text-sm text-amber-400"></i>
+          <span id="txtModeStars" class="tracking-tight">Yulduz & Oy</span>
+        </button>
+
+        <!-- 3. Yomg'ir & Bo'ron -->
+        <button id="modeBtnRain" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-cloud-bolt text-sm text-sky-400"></i>
+          <span id="txtModeRain" class="tracking-tight">Yomg‘ir</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. ASOSIY PROFIL VA HAVOLALAR KONTEYNERI -->
+    <main class="w-full max-w-md flex flex-col items-center mb-8 relative z-20">
+      
+      <!-- Profil Qismi -->
+      <section class="flex flex-col items-center text-center animate-fade-in delay-100">
+        <!-- Profil Rasmi -->
+        <div class="relative group mb-4">
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+          <img 
+            src="profile.jpg" 
+            alt="SHOHJAHON" 
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop';"
+            class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-[center_18%] ring-4 ring-white dark:ring-zinc-900 shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+          <!-- Faollik belgisi -->
+          <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center shadow" title="Faol">
+            <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+          </span>
+        </div>
+
+        <!-- Ism va Verified nishoni -->
+        <div class="flex items-center gap-1.5">
+          <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            SHOHJAHON
+          </h1>
+          <i class="fa-solid fa-circle-check text-blue-500 text-lg" title="Tasdiqlangan profil"></i>
+        </div>
+
+        <!-- Mutaxassislik / Yo'nalishlar (Foydalanuvchi so'ragan yangilangan matn) -->
+        <p id="txtBioHeadline" class="mt-2 text-sm font-bold text-sky-600 dark:text-sky-400 max-w-xs leading-snug">
+          IT sohasi (5 ta yo'nalish) & Koreys tili talabasi
+        </p>
+        <p id="txtBioDescription" class="mt-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 max-w-xs leading-relaxed">
+          Hozirda zamonaviy IT sohasi bo'yicha 5 ta asosiy yo'nalish hamda koreys tilini chuqur o'rganmoqdaman. Zamonaviy dasturiy yechimlar ustida ishlayapman.
+        </p>
+
+        <!-- Yangilangan Joylashuv & Ob-havo ko'rsatkichi -->
+        <div class="mt-3 inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-xs font-semibold text-slate-700 dark:text-zinc-300 shadow-sm">
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-rose-500 text-xs"></i> 
+            <span id="txtLocation">Farg‘ona, Qo‘shtepa, Polakor 20-uy</span>
+          </span>
+          <span class="text-slate-300 dark:text-zinc-700">•</span>
+          <span id="activeWeatherBadge" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
+            <i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun & 3D Oy
+          </span>
+        </div>
+      </section>
+
+      <!-- Asosiy Havolalar Bloki -->
+      <section class="w-full mt-6 space-y-3.5">
+
+        <!-- Havola 1: Telegram Kanalim (@idrok_fikr) -->
+        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 shadow-sm shadow-sky-500/20 transition-all duration-200">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div class="flex items-center gap-1.5">
+              <span id="txtLinkTelegramChannelTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Telegram Kanalim</span>
+              <span id="txtBadgeChannel" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300">Kanal</span>
+            </div>
+            <div id="txtLinkTelegramChannelSub" class="text-xs text-slate-500 dark:text-zinc-400">@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 2: Shaxsiy Telegramim (@wox_224) -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
+          <div class="w-11 h-11 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkTelegramPersonalTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Shaxsiy Telegramim (@wox_224)</div>
+            <div id="txtLinkTelegramPersonalSub" class="text-xs text-slate-500 dark:text-zinc-400">Menga to‘g‘ridan-to‘g‘ri shaxsiy xabar yozish</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 3: Instagram (@woxjahon_224) -->
+        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-pink-500/50 dark:hover:border-pink-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-xl flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkInstagramTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-pink-500 transition-colors">Instagram (@woxjahon_224)</div>
+            <div id="txtLinkInstagramSub" class="text-xs text-slate-500 dark:text-zinc-400">Kundalik stories, postlar va hayotiy blog</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-pink-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 4: Telefon Raqam (+998 95 544 90 80) -->
+        <a href="tel:+998955449080" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
+          <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-phone-volume"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkPhoneTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">Telefon Raqamim</div>
+            <div id="txtLinkPhoneSub" class="text-xs text-slate-500 dark:text-zinc-400 font-mono font-semibold">+998 95 544 90 80 • Qo‘ng‘iroq qilish</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 5: IT Loyihalar & Koreys Tili Portfolio -->
+        <a href="https://github.com/hasanboyevfahriddin17-cmyk" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-indigo-200/80 dark:border-indigo-900/40 shadow-sm hover:shadow-md hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
+          <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkPortfolioTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">IT Sohasi & Portfolio</div>
+            <div id="txtLinkPortfolioSub" class="text-xs text-slate-500 dark:text-zinc-400">5 ta IT yo‘nalishi bo‘yicha o‘rganayotgan loyihalarim</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 6: Yaqin Do'stim (@Nematov_shuhratjon - Zaxira Aloqa) -->
+        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-purple-200/80 dark:border-purple-900/40 shadow-sm hover:shadow-md hover:border-purple-500/60 dark:hover:border-purple-500/60 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
+          <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div class="flex items-center gap-1.5">
+              <span id="txtLinkFriendTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Yaqin Do‘stim (@Nematov_shuhratjon)</span>
+              <span id="txtBadgeFriend" class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">Zaxira</span>
+            </div>
+            <div id="txtLinkFriendSub" class="text-xs text-slate-500 dark:text-zinc-400">Menga tusholmasangiz, do‘stimga murojaat qiling</div>
+          </div>
+          <div class="text-purple-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 7: Bog‘lanish / Aloqa -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-500">
+          <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-xl flex-shrink-0 text-white backdrop-blur-sm">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkContactTitle" class="text-sm font-bold text-white">Bog‘lanish / Aloqa</div>
+            <div id="txtLinkContactSub" class="text-xs text-indigo-100">Telegram orqali to‘g‘ridan-to‘g‘ri yozish (@wox_224)</div>
+          </div>
+          <div class="text-indigo-200 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </a>
+
+      </section>
+
+      <!-- Dumaloq Ijtimoiy Tarmoq Ikonkalari -->
+      <section class="mt-8 flex items-center justify-center gap-3.5 animate-fade-in delay-500">
+        <!-- Telegram Kanal -->
+        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" aria-label="Telegram Kanal" title="Telegram Kanal: @idrok_fikr"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
+          <i class="fa-solid fa-bullhorn text-base"></i>
+        </a>
+
+        <!-- Telegram Shaxsiy -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" aria-label="Shaxsiy Telegram" title="Shaxsiy Telegram: @wox_224"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
+          <i class="fa-brands fa-telegram text-lg"></i>
+        </a>
+        
+        <!-- Instagram -->
+        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram: @woxjahon_224"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:border-transparent hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-200">
+          <i class="fa-brands fa-instagram text-lg"></i>
+        </a>
+
+        <!-- Telefon -->
+        <a href="tel:+998955449080" aria-label="Telefon" title="Telefon: +998 95 544 90 80"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200">
+          <i class="fa-solid fa-phone text-base"></i>
+        </a>
+
+        <!-- Do'stim Shuhratjon -->
+        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" aria-label="Do'stim Shuhratjon" title="Do'stim: @Nematov_shuhratjon"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-purple-600 hover:border-purple-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-600/30 transition-all duration-200">
+          <i class="fa-solid fa-user-group text-base"></i>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/hasanboyevfahriddin17-cmyk/linkhab" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-zinc-900 hover:border-zinc-900 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+          <i class="fa-brands fa-github text-lg"></i>
+        </a>
+      </section>
+
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="w-full max-w-md text-center py-4 border-t border-slate-200/60 dark:border-zinc-800/60 text-xs text-slate-400 dark:text-zinc-500 animate-fade-in delay-600">
+      <p>© <span id="year"></span> SHOHJAHON. <span id="txtFooterRights">Barcha huquqlar himoyalangan.</span></p>
+    </footer>
+
+  </div>
 
   <!-- Havolani nusxalash haqida suzuvchi xabarnoma (Toast) -->
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900/90 dark:bg-white/95 text-white dark:text-zinc-900 text-xs font-semibold shadow-2xl backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 z-50">
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900/95 dark:bg-white/95 text-white dark:text-zinc-900 text-xs font-semibold shadow-2xl backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 z-50">
     <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
     <span id="toastMsg">Havola buferga nusxalandi!</span>
   </div>
 
-  <!-- JavaScript Kodlari -->
+  <!-- JAVASCRIPT: BARCHA TILLAR, MAVZULAR VA JONLI ANIMATSIYALAR -->
   <script>
-    // 1. Dark Mode, Light Mode va 3 xil Rejimlar Boshqaruvi
+    // 1. KO'P TILLI TIZIM (MULTI-LANGUAGE: UZ, RU, EN, KO)
+    const translations = {
+      uz: {
+        flag: '🇺🇿',
+        langName: 'O‘zbek',
+        share: 'Ulashish',
+        modeDay: 'Bahor (Kunduz)',
+        modeStars: 'Yulduz & Oy',
+        modeRain: 'Yomg‘ir',
+        themeNight: 'Tun',
+        themeDay: 'Kunduz',
+        themeStorm: 'Bo‘ron',
+        bioHeadline: "IT sohasi (5 ta yo'nalish) & Koreys tili talabasi",
+        bioDescription: "Hozirda zamonaviy IT sohasi bo'yicha 5 ta asosiy yo'nalish hamda koreys tilini chuqur o'rganmoqdaman. Zamonaviy dasturiy yechimlar ustida ishlayapman.",
+        location: "Farg‘ona, Qo‘shtepa, Polakor 20-uy",
+        weatherDay: "Bahor: Quyosh, Katta Daraxt & Qaldirg‘och",
+        weatherStars: "Yulduzli Tun: 3D To‘lin Oy & Meteorlar",
+        weatherRain: "Kechqurun: Bo‘ronli Yomg‘ir & Chaqmoq",
+        linkTelegramChannelTitle: "Telegram Kanalim",
+        badgeChannel: "Kanal",
+        linkTelegramChannelSub: "@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar",
+        linkTelegramPersonalTitle: "Shaxsiy Telegramim (@wox_224)",
+        linkTelegramPersonalSub: "Menga to‘g‘ridan-to‘g‘ri shaxsiy xabar yozish",
+        linkInstagramTitle: "Instagram (@woxjahon_224)",
+        linkInstagramSub: "Kundalik stories, postlar va hayotiy blog",
+        linkPhoneTitle: "Telefon Raqamim",
+        linkPhoneSub: "+998 95 544 90 80 • Qo‘ng‘iroq qilish",
+        linkPortfolioTitle: "IT Sohasi & Portfolio",
+        linkPortfolioSub: "5 ta IT yo‘nalishi bo‘yicha o‘rganayotgan loyihalarim",
+        linkFriendTitle: "Yaqin Do‘stim (@Nematov_shuhratjon)",
+        badgeFriend: "Zaxira",
+        linkFriendSub: "Menga tusholmasangiz, do‘stimga murojaat qiling",
+        linkContactTitle: "Bog‘lanish / Aloqa",
+        linkContactSub: "Telegram orqali to‘g‘ridan-to‘g‘ri yozish (@wox_224)",
+        footerRights: "Barcha huquqlar himoyalangan.",
+        toastCopied: "Profil havolasi buferga nusxalandi!",
+        toastModeDay: "☀️ Kunduzgi Bahor: Katta daraxt, quyosh va qaldirg‘ochlar faollashdi!",
+        toastModeStars: "🌙 Kechqurun: 3D To‘lin Oy va Yulduzli Tun faollashdi!",
+        toastModeRain: "⛈️ Kechqurun: Bo‘ronli Yomg‘ir, bulutlar va chaqmoq faollashdi!",
+        toastLangSwitched: "Til o‘zgartirildi: O‘zbekcha"
+      },
+      ru: {
+        flag: '🇷🇺',
+        langName: 'Русский',
+        share: 'Поделиться',
+        modeDay: 'Весна (День)',
+        modeStars: 'Звезды и Луна',
+        modeRain: 'Дождь и Гроза',
+        themeNight: 'Ночь',
+        themeDay: 'День',
+        themeStorm: 'Шторм',
+        bioHeadline: 'Студент IT (5 направлений) и корейского языка',
+        bioDescription: 'Изучаю современные информационные технологии по 5 ключевым направлениям и корейский язык. Работаю над перспективными проектами.',
+        location: 'Фергана, Куштепа, Полакор 20-дом',
+        weatherDay: 'Весна: Солнце, цветущее дерево и ласточки',
+        weatherStars: 'Звездная ночь: 3D Луна и метеоры',
+        weatherRain: 'Грозовой дождь, тучи и молнии',
+        linkTelegramChannelTitle: 'Мой Telegram Канал',
+        badgeChannel: 'Канал',
+        linkTelegramChannelSub: '@idrok_fikr • Мысли, анализ и IT-контент',
+        linkTelegramPersonalTitle: 'Личный Telegram (@wox_224)',
+        linkTelegramPersonalSub: 'Написать мне напрямую личное сообщение',
+        linkInstagramTitle: 'Instagram (@woxjahon_224)',
+        linkInstagramSub: 'Истории, посты и лайфстайл блог',
+        linkPhoneTitle: 'Номер телефона',
+        linkPhoneSub: '+998 95 544 90 80 • Позвонить',
+        linkPortfolioTitle: 'IT-Сфера и Портфолио',
+        linkPortfolioSub: 'Мои проекты и практика по 5 направлениям IT',
+        linkFriendTitle: 'Близкий друг (@Nematov_shuhratjon)',
+        badgeFriend: 'Запасной',
+        linkFriendSub: 'Если я недоступен, обратитесь к другу',
+        linkContactTitle: 'Связаться / Контакты',
+        linkContactSub: 'Прямая связь через Telegram (@wox_224)',
+        footerRights: 'Все права защищены.',
+        toastCopied: 'Ссылка скопирована в буфер обмена!',
+        toastModeDay: '☀️ Дневной режим: Весна, цветущее дерево и ласточки!',
+        toastModeStars: '🌙 Звездная ночь: 3D Луна и яркие звезды!',
+        toastModeRain: '⛈️ Грозовой режим: Ливень, тучи и молнии!',
+        toastLangSwitched: 'Язык изменен: Русский'
+      },
+      en: {
+        flag: '🇬🇧',
+        langName: 'English',
+        share: 'Share',
+        modeDay: 'Spring (Day)',
+        modeStars: 'Stars & Moon',
+        modeRain: 'Rain & Storm',
+        themeNight: 'Night',
+        themeDay: 'Day',
+        themeStorm: 'Storm',
+        bioHeadline: 'IT Student (5 Fields) & Korean Learner',
+        bioDescription: 'Mastering 5 fundamental disciplines of computer science & learning Korean. Actively developing modern software projects.',
+        location: 'Fergana, Kushtepa, Polakor 20',
+        weatherDay: 'Spring: Radiant Sun, Blossom Tree & Swallows',
+        weatherStars: 'Starry Night: 3D Moon & Meteors',
+        weatherRain: 'Stormy Rain, Thunderclouds & Lightning',
+        linkTelegramChannelTitle: 'My Telegram Channel',
+        badgeChannel: 'Channel',
+        linkTelegramChannelSub: '@idrok_fikr • Thoughts, Analysis & Tech',
+        linkTelegramPersonalTitle: 'Personal Telegram (@wox_224)',
+        linkTelegramPersonalSub: 'Send me a direct personal message',
+        linkInstagramTitle: 'Instagram (@woxjahon_224)',
+        linkInstagramSub: 'Daily stories, posts and personal blog',
+        linkPhoneTitle: 'Phone Number',
+        linkPhoneSub: '+998 95 544 90 80 • Tap to Call',
+        linkPortfolioTitle: 'IT & Projects Portfolio',
+        linkPortfolioSub: 'Projects across 5 software specializations',
+        linkFriendTitle: 'Close Friend (@Nematov_shuhratjon)',
+        badgeFriend: 'Backup',
+        linkFriendSub: 'If unable to reach me, contact my close friend',
+        linkContactTitle: 'Get in Touch / Contact',
+        linkContactSub: 'Message directly via Telegram (@wox_224)',
+        footerRights: 'All rights reserved.',
+        toastCopied: 'Profile link copied to clipboard!',
+        toastModeDay: '☀️ Spring Day: Blossom tree, warm sun & swallows activated!',
+        toastModeStars: '🌙 Starry Night: 3D Moon and shooting stars activated!',
+        toastModeRain: '⛈️ Stormy Night: Heavy rain, dark clouds and lightning activated!',
+        toastLangSwitched: 'Language switched: English'
+      },
+      ko: {
+        flag: '🇰🇷',
+        langName: '한국어',
+        share: '공유하기',
+        modeDay: '봄 (낮)',
+        modeStars: '별과 달 (밤)',
+        modeRain: '비와 번개',
+        themeNight: '야간',
+        themeDay: '주간',
+        themeStorm: '폭풍',
+        bioHeadline: 'IT (5개 분야) 및 한국어 학습자',
+        bioDescription: '최신 IT 5개 주요 기술과 한국어를 열정적으로 공부하고 있습니다. 글로벌 소프트웨어 솔루션을 개발 중입니다.',
+        location: '페르가나 주, 쿠슈테파 구, 폴라코르 20번지',
+        weatherDay: '봄: 따스한 햇살, 벚꽃 나무와 제비',
+        weatherStars: '별이 빛나는 밤: 3D 달과 유성우',
+        weatherRain: '폭풍우: 쏟아지는 비, 먹구름과 번개',
+        linkTelegramChannelTitle: '텔레그램 채널',
+        badgeChannel: '채널',
+        linkTelegramChannelSub: '@idrok_fikr • 생각과 분석, IT 콘텐츠',
+        linkTelegramPersonalTitle: '개인 텔레그램 (@wox_224)',
+        linkTelegramPersonalSub: '직접 개인 메시지 보내기',
+        linkInstagramTitle: '인스타그램 (@woxjahon_224)',
+        linkInstagramSub: '일상 스토리, 게시물 및 라이프 블로그',
+        linkPhoneTitle: '전화번호',
+        linkPhoneSub: '+998 95 544 90 80 • 전화 걸기',
+        linkPortfolioTitle: 'IT 분야 및 포트폴리오',
+        linkPortfolioSub: '5개 IT 분야에서 학습 및 개발한 프로젝트',
+        linkFriendTitle: '절친한 친구 (@Nematov_shuhratjon)',
+        badgeFriend: '비상연락',
+        linkFriendSub: '저에게 연락이 안 될 경우 친구에게 문의하세요',
+        linkContactTitle: '문의 및 연락하기',
+        linkContactSub: '텔레그램으로 바로 메시지 보내기 (@wox_224)',
+        footerRights: '모든 권리 보유.',
+        toastCopied: '프로필 링크가 클립보드에 복사되었습니다!',
+        toastModeDay: '☀️ 봄 모드: 벚꽃 나무와 제비가 활성화되었습니다!',
+        toastModeStars: '🌙 별밤 모드: 3D 달과 유성우가 활성화되었습니다!',
+        toastModeRain: '⛈️ 비 모드: 폭풍우와 먹구름, 번개가 활성화되었습니다!',
+        toastLangSwitched: '언어가 한국어로 변경되었습니다'
+      }
+    };
+
+    let currentLang = localStorage.getItem('hub_lang') || 'uz';
+
+    function setLanguage(lang, showToastNotification = true) {
+      if (!translations[lang]) lang = 'uz';
+      currentLang = lang;
+      localStorage.setItem('hub_lang', lang);
+      const t = translations[lang];
+
+      // 1. Yuqori qism
+      document.getElementById('currentFlag').textContent = t.flag;
+      document.getElementById('currentLangText').textContent = t.langName;
+      document.getElementById('txtShare').textContent = t.share;
+      document.getElementById('txtModeDay').textContent = t.modeDay;
+      document.getElementById('txtModeStars').textContent = t.modeStars;
+      document.getElementById('txtModeRain').textContent = t.modeRain;
+
+      // 2. Profil va Bio
+      document.getElementById('txtBioHeadline').textContent = t.bioHeadline;
+      document.getElementById('txtBioDescription').textContent = t.bioDescription;
+      document.getElementById('txtLocation').textContent = t.location;
+
+      // 3. Barcha Havolalar (Links)
+      document.getElementById('txtLinkTelegramChannelTitle').textContent = t.linkTelegramChannelTitle;
+      document.getElementById('txtBadgeChannel').textContent = t.badgeChannel;
+      document.getElementById('txtLinkTelegramChannelSub').textContent = t.linkTelegramChannelSub;
+
+      document.getElementById('txtLinkTelegramPersonalTitle').textContent = t.linkTelegramPersonalTitle;
+      document.getElementById('txtLinkTelegramPersonalSub').textContent = t.linkTelegramPersonalSub;
+
+      document.getElementById('txtLinkInstagramTitle').textContent = t.linkInstagramTitle;
+      document.getElementById('txtLinkInstagramSub').textContent = t.linkInstagramSub;
+
+      document.getElementById('txtLinkPhoneTitle').textContent = t.linkPhoneTitle;
+      document.getElementById('txtLinkPhoneSub').textContent = t.linkPhoneSub;
+
+      document.getElementById('txtLinkPortfolioTitle').textContent = t.linkPortfolioTitle;
+      document.getElementById('txtLinkPortfolioSub').textContent = t.linkPortfolioSub;
+
+      document.getElementById('txtLinkFriendTitle').textContent = t.linkFriendTitle;
+      document.getElementById('txtBadgeFriend').textContent = t.badgeFriend;
+      document.getElementById('txtLinkFriendSub').textContent = t.linkFriendSub;
+
+      document.getElementById('txtLinkContactTitle').textContent = t.linkContactTitle;
+      document.getElementById('txtLinkContactSub').textContent = t.linkContactSub;
+
+      // 4. Footer
+      document.getElementById('txtFooterRights').textContent = t.footerRights;
+
+      // 5. Checkmark ikonkalari yangilanishi
+      ['uz', 'ru', 'en', 'ko'].forEach(l => {
+        const checkEl = document.getElementById('check-' + l);
+        if (checkEl) {
+          if (l === lang) checkEl.classList.remove('hidden');
+          else checkEl.classList.add('hidden');
+        }
+      });
+
+      // 6. Mavzu va ob-havo ko'rsatkichi matnlari
+      updateWeatherBadgeAndThemeText();
+
+      // 7. Menyu yopilishi
+      const langMenu = document.getElementById('langMenu');
+      const chevron = document.getElementById('langChevron');
+      if (langMenu) langMenu.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+
+      if (showToastNotification) {
+        showToast(t.toastLangSwitched);
+      }
+    }
+
+    // Til tanlash tugmalariga to'g'ridan-to'g'ri tinglovchi (Event Listener) ulash
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lang = btn.getAttribute('data-lang');
+        setLanguage(lang, true);
+      });
+    });
+
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    const langMenu = document.getElementById('langMenu');
+    const langChevron = document.getElementById('langChevron');
+
+    langToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isHidden = langMenu.classList.contains('hidden');
+      if (isHidden) {
+        langMenu.classList.remove('hidden');
+        langChevron.classList.add('rotate-180');
+      } else {
+        langMenu.classList.add('hidden');
+        langChevron.classList.remove('rotate-180');
+      }
+    });
+
+    document.addEventListener('click', () => {
+      langMenu.classList.add('hidden');
+      langChevron.classList.remove('rotate-180');
+    });
+
+    // 2. MAVZULAR VA REJIMLARNI BOSHQARISH
     const htmlEl = document.documentElement;
     const themeToggleBtn = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
@@ -506,29 +752,32 @@
     const modeBtnRain = document.getElementById('modeBtnRain');
     const activeWeatherBadge = document.getElementById('activeWeatherBadge');
 
-    const canvas = document.getElementById('weatherCanvas');
-    const ctx = canvas.getContext('2d');
     const moonContainer = document.getElementById('moonContainer');
     const stormClouds = document.getElementById('stormCloudsContainer');
 
-    let currentMode = 'stars'; // 'day', 'stars' yoki 'rain'
-    let nightWeatherMode = 'stars'; // 'stars' yoki 'rain'
+    let currentMode = 'stars';
+    let nightWeatherMode = 'stars';
 
-    let width = 0;
-    let height = 0;
-    let stars = [];
-    let meteors = [];
-    let raindrops = [];
-    let splashes = [];
-    let springPetals = []; // Uchayotgan pushti barglar
-    let swallows = [];     // Uchayotgan qaldirg'ochlar
-    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    function updateWeatherBadgeAndThemeText() {
+      const t = translations[currentLang] || translations.uz;
+      if (currentMode === 'day') {
+        if (themeToggleText) themeToggleText.textContent = t.themeDay;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-seedling text-emerald-500"></i> ${t.weatherDay}`;
+        }
+      } else if (currentMode === 'stars') {
+        if (themeToggleText) themeToggleText.textContent = t.themeNight;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-moon text-amber-400"></i> ${t.weatherStars}`;
+        }
+      } else if (currentMode === 'rain') {
+        if (themeToggleText) themeToggleText.textContent = t.themeStorm;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-cloud-bolt text-sky-400"></i> ${t.weatherRain}`;
+        }
+      }
+    }
 
-    // Chaqmoq parametrlari
-    let lightningBranches = [];
-    let lightningFlashAlpha = 0;
-
-    // Tugmalar dizaynini yangilash
     function updateModeButtons() {
       const inactiveClass = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-transparent';
       
@@ -545,83 +794,50 @@
       }
     }
 
-    // Har qanday rejimni o'rnatish funksiyasi
     function setActiveMode(mode, showNotification = true) {
       currentMode = mode;
       localStorage.setItem('hub_mode', mode);
+      const t = translations[currentLang] || translations.uz;
 
       if (mode === 'day') {
-        // Kunduzgi Bahor fasli
         htmlEl.classList.remove('dark');
         themeIcon.className = 'fa-solid fa-sun text-sm text-amber-500';
-        if (themeToggleText) themeToggleText.textContent = 'Kunduz';
-
-        moonContainer.style.opacity = '0';
-        moonContainer.style.transform = 'scale(0.85)';
-        stormClouds.style.opacity = '0';
-
-        if (activeWeatherBadge) {
-          activeWeatherBadge.innerHTML = '<i class="fa-solid fa-seedling text-emerald-500"></i> Bahor: Quyosh, Katta Daraxt & Qaldirg‘och';
-        }
-        if (showNotification) showToast('☀️ Kunduzgi Bahor: Katta daraxt, quyosh va qaldirg‘ochlar faollashdi!');
+        moonContainer.style.display = 'none';
+        stormClouds.classList.add('opacity-0');
+        if (showNotification) showToast(t.toastModeDay);
 
       } else if (mode === 'stars') {
-        // Kechqurungi rejim 1: Yulduzli Tun & 3D Oy
         htmlEl.classList.add('dark');
         nightWeatherMode = 'stars';
         themeIcon.className = 'fa-solid fa-moon text-sm text-amber-400';
-        if (themeToggleText) themeToggleText.textContent = 'Tun';
-
-        moonContainer.style.opacity = '1';
-        moonContainer.style.transform = 'scale(1)';
-        stormClouds.style.opacity = '0';
-
-        if (activeWeatherBadge) {
-          activeWeatherBadge.innerHTML = '<i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun: 3D To‘lin Oy & Meteorlar';
-        }
-        if (showNotification) showToast('🌙 Kechqurun: 3D To‘lin Oy va Yulduzli Tun faollashdi!');
+        moonContainer.style.display = 'block';
+        stormClouds.classList.add('opacity-0');
+        if (showNotification) showToast(t.toastModeStars);
 
       } else if (mode === 'rain') {
-        // Kechqurungi rejim 2: Yomg'ir & Chaqmoq
         htmlEl.classList.add('dark');
         nightWeatherMode = 'rain';
         themeIcon.className = 'fa-solid fa-cloud-bolt text-sm text-sky-400';
-        if (themeToggleText) themeToggleText.textContent = 'Bo‘ron';
-
-        moonContainer.style.opacity = '0';
-        moonContainer.style.transform = 'scale(0.85)';
-        stormClouds.style.opacity = '1';
-
+        moonContainer.style.display = 'none';
+        stormClouds.classList.remove('opacity-0');
         triggerLightning();
-
-        if (activeWeatherBadge) {
-          activeWeatherBadge.innerHTML = '<i class="fa-solid fa-cloud-bolt text-sky-400"></i> Kechqurun: Bo‘ronli Yomg‘ir & Chaqmoq';
-        }
-        if (showNotification) showToast('⛈️ Kechqurun: Bo‘ronli Yomg‘ir va Chaqmoq faollashdi!');
+        if (showNotification) showToast(t.toastModeRain);
       }
 
+      updateWeatherBadgeAndThemeText();
       updateModeButtons();
     }
 
-    // Rejim tugmalariga hodisalarni ulash
     if (modeBtnDay) modeBtnDay.addEventListener('click', () => setActiveMode('day'));
     if (modeBtnStars) modeBtnStars.addEventListener('click', () => setActiveMode('stars'));
     if (modeBtnRain) modeBtnRain.addEventListener('click', () => setActiveMode('rain'));
 
-    // Headerdagi umumiy Kun/Tun tugmasi
     themeToggleBtn.addEventListener('click', () => {
       const isDark = htmlEl.classList.contains('dark');
       setActiveMode(isDark ? 'day' : 'stars');
     });
 
-    // Boshlang'ich rejimni yuklash (Default: Yulduzli Tun va 3D Oy)
-    const initialSavedMode = localStorage.getItem('hub_mode') || 'stars';
-    setActiveMode(initialSavedMode, false);
-
-    // 2. Joriy Yil
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 3. Havolani nusxalash (Copy Link)
+    // 3. HAVOLANI NUSXALASH
     const copyBtn = document.getElementById('copyProfileBtn');
     const toast = document.getElementById('toast');
     let toastTimeout;
@@ -641,7 +857,8 @@
     }
 
     copyBtn.addEventListener('click', async () => {
-      const currentUrl = window.location.href;
+      const currentUrl = 'https://ulvis.net/wox224';
+      const t = translations[currentLang] || translations.uz;
       try {
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(currentUrl);
@@ -656,126 +873,127 @@
           document.execCommand('copy');
           textArea.remove();
         }
-        showToast('Profil havolasi buferga nusxalandi!');
+        showToast(t.toastCopied);
       } catch (err) {
-        showToast('Nusxalashda xatolik yuz berdi');
+        showToast(currentUrl);
       }
     });
 
-    // HAR 5 MINUTDA (300,000 ms) TUNDA AVTOMATIK ALMASHADI (Yulduzli Tun <-> Yomg'ir)
-    setInterval(() => {
-      const isDark = htmlEl.classList.contains('dark');
-      if (isDark) {
-        const nextMode = (currentMode === 'stars') ? 'rain' : 'stars';
-        setActiveMode(nextMode, true);
-      }
-    }, 5 * 60 * 1000);
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // =========================================================================
-    // Elementlarni yaratish: Qaldirg'ochlar, Pushti Barglar, Yulduzlar, Yomg'ir
-    // =========================================================================
+    // 4. DINAMIK CANVAS: YULDUZLAR, METEORLAR, YOMG'IR, CHAQMOQ, SAKURA VA QALDIRG'OCH
+    const canvas = document.getElementById('weatherCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let stars = [];
+    let meteors = [];
+    let raindrops = [];
+    let splashes = [];
+    let springPetals = [];
+    let swallows = [];
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+    let lightningBranches = [];
+    let lightningFlashAlpha = 0;
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initAllElements();
+    }
+
     function initAllElements() {
-      // 1. Qaldirg'ochlar (Swallows)
+      // 1. Qaldirg'ochlar
       swallows = [
-        { x: -50, y: height * 0.18, size: 14, speedX: 2.6, speedY: 0.4, flap: 0, flapSpeed: 0.28, dir: 1, angle: 0.05 },
-        { x: -160, y: height * 0.26, size: 11, speedX: 2.3, speedY: -0.3, flap: 1.5, flapSpeed: 0.32, dir: 1, angle: -0.04 },
-        { x: -280, y: height * 0.14, size: 13, speedX: 2.8, speedY: 0.5, flap: 3.0, flapSpeed: 0.26, dir: 1, angle: 0.08 },
-        { x: -360, y: height * 0.34, size: 10, speedX: 2.1, speedY: -0.2, flap: 2.2, flapSpeed: 0.34, dir: 1, angle: -0.02 }
+        { x: -50, y: height * 0.16, size: 14, speedX: 2.6, speedY: 0.3, flap: 0, flapSpeed: 0.28, angle: 0.05 },
+        { x: -180, y: height * 0.24, size: 11, speedX: 2.2, speedY: -0.2, flap: 1.5, flapSpeed: 0.32, angle: -0.04 },
+        { x: -320, y: height * 0.12, size: 13, speedX: 2.8, speedY: 0.4, flap: 3.0, flapSpeed: 0.26, angle: 0.08 }
       ];
 
-      // 2. Uchayotgan Pushti Barglar (Petals blowing from the pink tree)
+      // 2. Sakura barglari
       springPetals = [];
-      const petalCount = Math.floor(Math.min(width, 1000) / 18); // ~40-50 ta barg
+      const petalCount = Math.floor(Math.min(width, 1200) / 16);
       const petalColors = ['#f472b6', '#fda4af', '#fbcfe8', '#ec4899', '#fff1f2'];
-
       for (let i = 0; i < petalCount; i++) {
         springPetals.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          size: Math.random() * 7 + 5,
-          speedY: Math.random() * 1.1 + 0.7,
-          speedX: Math.random() * 1.4 + 0.8, // Shabadada chapdan o'ngga uchadi
+          size: Math.random() * 8 + 5,
+          speedY: Math.random() * 1.2 + 0.8,
+          speedX: Math.random() * 1.5 + 0.8,
           angle: Math.random() * Math.PI * 2,
           angleSpeed: (Math.random() - 0.5) * 0.04,
           swing: Math.random() * Math.PI * 2,
           swingSpeed: Math.random() * 0.025 + 0.015,
           color: petalColors[Math.floor(Math.random() * petalColors.length)],
-          opacity: Math.random() * 0.35 + 0.55,
+          opacity: Math.random() * 0.35 + 0.6
         });
       }
 
-      // 3. Tungi Yulduzlar
+      // 3. Tungi yorqin yulduzlar
       stars = [];
-      const starCount = Math.floor((width * height) / 4200);
-      const starColors = ['#ffffff', '#fdf4dc', '#dbeafe', '#f3e8ff', '#fbcfe8'];
+      const starCount = Math.max(220, Math.floor((width * height) / 3200));
+      const starColors = ['#ffffff', '#fef08a', '#93c5fd', '#f472b6', '#c084fc', '#e0e7ff'];
 
       for (let i = 0; i < starCount; i++) {
-        const isSparkle = Math.random() < 0.14;
+        const isSparkle = Math.random() < 0.18;
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          baseRadius: isSparkle ? Math.random() * 3.5 + 2.5 : Math.random() * 1.6 + 0.4,
+          baseRadius: isSparkle ? Math.random() * 3.2 + 2.2 : Math.random() * 1.8 + 0.6,
           isSparkle: isSparkle,
           color: starColors[Math.floor(Math.random() * starColors.length)],
           alpha: Math.random() * 0.7 + 0.3,
-          twinkleSpeed: Math.random() * 0.03 + 0.008,
+          twinkleSpeed: Math.random() * 0.04 + 0.01,
           phase: Math.random() * Math.PI * 2,
-          depth: Math.random() * 0.6 + 0.4,
+          depth: Math.random() * 0.6 + 0.4
         });
       }
 
-      // 4. Yomg'ir tomchilari
+      // 4. Kuchli yomg'ir tomchilari
       raindrops = [];
-      const rainCount = Math.floor(Math.min(width, 1000) / 7);
+      const rainCount = Math.max(160, Math.floor(width / 6));
       for (let i = 0; i < rainCount; i++) {
         raindrops.push({
-          x: Math.random() * width,
+          x: Math.random() * (width + 200) - 100,
           y: Math.random() * height,
-          length: Math.random() * 18 + 14,
-          speedY: Math.random() * 9 + 11,
-          speedX: -Math.random() * 1.5 - 0.5,
-          opacity: Math.random() * 0.45 + 0.25,
-          thickness: Math.random() * 1.4 + 0.7,
+          length: Math.random() * 26 + 18,
+          speedY: Math.random() * 14 + 18,
+          speedX: -Math.random() * 3.5 - 2.0,
+          opacity: Math.random() * 0.5 + 0.4,
+          thickness: Math.random() * 1.6 + 0.9
         });
       }
     }
 
-    // ==========================================
-    // Chizish: Qaldirg'och (Swallow with Forked Tail)
-    // ==========================================
     function drawSwallow(sObj) {
       ctx.save();
       ctx.translate(sObj.x, sObj.y);
       ctx.rotate(sObj.angle);
-
       const s = sObj.size;
       const wingFlap = Math.sin(sObj.flap) * 0.55;
 
-      // Qaldirg'och tanasi va boshi (Sleek deep navy body)
       ctx.beginPath();
       ctx.fillStyle = '#0f172a';
-      ctx.moveTo(s * 0.9, 0); // Tumshug'i
+      ctx.moveTo(s * 0.9, 0);
       ctx.quadraticCurveTo(s * 0.4, -s * 0.22, 0, -s * 0.18);
       ctx.quadraticCurveTo(-s * 0.6, -s * 0.18, -s * 1.0, 0);
-
-      // Ayri Dumi (Iconic deep fork tail)
-      ctx.lineTo(-s * 1.7, -s * 0.4); // Yuqori dumi uchi
-      ctx.lineTo(-s * 1.15, 0);        // Ayri ichki burchagi
-      ctx.lineTo(-s * 1.7, s * 0.4);  // Quyi dumi uchi
+      ctx.lineTo(-s * 1.7, -s * 0.4);
+      ctx.lineTo(-s * 1.15, 0);
+      ctx.lineTo(-s * 1.7, s * 0.4);
       ctx.lineTo(-s * 1.0, 0);
-
       ctx.quadraticCurveTo(-s * 0.5, s * 0.25, 0, s * 0.22);
       ctx.quadraticCurveTo(s * 0.4, s * 0.2, s * 0.9, 0);
       ctx.closePath();
       ctx.fill();
 
-      // Qaldirg'ochning oq ko'kragi (White breast)
       ctx.beginPath();
       ctx.fillStyle = '#f8fafc';
       ctx.ellipse(s * 0.15, s * 0.05, s * 0.35, s * 0.13, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Yuqori qanot (Pointed swept-back wing)
       ctx.save();
       ctx.translate(-s * 0.1, -s * 0.08);
       ctx.rotate(-0.3 + wingFlap);
@@ -788,7 +1006,6 @@
       ctx.fill();
       ctx.restore();
 
-      // Quyi qanot
       ctx.save();
       ctx.translate(-s * 0.1, s * 0.08);
       ctx.rotate(0.3 - wingFlap);
@@ -804,34 +1021,30 @@
       ctx.restore();
     }
 
-    // Bahoriy gulbarg chizish
     function drawSpringPetal(petal) {
       ctx.save();
       ctx.translate(petal.x, petal.y);
       ctx.rotate(petal.angle);
-
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.bezierCurveTo(-petal.size / 2, -petal.size / 2, -petal.size / 2, petal.size / 2, 0, petal.size);
       ctx.bezierCurveTo(petal.size / 2, petal.size / 2, petal.size / 2, -petal.size / 2, 0, 0);
-      
       ctx.fillStyle = petal.color;
       ctx.globalAlpha = petal.opacity;
       ctx.fill();
       ctx.restore();
     }
 
-    // 4-qirrali chaqnoq yulduzcha
-    function drawSparkle(cx, cy, spikes, outerRadius, innerRadius, alpha) {
+    function drawSparkle(cx, cy, outerRadius, innerRadius, alpha, color) {
       let rot = Math.PI / 2 * 3;
       let x = cx;
       let y = cy;
-      let step = Math.PI / spikes;
+      let step = Math.PI / 4;
 
       ctx.save();
       ctx.beginPath();
       ctx.moveTo(cx, cy - outerRadius);
-      for (let i = 0; i < spikes; i++) {
+      for (let i = 0; i < 4; i++) {
         x = cx + Math.cos(rot) * outerRadius;
         y = cy + Math.sin(rot) * outerRadius;
         ctx.lineTo(x, y);
@@ -843,23 +1056,21 @@
       }
       ctx.lineTo(cx, cy - outerRadius);
       ctx.closePath();
-      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-      if (outerRadius > 3) {
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = 'rgba(168, 85, 247, 0.8)';
-      }
+      ctx.fillStyle = color;
+      ctx.globalAlpha = alpha;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = color;
       ctx.fill();
       ctx.restore();
     }
 
-    // Meteor (Uchuvchi yulduz)
     function spawnMeteor() {
       meteors.push({
         x: Math.random() * width * 1.2 - width * 0.1,
         y: Math.random() * (height * 0.4),
-        length: Math.random() * 90 + 60,
-        speed: Math.random() * 7 + 9,
-        size: Math.random() * 2 + 1.2,
+        length: Math.random() * 110 + 70,
+        speed: Math.random() * 8 + 10,
+        size: Math.random() * 2.2 + 1.2,
         angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
         opacity: 1,
         fade: Math.random() * 0.02 + 0.015,
@@ -868,27 +1079,25 @@
 
     function meteorLoop() {
       const isDark = htmlEl.classList.contains('dark');
-      if (isDark && nightWeatherMode === 'stars' && Math.random() < 0.45) {
+      if (isDark && nightWeatherMode === 'stars' && Math.random() < 0.55) {
         spawnMeteor();
       }
-      setTimeout(meteorLoop, Math.random() * 3200 + 2200);
+      setTimeout(meteorLoop, Math.random() * 2800 + 1600);
     }
 
-    // Chaqmoq tarmoqlari
     function createLightningBranch(x1, y1, x2, y2, depth) {
       if (depth === 0) {
         lightningBranches.push({ x1, y1, x2, y2 });
         return;
       }
-      const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * 35;
-      const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * 20;
-
+      const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * 45;
+      const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * 25;
       createLightningBranch(x1, y1, midX, midY, depth - 1);
       createLightningBranch(midX, midY, x2, y2, depth - 1);
 
-      if (Math.random() < 0.45) {
-        const branchX = midX + (Math.random() - 0.5) * 60;
-        const branchY = midY + Math.random() * 50;
+      if (Math.random() < 0.4) {
+        const branchX = midX + (Math.random() - 0.5) * 70;
+        const branchY = midY + Math.random() * 60;
         createLightningBranch(midX, midY, branchX, branchY, depth - 1);
       }
     }
@@ -897,13 +1106,13 @@
       lightningBranches = [];
       const startX = Math.random() * (width * 0.7) + (width * 0.15);
       const startY = 0;
-      const endX = startX + (Math.random() - 0.5) * 180;
-      const endY = Math.random() * (height * 0.45) + (height * 0.35);
+      const endX = startX + (Math.random() - 0.5) * 220;
+      const endY = Math.random() * (height * 0.5) + (height * 0.35);
 
       createLightningBranch(startX, startY, endX, endY, 5);
       lightningFlashAlpha = 0.95;
 
-      setTimeout(() => { lightningFlashAlpha = 0.8; }, 70);
+      setTimeout(() => { lightningFlashAlpha = 0.8; }, 60);
       setTimeout(() => { lightningBranches = []; }, 220);
     }
 
@@ -912,7 +1121,7 @@
       if (isDark && nightWeatherMode === 'rain') {
         triggerLightning();
       }
-      setTimeout(lightningLoop, Math.random() * 3500 + 4000);
+      setTimeout(lightningLoop, Math.random() * 4000 + 3500);
     }
 
     window.addEventListener('mousemove', (e) => {
@@ -920,76 +1129,56 @@
       mouse.targetY = (e.clientY - height / 2) * 0.03;
     });
 
-    // =========================================================================
-    // Asosiy Animatsiya Sikli
-    // =========================================================================
     function animate() {
       ctx.clearRect(0, 0, width, height);
-
       const isDark = htmlEl.classList.contains('dark');
 
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
       if (!isDark) {
-        // =====================================================================
-        // KUNDUZGI BAHOR: QALDIRG'OCHLAR VA PUSHTI GULBARGLAR
-        // =====================================================================
-
-        // 1. Qaldirg'ochlar parvozi (Swallow Flights)
         for (let sw of swallows) {
           sw.x += sw.speedX;
           sw.y += Math.sin(sw.x * 0.012) * 0.7 + sw.speedY * 0.2;
           sw.flap += sw.flapSpeed;
           sw.angle = Math.sin(sw.x * 0.012) * 0.12;
 
-          // Ekranning o'ngidan chiqsa, chap tomondan qayta kelsin
           if (sw.x > width + 70) {
             sw.x = -60 - Math.random() * 120;
             sw.y = Math.random() * (height * 0.45) + 30;
           }
-
           drawSwallow(sw);
         }
 
-        // 2. Daraxtdan uchayotgan Pushti Barglar (Drifting Petals)
         for (let petal of springPetals) {
           petal.swing += petal.swingSpeed;
           petal.angle += petal.angleSpeed;
-
-          // Bahoriy shabada bilan chapdan o'ngga va pastga uchishi
           petal.x += Math.sin(petal.swing) * 0.8 + petal.speedX;
           petal.y += petal.speedY;
 
-          // Ekranning pastidan yoki o'ngidan chiqsa, katta daraxt shoxlari atrofidan qayta boshlash
           if (petal.y > height + 20 || petal.x > width + 20) {
             petal.y = Math.random() * (height * 0.7) + 10;
-            petal.x = Math.random() * (width * 0.35) - 30; // Katta daraxt shoxlari joylashgan sohadan
+            petal.x = Math.random() * (width * 0.35) - 30;
           }
-
           drawSpringPetal(petal);
         }
 
       } else {
-        // =====================================================================
-        // TUNGI REJIM: YULDUZLAR VA METEORLAR YOKI YOMG'IR VA CHAQMOQ
-        // =====================================================================
         if (nightWeatherMode === 'stars') {
-          // Yulduzlar
           for (let star of stars) {
             star.phase += star.twinkleSpeed;
-            const currentAlpha = Math.max(0.1, star.alpha + Math.sin(star.phase) * 0.35);
+            const currentAlpha = Math.max(0.2, star.alpha + Math.sin(star.phase) * 0.45);
             const renderX = star.x + mouse.x * star.depth;
             const renderY = star.y + mouse.y * star.depth;
 
             if (star.isSparkle) {
-              drawSparkle(renderX, renderY, 4, star.baseRadius, star.baseRadius * 0.28, currentAlpha);
+              drawSparkle(renderX, renderY, star.baseRadius, star.baseRadius * 0.3, currentAlpha, star.color);
             } else {
               ctx.beginPath();
               ctx.arc(renderX, renderY, star.baseRadius, 0, Math.PI * 2);
               ctx.fillStyle = star.color;
               ctx.globalAlpha = currentAlpha;
-              ctx.shadowBlur = star.baseRadius > 1.2 ? 6 : 0;
+              ctx.shadowBlur = star.baseRadius > 1.2 ? 8 : 0;
               ctx.shadowColor = star.color;
               ctx.fill();
               ctx.globalAlpha = 1.0;
@@ -997,7 +1186,6 @@
             }
           }
 
-          // Meteorlar
           for (let i = meteors.length - 1; i >= 0; i--) {
             const m = meteors[i];
             m.x += Math.cos(m.angle) * m.speed;
@@ -1014,7 +1202,7 @@
 
             const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
             grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
-            grad.addColorStop(0.3, `rgba(236, 72, 153, ${m.opacity * 0.8})`);
+            grad.addColorStop(0.3, `rgba(236, 72, 153, ${m.opacity * 0.9})`);
             grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
 
             ctx.strokeStyle = grad;
@@ -1026,30 +1214,29 @@
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.arc(m.x, m.y, m.size * 1.4, 0, Math.PI * 2);
+            ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255, 255, 255, ${m.opacity})`;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = '#f43f5e';
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#ec4899';
             ctx.fill();
             ctx.shadowBlur = 0;
           }
 
         } else {
-          // Bo'ronli Yomg'ir & Chaqmoq
           if (lightningFlashAlpha > 0.02) {
             ctx.save();
-            ctx.fillStyle = `rgba(240, 245, 255, ${lightningFlashAlpha * 0.85})`;
+            ctx.fillStyle = `rgba(224, 231, 255, ${lightningFlashAlpha * 0.85})`;
             ctx.fillRect(0, 0, width, height);
             ctx.restore();
-            lightningFlashAlpha *= 0.84;
+            lightningFlashAlpha *= 0.85;
           }
 
           if (lightningBranches.length > 0) {
             ctx.save();
             ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 2.5;
-            ctx.shadowBlur = 18;
-            ctx.shadowColor = '#818cf8';
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = '#60a5fa';
             ctx.lineCap = 'round';
             ctx.beginPath();
             for (let b of lightningBranches) {
@@ -1060,7 +1247,6 @@
             ctx.restore();
           }
 
-          // Yomg'ir tomchilari
           ctx.save();
           ctx.strokeStyle = '#93c5fd';
           ctx.lineCap = 'round';
@@ -1078,28 +1264,24 @@
             ctx.stroke();
 
             if (drop.y > height - 15) {
-              if (Math.random() < 0.25) {
+              if (Math.random() < 0.3) {
                 splashes.push({
                   x: drop.x,
-                  y: height - Math.random() * 10,
+                  y: height - Math.random() * 8,
                   radius: 1,
-                  maxRadius: Math.random() * 4 + 3,
-                  alpha: 0.6,
+                  maxRadius: Math.random() * 5 + 3,
+                  alpha: 0.7,
                 });
               }
-              drop.y = -20;
-              drop.x = Math.random() * width;
-            }
-            if (drop.x < -20) {
-              drop.x = width + 20;
+              drop.y = -30;
+              drop.x = Math.random() * (width + 200) - 100;
             }
           }
           ctx.restore();
 
-          // Splashes
           for (let i = splashes.length - 1; i >= 0; i--) {
             const s = splashes[i];
-            s.radius += 0.4;
+            s.radius += 0.45;
             s.alpha -= 0.04;
 
             if (s.alpha <= 0 || s.radius >= s.maxRadius) {
@@ -1108,9 +1290,9 @@
             }
 
             ctx.beginPath();
-            ctx.ellipse(s.x, s.y, s.radius * 2, s.radius * 0.7, 0, 0, Math.PI * 2);
+            ctx.ellipse(s.x, s.y, s.radius * 2.2, s.radius * 0.7, 0, 0, Math.PI * 2);
             ctx.strokeStyle = `rgba(186, 230, 253, ${s.alpha})`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 1.2;
             ctx.stroke();
           }
         }
@@ -1121,6 +1303,11 @@
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
+    setLanguage(currentLang, false);
+
+    const initialSavedMode = localStorage.getItem('hub_mode') || 'stars';
+    setActiveMode(initialSavedMode, false);
+
     meteorLoop();
     lightningLoop();
     requestAnimationFrame(animate);
