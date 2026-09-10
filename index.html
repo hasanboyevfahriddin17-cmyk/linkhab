@@ -307,6 +307,78 @@
         </div>
       </section>
 
+      <!-- Menga To'g'ridan-to'g'ri Xabar Yozish Bloki (Direct Message) -->
+      <section id="contactSection" class="w-full mt-5 rounded-3xl p-5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-indigo-500/30 dark:border-indigo-500/40 shadow-xl shadow-indigo-500/10 transition-all duration-300 animate-fade-in">
+        <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleContactForm()">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-500/30 flex-shrink-0">
+              <i class="fa-solid fa-paper-plane animate-pulse"></i>
+            </div>
+            <div class="text-left">
+              <div class="flex items-center gap-2">
+                <h3 id="txtContactTitle" class="text-base font-extrabold text-slate-900 dark:text-white">Menga Xabar Yozish</h3>
+                <span id="txtContactBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60">Tezkor</span>
+              </div>
+              <p id="txtContactSub" class="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">Savol, taklif yoki xabaringizni to'g'ridan-to'g'ri sayt orqali yozib qoldiring</p>
+            </div>
+          </div>
+          <button type="button" id="btnToggleContact" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 flex items-center justify-center text-sm hover:bg-slate-200 dark:hover:bg-zinc-700 transition-colors flex-shrink-0">
+            <i id="contactChevronIcon" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+          </button>
+        </div>
+
+        <!-- Form Body -->
+        <div id="contactFormContainer" class="mt-4 pt-4 border-t border-slate-100 dark:border-zinc-800/80 space-y-3">
+          <div>
+            <label id="lblSenderName" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-user text-indigo-500"></i> Ismingiz
+            </label>
+            <input type="text" id="senderName" placeholder="Ismingizni kiriting..." 
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/80 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+          </div>
+
+          <div>
+            <label id="lblSenderContact" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-address-book text-indigo-500"></i> Aloqa uchun (Telefon / Telegram)
+            </label>
+            <input type="text" id="senderContact" placeholder="+998 90 123 45 67 yoki @username" 
+                   class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/80 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+          </div>
+
+          <div>
+            <label id="lblSenderMessage" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-message text-indigo-500"></i> Xabaringiz
+            </label>
+            <textarea id="senderMessage" rows="3" placeholder="Xabaringizni bu yerga batafsil yozing..." 
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/80 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"></textarea>
+          </div>
+
+          <!-- Yuborish tugmalari -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            <button type="button" onclick="sendMessageVia('telegram')" 
+                    class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold hover:brightness-110 active:scale-[0.98] shadow-md shadow-sky-500/25 transition-all">
+              <i class="fa-brands fa-telegram text-base"></i>
+              <span id="btnTxtTg">Telegram orqali yuborish</span>
+            </button>
+
+            <button type="button" onclick="sendMessageVia('sms')" 
+                    class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold hover:brightness-110 active:scale-[0.98] shadow-md shadow-emerald-500/25 transition-all">
+              <i class="fa-solid fa-comment-sms text-base"></i>
+              <span id="btnTxtSms">SMS orqali yuborish</span>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400 dark:text-zinc-500">
+            <span class="flex items-center gap-1">
+              <i class="fa-solid fa-shield-halved text-emerald-500"></i> <span id="txtSecureNote">Xabar to'g'ridan-to'g'ri Shohjahonga yetkaziladi</span>
+            </span>
+            <button type="button" onclick="sendMessageVia('email')" class="hover:text-indigo-500 dark:hover:text-indigo-400 underline transition-colors flex items-center gap-1">
+              <i class="fa-solid fa-envelope"></i> <span id="btnTxtEmail">Email orqali</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- Asosiy Havolalar Bloki -->
       <section class="w-full mt-6 space-y-3.5">
 
@@ -500,6 +572,22 @@
         weatherDay: "Bahor: Quyosh, Katta Daraxt & Qaldirg‘och",
         weatherStars: "Yulduzli Tun: 3D To‘lin Oy & Meteorlar",
         weatherRain: "Kechqurun: Bo‘ronli Yomg‘ir & Chaqmoq",
+        contactCardTitle: "Menga To‘g‘ridan-to‘g‘ri Xabar Yozish",
+        contactCardBadge: "Tezkor",
+        contactCardSub: "Savol, taklif yoki xabaringizni to‘g‘ridan-to‘g‘ri sayt orqali yozib qoldiring",
+        lblSenderName: "Ismingiz",
+        inputNamePlaceholder: "Ismingizni kiriting...",
+        lblSenderContact: "Aloqa uchun (Telefon / Telegram)",
+        inputContactPlaceholder: "+998 90 123 45 67 yoki @username",
+        lblSenderMessage: "Xabaringiz",
+        inputMsgPlaceholder: "Xabaringizni bu yerga batafsil yozing...",
+        btnSendTg: "Telegram orqali yuborish",
+        btnSendSms: "SMS orqali yuborish",
+        btnSendEmail: "Email orqali",
+        txtSecureNote: "Xabar to‘g‘ridan-to‘g‘ri Shohjahonga yetkaziladi",
+        floatingMsgTooltip: "Menga xabar yozish",
+        msgSuccess: "Xabaringiz tayyorlandi! Ilova ochilmoqda...",
+        msgValidation: "Iltimos, ismingiz va xabaringizni yozing!",
         linkTelegramChannelTitle: "Telegram Kanalim",
         badgeChannel: "Kanal",
         linkTelegramChannelSub: "@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar",
@@ -548,6 +636,22 @@
         weatherDay: 'Весна: Солнце, цветущее дерево и ласточки',
         weatherStars: 'Звездная ночь: 3D Луна и метеоры',
         weatherRain: 'Грозовой дождь, тучи и молнии',
+        contactCardTitle: "Написать мне напрямую",
+        contactCardBadge: "Быстро",
+        contactCardSub: "Отправьте мне сообщение, предложение или вопрос прямо с сайта",
+        lblSenderName: "Ваше имя",
+        inputNamePlaceholder: "Введите ваше имя...",
+        lblSenderContact: "Для связи (Телефон / Telegram)",
+        inputContactPlaceholder: "+998 90 123 45 67 или @username",
+        lblSenderMessage: "Ваше сообщение",
+        inputMsgPlaceholder: "Подробно напишите ваше сообщение...",
+        btnSendTg: "Отправить через Telegram",
+        btnSendSms: "Отправить по SMS",
+        btnSendEmail: "Через Email",
+        txtSecureNote: "Сообщение будет доставлено лично Шохжахону",
+        floatingMsgTooltip: "Написать мне",
+        msgSuccess: "Сообщение готово! Приложение открывается...",
+        msgValidation: "Пожалуйста, укажите имя и сообщение!",
         linkTelegramChannelTitle: 'Мой Telegram Канал',
         badgeChannel: 'Канал',
         linkTelegramChannelSub: '@idrok_fikr • Мысли, анализ и IT-контент',
@@ -596,6 +700,22 @@
         weatherDay: 'Spring: Radiant Sun, Blossom Tree & Swallows',
         weatherStars: 'Starry Night: 3D Moon & Meteors',
         weatherRain: 'Stormy Rain, Thunderclouds & Lightning',
+        contactCardTitle: "Send Me a Direct Message",
+        contactCardBadge: "Instant",
+        contactCardSub: "Send me a message, question, or proposal directly from the website",
+        lblSenderName: "Your Name",
+        inputNamePlaceholder: "Enter your name...",
+        lblSenderContact: "Contact info (Phone / Telegram)",
+        inputContactPlaceholder: "+998 90 123 45 67 or @username",
+        lblSenderMessage: "Your Message",
+        inputMsgPlaceholder: "Write your message in detail...",
+        btnSendTg: "Send via Telegram",
+        btnSendSms: "Send via SMS",
+        btnSendEmail: "Via Email",
+        txtSecureNote: "Message is sent directly to Shohjahon",
+        floatingMsgTooltip: "Message me",
+        msgSuccess: "Message ready! Opening app...",
+        msgValidation: "Please enter your name and message!",
         linkTelegramChannelTitle: 'My Telegram Channel',
         badgeChannel: 'Channel',
         linkTelegramChannelSub: '@idrok_fikr • Thoughts, Analysis & Tech',
@@ -644,6 +764,22 @@
         weatherDay: '봄: 따스한 햇살, 벚꽃 나무와 제비',
         weatherStars: '별이 빛나는 밤: 3D 달과 유성우',
         weatherRain: '폭풍우: 쏟아지는 비, 먹구름과 번개',
+        contactCardTitle: "직접 메시지 보내기",
+        contactCardBadge: "빠른 연락",
+        contactCardSub: "웹사이트에서 직접 질문, 제안 또는 메시지를 남겨보세요",
+        lblSenderName: "성함",
+        inputNamePlaceholder: "이름을 입력하세요...",
+        lblSenderContact: "연락처 (전화번호 / 텔레그램)",
+        inputContactPlaceholder: "+998 90 123 45 67 또는 @username",
+        lblSenderMessage: "메시지 내용",
+        inputMsgPlaceholder: "메시지를 자세히 작성하세요...",
+        btnSendTg: "텔레그램으로 전송",
+        btnSendSms: "SMS로 전송",
+        btnSendEmail: "이메일로 전송",
+        txtSecureNote: "메시지는 쇼흐자혼에게 직접 전달됩니다",
+        floatingMsgTooltip: "메시지 보내기",
+        msgSuccess: "메시지 준비 완료! 앱이 실행됩니다...",
+        msgValidation: "성함과 메시지를 입력해 주세요!",
         linkTelegramChannelTitle: '텔레그램 채널',
         badgeChannel: '채널',
         linkTelegramChannelSub: '@idrok_fikr • 생각과 분석, IT 콘텐츠',
@@ -773,6 +909,22 @@
       if (t7) t7.textContent = t.linkContactTitle;
       const s7 = document.getElementById('txtLinkContactSub');
       if (s7) s7.textContent = t.linkContactSub;
+
+      // 3.5. Xabar Yozish Bloki (Direct Message)
+      const cTitle = document.getElementById('txtContactTitle'); if (cTitle && t.contactCardTitle) cTitle.textContent = t.contactCardTitle;
+      const cBadge = document.getElementById('txtContactBadge'); if (cBadge && t.contactCardBadge) cBadge.textContent = t.contactCardBadge;
+      const cSub = document.getElementById('txtContactSub'); if (cSub && t.contactCardSub) cSub.textContent = t.contactCardSub;
+      const lName = document.getElementById('lblSenderName'); if (lName && t.lblSenderName) lName.innerHTML = '<i class="fa-solid fa-user text-indigo-500"></i> ' + t.lblSenderName;
+      const iName = document.getElementById('senderName'); if (iName && t.inputNamePlaceholder) iName.placeholder = t.inputNamePlaceholder;
+      const lContact = document.getElementById('lblSenderContact'); if (lContact && t.lblSenderContact) lContact.innerHTML = '<i class="fa-solid fa-address-book text-indigo-500"></i> ' + t.lblSenderContact;
+      const iContact = document.getElementById('senderContact'); if (iContact && t.inputContactPlaceholder) iContact.placeholder = t.inputContactPlaceholder;
+      const lMsg = document.getElementById('lblSenderMessage'); if (lMsg && t.lblSenderMessage) lMsg.innerHTML = '<i class="fa-solid fa-message text-indigo-500"></i> ' + t.lblSenderMessage;
+      const iMsg = document.getElementById('senderMessage'); if (iMsg && t.inputMsgPlaceholder) iMsg.placeholder = t.inputMsgPlaceholder;
+      const bTg = document.getElementById('btnTxtTg'); if (bTg && t.btnSendTg) bTg.textContent = t.btnSendTg;
+      const bSms = document.getElementById('btnTxtSms'); if (bSms && t.btnSendSms) bSms.textContent = t.btnSendSms;
+      const bEmail = document.getElementById('btnTxtEmail'); if (bEmail && t.btnSendEmail) bEmail.textContent = t.btnSendEmail;
+      const sNote = document.getElementById('txtSecureNote'); if (sNote && t.txtSecureNote) sNote.textContent = t.txtSecureNote;
+      const fTip = document.getElementById('floatingMsgTooltip'); if (fTip && t.floatingMsgTooltip) fTip.textContent = t.floatingMsgTooltip;
 
       // 4. Dumaloq Ijtimoiy Tarmoq Ikonkalari Tooltip matnlari
       const sc = document.getElementById('socialChannel');
@@ -1364,9 +1516,106 @@
     const initialSavedMode = localStorage.getItem('hub_mode') || 'stars';
     setActiveMode(initialSavedMode, false);
 
+    // --- XABAR YOZISH VA ALOQA FUNKTSIYALARI ---
+    function toggleContactForm() {
+      const form = document.getElementById('contactFormContainer');
+      const icon = document.getElementById('contactChevronIcon');
+      if (!form) return;
+      const isHidden = form.classList.contains('hidden');
+      if (isHidden) {
+        form.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      } else {
+        form.classList.add('hidden');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function scrollToContact() {
+      const section = document.getElementById('contactSection');
+      const form = document.getElementById('contactFormContainer');
+      const icon = document.getElementById('contactChevronIcon');
+      if (form && form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          const nameInput = document.getElementById('senderName');
+          if (nameInput) nameInput.focus();
+        }, 500);
+      }
+    }
+
+    function sendMessageVia(type) {
+      const nameInput = document.getElementById('senderName');
+      const contactInput = document.getElementById('senderContact');
+      const msgInput = document.getElementById('senderMessage');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const contact = contactInput ? contactInput.value.trim() : '';
+      const message = msgInput ? msgInput.value.trim() : '';
+
+      const t = translations[currentLang] || translations.uz;
+
+      if (!name || !message) {
+        showToast(t.msgValidation || "Iltimos, ismingiz va xabaringizni yozing!");
+        if (!name && nameInput) nameInput.focus();
+        else if (msgInput) msgInput.focus();
+        return;
+      }
+
+      const dateStr = new Date().toLocaleString();
+
+      if (type === 'telegram') {
+        const text = "Salom Shohjahon! Men sizning saytingizdan (Link Hub) yozyapman:\n\n" +
+                     "👤 Ismim: " + name + "\n" +
+                     "📱 Aloqa: " + (contact || "Ko'rsatilmadi") + "\n" +
+                     "💬 Xabar: " + message + "\n\n" +
+                     "⏰ Vaqt: " + dateStr;
+        const tgUrl = "https://t.me/wox_224?text=" + encodeURIComponent(text);
+        showToast(t.msgSuccess || "Xabaringiz tayyorlandi! Telegram ochilmoqda...");
+        setTimeout(() => {
+          window.open(tgUrl, '_blank');
+        }, 600);
+      } else if (type === 'sms') {
+        const text = "Salom Shohjahon! Saytingizdan yozmoqdaman. Ismim: " + name + ". Aloqa: " + (contact || "-") + ". Xabar: " + message;
+        const smsUrl = "sms:+998955449080?body=" + encodeURIComponent(text);
+        showToast(t.msgSuccess || "SMS ilovasi ochilmoqda...");
+        setTimeout(() => {
+          window.location.href = smsUrl;
+        }, 600);
+      } else if (type === 'email') {
+        const subject = "Shohjahon LinkHub: " + name + " dan yangi xabar";
+        const body = "Salom Shohjahon!\n\n" +
+                     "Men sizning shaxsiy Link Hub saytingizdan xabar qoldiryapman.\n\n" +
+                     "👤 Ism: " + name + "\n" +
+                     "📱 Aloqa: " + (contact || "Ko'rsatilmadi") + "\n" +
+                     "💬 Xabar:\n" + message + "\n\n" +
+                     "⏰ Vaqt: " + dateStr;
+        const mailUrl = "mailto:hasanboyevfahriddin17@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        showToast(t.msgSuccess || "Email ilovasi ochilmoqda...");
+        setTimeout(() => {
+          window.location.href = mailUrl;
+        }, 600);
+      }
+    }
+
     meteorLoop();
     lightningLoop();
     requestAnimationFrame(animate);
   </script>
+
+  <!-- Suzuvchi Xabar Yozish Tugmasi (Floating Quick Contact) -->
+  <button id="floatingContactBtn" onclick="scrollToContact()" aria-label="Xabar yozish" 
+          class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white flex items-center justify-center text-xl shadow-2xl shadow-indigo-500/40 hover:scale-110 active:scale-95 transition-all duration-300 group">
+    <i class="fa-solid fa-comment-dots text-2xl group-hover:rotate-12 transition-transform"></i>
+    <span class="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-slate-900/90 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-lg backdrop-blur-sm" id="floatingMsgTooltip">
+      Menga xabar yozish
+    </span>
+    <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900 animate-ping"></span>
+    <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900"></span>
+  </button>
 </body>
 </html>
