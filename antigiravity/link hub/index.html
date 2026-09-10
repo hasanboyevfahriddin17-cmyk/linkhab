@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">SHOHJAHON (@woxjahon_224) | Personal Link Hub</title>
+  
+  <!-- Meta tags -->
+  <meta name="description" content="Shohjahon - IT Sohasi (5 ta yo'nalish) va Koreys Tili talabasi. Farg'ona, Qo'shtepa. Shaxsiy Link Hub & Portfolio sahifasi.">
+  <meta property="og:title" content="SHOHJAHON (@wox_224) - Link Hub">
+  <meta property="og:description" content="IT sohasi (5 ta yo'nalish) & Koreys tili talabasi. Farg'ona, Qo'shtepa.">
+  <meta property="og:image" content="profile.jpg">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            'pulse-glow': 'pulseGlow 3.5s ease-in-out infinite',
+            'spin-slow': 'spin 30s linear infinite',
+            'tree-sway': 'treeSway 6s ease-in-out infinite alternate',
+            'cloud-float-1': 'cloudFloat1 35s linear infinite',
+            'cloud-float-2': 'cloudFloat2 48s linear infinite',
+            'cloud-float-3': 'cloudFloat3 60s linear infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(12px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.92' },
+              '50%': { transform: 'scale(1.05)', opacity: '1' },
+            },
+            treeSway: {
+              '0%': { transform: 'rotate(0deg) scale(1)' },
+              '50%': { transform: 'rotate(0.8deg) scale(1.008)' },
+              '100%': { transform: 'rotate(-0.8deg) scale(1)' },
+            },
+            cloudFloat1: {
+              '0%': { transform: 'translateX(-15%)' },
+              '100%': { transform: 'translateX(115%)' },
+            },
+            cloudFloat2: {
+              '0%': { transform: 'translateX(110%)' },
+              '100%': { transform: 'translateX(-20%)' },
+            },
+            cloudFloat3: {
+              '0%': { transform: 'translateX(-25%)' },
+              '100%': { transform: 'translateX(110%)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Maxsus silliq o'tishlar va optimallashtirish */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    input, textarea {
+      user-select: auto;
+    }
+    
+    /* Dinamik ob-havo kanvasi */
+    #weatherCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Qalin bo'ron bulutlari */
+    .storm-cloud {
+      filter: blur(14px);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body id="pageBody" class="bg-gradient-to-b from-sky-100/90 via-rose-50/40 to-emerald-50/40 text-slate-800 dark:bg-none dark:bg-[#050714] dark:text-zinc-100 min-h-screen flex flex-col items-center justify-between transition-colors duration-700 selection:bg-pink-500 selection:text-white relative overflow-x-hidden">
+
+  <!-- WEATHER CANVAS (HAR DOIM KO'RINADIGAN DINAMIK CANVAS Z-INDEX: 1) -->
+  <canvas id="weatherCanvas"></canvas>
+
+  <!-- KUNDUZGI BAHOR: BIR TOMONDA KATTA VA HAQIQIY GULLAGAN BAHOR DARAXTI -->
+  <div id="springTreeContainer" class="fixed bottom-0 -left-16 sm:-left-10 md:-left-4 lg:left-2 pointer-events-none z-[2] select-none block dark:hidden origin-bottom transition-all duration-700">
+    <div class="relative origin-bottom animate-tree-sway">
+      <img src="sakura_tree.png" alt="Haqiqiy Gullagan Bahor Daraxti" 
+           class="h-[58vh] sm:h-[72vh] md:h-[86vh] lg:h-[94vh] max-h-[960px] w-auto object-contain filter drop-shadow-[0_20px_35px_rgba(244,114,182,0.3)] opacity-45 sm:opacity-90 md:opacity-100 transition-all duration-500" />
+      <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-gradient-to-t from-emerald-800/25 via-emerald-600/10 to-transparent blur-md rounded-full pointer-events-none"></div>
+      <div class="absolute top-1/4 right-1/4 w-80 h-80 rounded-full bg-rose-200/20 blur-3xl pointer-events-none"></div>
+    </div>
+  </div>
+
+  <!-- KUNDUZGI BAHOR: IKKINCHI TOMONDA QUYOSH -->
+  <div id="springSunContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none z-[2] select-none block dark:hidden transition-all duration-700 animate-pulse-glow">
+    <div class="absolute -inset-14 rounded-full bg-amber-300/35 blur-3xl"></div>
+    <div class="absolute -inset-8 rounded-full bg-rose-200/30 blur-2xl"></div>
+    <div class="absolute -inset-6 rounded-full bg-yellow-400/25 blur-xl"></div>
+    <div class="absolute -inset-6 flex items-center justify-center animate-spin-slow">
+      <svg class="w-36 h-36 text-amber-400/60" viewBox="0 0 100 100" fill="currentColor">
+        <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="50" y1="12" x2="50" y2="2"/>
+          <line x1="50" y1="88" x2="50" y2="98"/>
+          <line x1="12" y1="50" x2="2" y2="50"/>
+          <line x1="88" y1="50" x2="98" y2="50"/>
+          <line x1="23.1" y1="23.1" x2="16" y2="16"/>
+          <line x1="76.9" y1="76.9" x2="84" y2="84"/>
+          <line x1="23.1" y1="76.9" x2="16" y2="84"/>
+          <line x1="76.9" y1="23.1" x2="84" y2="16"/>
+        </g>
+      </svg>
+    </div>
+    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-100 shadow-[0_0_55px_rgba(251,191,36,0.7)] border-2 border-yellow-200/90 flex items-center justify-center overflow-hidden">
+      <div class="absolute top-1.5 left-2.5 w-10 h-6 bg-white/60 rounded-full blur-[2px] transform -rotate-12"></div>
+    </div>
+  </div>
+
+  <!-- TUNGI REJIM: 3D REALISTIK TO'LIN OY -->
+  <div id="moonContainer" class="fixed top-6 right-4 sm:top-10 sm:right-14 pointer-events-none z-[2] select-none hidden dark:block transition-all duration-700 animate-pulse-glow">
+    <div class="absolute -inset-10 rounded-full bg-slate-200/20 dark:bg-amber-100/15 blur-3xl"></div>
+    <div class="absolute -inset-4 rounded-full bg-white/30 dark:bg-amber-100/20 blur-xl"></div>
+    
+    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.35)] border border-slate-200/40 overflow-hidden bg-[#d9dde4]">
+      <svg class="w-full h-full" viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="moon3dShading" cx="35%" cy="32%" r="68%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+            <stop offset="60%" stop-color="#334155" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#090d16" stop-opacity="0.75"/>
+          </radialGradient>
+          <filter id="lunarMariaBlur" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3"/>
+          </filter>
+        </defs>
+        <circle cx="100" cy="100" r="100" fill="#e2e8f0"/>
+        <g filter="url(#lunarMariaBlur)" fill="#64748b" opacity="0.65">
+          <ellipse cx="65" cy="70" rx="35" ry="30"/>
+          <path d="M50 40 Q80 20 110 45 Q130 80 100 95 Q60 110 50 40 Z"/>
+          <ellipse cx="125" cy="75" rx="25" ry="20"/>
+          <ellipse cx="135" cy="105" rx="28" ry="22"/>
+          <ellipse cx="75" cy="135" rx="22" ry="18"/>
+          <ellipse cx="115" cy="140" rx="30" ry="20"/>
+        </g>
+        <g opacity="0.85">
+          <circle cx="95" cy="160" r="5.5" fill="#475569"/>
+          <circle cx="95" cy="160" r="3.2" fill="#e2e8f0"/>
+          <circle cx="68" cy="88" r="6.5" fill="#475569" opacity="0.8"/>
+          <circle cx="68" cy="88" r="4.2" fill="#f1f5f9" opacity="0.9"/>
+          <circle cx="45" cy="85" r="4" fill="#475569" opacity="0.75"/>
+        </g>
+        <circle cx="100" cy="100" r="100" fill="url(#moon3dShading)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TUNGI REJIM: DINAMIK VA HAQIQIY BO'RON BULUTLARI -->
+  <div id="stormCloudsContainer" class="fixed inset-0 pointer-events-none z-[2] overflow-hidden opacity-0 transition-opacity duration-1000">
+    <div class="absolute -top-12 -left-20 w-[140vw] h-64 bg-gradient-to-b from-[#020617] via-[#090d1f]/95 to-transparent blur-2xl"></div>
+    <div class="absolute top-2 -left-60 w-[550px] h-36 bg-[#0f172a]/90 rounded-full storm-cloud animate-cloud-float-1"></div>
+    <div class="absolute top-12 left-1/3 w-[650px] h-44 bg-[#0a0e27]/85 rounded-full storm-cloud animate-cloud-float-3"></div>
+    <div class="absolute top-20 -right-40 w-[600px] h-40 bg-[#020617]/95 rounded-full storm-cloud animate-cloud-float-2"></div>
+    <div class="absolute top-36 left-10 w-[480px] h-32 bg-[#1e1b4b]/60 rounded-full storm-cloud animate-cloud-float-1"></div>
+  </div>
+
+  <!-- ASOSIY INTERAKTIV INTERFEYS -->
+  <div class="relative z-10 w-full flex flex-col items-center justify-between min-h-screen p-4 sm:p-6">
+
+    <!-- 1. YUQORI PANEL: TIL TANLASH (UZ, RU, EN, KO), ULASHISH VA KUN/TUN (Z-INDEX: 50) -->
+    <header class="w-full max-w-md flex items-center justify-between py-2 animate-fade-in relative z-50">
+      
+      <!-- Ko'p tilli menyu (Language Switcher Dropdown) -->
+      <div class="relative" id="langDropdownContainer">
+        <button id="langToggleBtn" type="button" class="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-2 border-slate-200 dark:border-zinc-700 shadow-md hover:scale-105 active:scale-95 transition-all text-xs font-extrabold text-slate-800 dark:text-zinc-100 cursor-pointer">
+          <span id="currentFlag" class="text-base">🇺🇿</span>
+          <span id="currentLangText">O‘zbek</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300" id="langChevron"></i>
+        </button>
+
+        <!-- Dropdown menyusi: TO'LIQ QORALASHTIRILGAN VA USTIDA TURADIGAN (Z-INDEX 50) -->
+        <div id="langMenu" class="absolute top-full left-0 mt-2 w-48 py-2 rounded-2xl bg-white dark:bg-[#0e1328] border-2 border-slate-300 dark:border-indigo-500/60 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hidden z-50 transition-all">
+          <button type="button" data-lang="uz" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇺🇿</span> <span>O‘zbekcha</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon" id="check-uz"></i>
+          </button>
+          <button type="button" data-lang="ru" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇷🇺</span> <span>Русский</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-ru"></i>
+          </button>
+          <button type="button" data-lang="en" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇬🇧</span> <span>English</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-en"></i>
+          </button>
+          <button type="button" data-lang="ko" class="lang-option w-full px-3.5 py-2.5 text-left text-xs font-bold flex items-center justify-between hover:bg-pink-50 dark:hover:bg-indigo-950/60 text-slate-800 dark:text-zinc-100 transition-colors cursor-pointer">
+            <span class="flex items-center gap-2.5"><span class="text-base">🇰🇷</span> <span>한국어</span></span>
+            <i class="fa-solid fa-check text-pink-500 text-xs check-icon hidden" id="check-ko"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- O'ng tomondagi tugmalar: Ulashish va Kun/Tun -->
+      <div class="flex items-center gap-2">
+        <!-- Ulashish -->
+        <button id="copyProfileBtn" title="Havolani nusxalash" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          <i class="fa-solid fa-share-nodes text-xs text-pink-500"></i>
+          <span id="txtShare">Ulashish</span>
+        </button>
+
+        <!-- Mavzu almashuvi (Kunduz / Kechqurun) -->
+        <button id="themeToggle" title="Mavzuni almashtirish" aria-label="Mavzuni almashtirish" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
+          <i id="themeIcon" class="fa-solid fa-moon text-sm text-amber-400"></i>
+          <span id="themeToggleText" class="text-xs font-bold">Tun</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. REJIM TANLASH PANELI (3 TA REJIM: BAHOR, YULDUZ & OY, YOMG'IR) (Z-INDEX: 20) -->
+    <div class="w-full max-w-md my-2.5 animate-fade-in delay-100 relative z-20">
+      <div class="flex items-center justify-between p-1.5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-zinc-800 shadow-lg gap-1.5">
+        <!-- 1. Kunduzgi Bahor -->
+        <button id="modeBtnDay" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-seedling text-sm text-emerald-500"></i>
+          <span id="txtModeDay" class="tracking-tight">Bahor (Kunduz)</span>
+        </button>
+
+        <!-- 2. Yulduzli Tun & Oy -->
+        <button id="modeBtnStars" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-moon text-sm text-amber-400"></i>
+          <span id="txtModeStars" class="tracking-tight">Yulduz & Oy</span>
+        </button>
+
+        <!-- 3. Yomg'ir & Bo'ron -->
+        <button id="modeBtnRain" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-cloud-bolt text-sm text-sky-400"></i>
+          <span id="txtModeRain" class="tracking-tight">Yomg‘ir</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. ASOSIY PROFIL VA HAVOLALAR KONTEYNERI -->
+    <main class="w-full max-w-md flex flex-col items-center mb-8 relative z-20">
+      
+      <!-- Profil Qismi -->
+      <section class="flex flex-col items-center text-center animate-fade-in delay-100">
+        <!-- Profil Rasmi -->
+        <div class="relative group mb-4">
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+          <img 
+            src="profile.jpg" 
+            alt="SHOHJAHON" 
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop';"
+            class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-[center_18%] ring-4 ring-white dark:ring-zinc-900 shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+          <!-- Faollik belgisi -->
+          <span id="statusDotBadge" class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center shadow" title="Faol">
+            <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+          </span>
+        </div>
+
+        <!-- Ism va Verified nishoni -->
+        <div class="flex items-center gap-1.5">
+          <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            SHOHJAHON
+          </h1>
+          <i id="verifiedBadge" class="fa-solid fa-circle-check text-blue-500 text-lg" title="Tasdiqlangan profil"></i>
+        </div>
+
+        <!-- Mutaxassislik / Yo'nalishlar (Yangilangan matn) -->
+        <p id="txtBioHeadline" class="mt-2 text-sm font-bold text-sky-600 dark:text-sky-400 max-w-xs leading-snug">
+          IT sohasi (5 ta yo'nalish) & Koreys tili talabasi
+        </p>
+        <p id="txtBioDescription" class="mt-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-200 max-w-xs leading-relaxed">
+          Hozirda zamonaviy IT sohasi bo'yicha 5 ta asosiy yo'nalish hamda koreys tilini chuqur o'rganmoqdaman. Zamonaviy dasturiy yechimlar ustida ishlayapman.
+        </p>
+
+        <!-- Yangilangan Joylashuv & Ob-havo ko'rsatkichi -->
+        <div class="mt-3 inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-xs font-semibold text-slate-700 dark:text-zinc-300 shadow-sm">
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-rose-500 text-xs"></i> 
+            <span id="txtLocation">Farg‘ona, Qo‘shtepa, Polakor 20-uy</span>
+          </span>
+          <span class="text-slate-300 dark:text-zinc-700">•</span>
+          <span id="activeWeatherBadge" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
+            <i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun: 3D To‘lin Oy & Meteorlar
+          </span>
+        </div>
+      </section>
+
+      <!-- Asosiy Havolalar Bloki -->
+      <section class="w-full mt-6 space-y-3.5">
+
+        <!-- Havola 1: Telegram Kanalim (@idrok_fikr) -->
+        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 shadow-sm shadow-sky-500/20 transition-all duration-200">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div class="flex items-center gap-1.5">
+              <span id="txtLinkTelegramChannelTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Telegram Kanalim</span>
+              <span id="txtBadgeChannel" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300">Kanal</span>
+            </div>
+            <div id="txtLinkTelegramChannelSub" class="text-xs text-slate-500 dark:text-zinc-400">@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 2: Shaxsiy Telegramim (@wox_224) -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-sky-500/50 dark:hover:border-sky-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-200">
+          <div class="w-11 h-11 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkTelegramPersonalTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">Shaxsiy Telegramim (@wox_224)</div>
+            <div id="txtLinkTelegramPersonalSub" class="text-xs text-slate-500 dark:text-zinc-400">Menga to‘g‘ridan-to‘g‘ri shaxsiy xabar yozish</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 3: Instagram (@woxjahon_224) -->
+        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-pink-500/50 dark:hover:border-pink-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center text-xl flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkInstagramTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-pink-500 transition-colors">Instagram (@woxjahon_224)</div>
+            <div id="txtLinkInstagramSub" class="text-xs text-slate-500 dark:text-zinc-400">Kundalik stories, postlar va hayotiy blog</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-pink-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 4: Telefon Raqam (+998 95 544 90 80) -->
+        <a href="tel:+998955449080" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-300">
+          <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-phone-volume"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkPhoneTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">Telefon Raqamim</div>
+            <div id="txtLinkPhoneSub" class="text-xs text-slate-500 dark:text-zinc-400 font-mono font-semibold">+998 95 544 90 80 • Qo‘ng‘iroq qilish</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 5: IT Loyihalar & Koreys Tili Portfolio -->
+        <a href="https://github.com/hasanboyevfahriddin17-cmyk" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-indigo-200/80 dark:border-indigo-900/40 shadow-sm hover:shadow-md hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
+          <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkPortfolioTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">IT Sohasi & Portfolio</div>
+            <div id="txtLinkPortfolioSub" class="text-xs text-slate-500 dark:text-zinc-400">5 ta IT yo‘nalishi bo‘yicha o‘rganayotgan loyihalarim</div>
+          </div>
+          <div class="text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 6: Yaqin Do'stim (@Nematov_shuhratjon - Zaxira Aloqa) -->
+        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-purple-200/80 dark:border-purple-900/40 shadow-sm hover:shadow-md hover:border-purple-500/60 dark:hover:border-purple-500/60 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-400">
+          <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div class="flex items-center gap-1.5">
+              <span id="txtLinkFriendTitle" class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Yaqin Do‘stim (@Nematov_shuhratjon)</span>
+              <span id="txtBadgeFriend" class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">Zaxira</span>
+            </div>
+            <div id="txtLinkFriendSub" class="text-xs text-slate-500 dark:text-zinc-400">Menga tusholmasangiz, do‘stimga murojaat qiling</div>
+          </div>
+          <div class="text-purple-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </a>
+
+        <!-- Havola 7: Bog‘lanish / Aloqa -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" 
+           class="group relative flex items-center p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 animate-fade-in delay-500">
+          <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-xl flex-shrink-0 text-white backdrop-blur-sm">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div class="ml-3.5 flex-1 text-left">
+            <div id="txtLinkContactTitle" class="text-sm font-bold text-white">Bog‘lanish / Aloqa</div>
+            <div id="txtLinkContactSub" class="text-xs text-indigo-100">Telegram orqali to‘g‘ridan-to‘g‘ri yozish (@wox_224)</div>
+          </div>
+          <div class="text-indigo-200 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 pr-1">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </div>
+        </a>
+
+      </section>
+
+      <!-- Dumaloq Ijtimoiy Tarmoq Ikonkalari -->
+      <section class="mt-8 flex items-center justify-center gap-3.5 animate-fade-in delay-500">
+        <!-- Telegram Kanal -->
+        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" id="socialChannel" aria-label="Telegram Kanal" title="Telegram Kanal: @idrok_fikr"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
+          <i class="fa-solid fa-bullhorn text-base"></i>
+        </a>
+
+        <!-- Telegram Shaxsiy -->
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" id="socialTg" aria-label="Shaxsiy Telegram" title="Shaxsiy Telegram: @wox_224"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
+          <i class="fa-brands fa-telegram text-lg"></i>
+        </a>
+        
+        <!-- Instagram -->
+        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" id="socialInsta" aria-label="Instagram" title="Instagram: @woxjahon_224"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:border-transparent hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-200">
+          <i class="fa-brands fa-instagram text-lg"></i>
+        </a>
+
+        <!-- Telefon -->
+        <a href="tel:+998955449080" id="socialPhone" aria-label="Telefon" title="Telefon: +998 95 544 90 80"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200">
+          <i class="fa-solid fa-phone text-base"></i>
+        </a>
+
+        <!-- Do'stim Shuhratjon -->
+        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" id="socialFriend" aria-label="Do'stim Shuhratjon" title="Do'stim: @Nematov_shuhratjon"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-purple-600 hover:border-purple-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-600/30 transition-all duration-200">
+          <i class="fa-solid fa-user-group text-base"></i>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/hasanboyevfahriddin17-cmyk/linkhab" target="_blank" rel="noopener noreferrer" id="socialGithub" aria-label="GitHub" title="GitHub: @hasanboyevfahriddin17-cmyk"
+           class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-zinc-900 hover:border-zinc-900 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+          <i class="fa-brands fa-github text-lg"></i>
+        </a>
+      </section>
+
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="w-full max-w-md text-center py-4 border-t border-slate-200/60 dark:border-zinc-800/60 text-xs text-slate-400 dark:text-zinc-500 animate-fade-in delay-600">
+      <p>© <span id="year"></span> SHOHJAHON. <span id="txtFooterRights">Barcha huquqlar himoyalangan.</span></p>
+    </footer>
+
+  </div>
+
+  <!-- Havolani nusxalash haqida suzuvchi xabarnoma (Toast) -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900/95 dark:bg-white/95 text-white dark:text-zinc-900 text-xs font-semibold shadow-2xl backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 z-50">
+    <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+    <span id="toastMsg">Havola buferga nusxalandi!</span>
+  </div>
+
+  <!-- JAVASCRIPT: BARCHA TILLAR, MAVZULAR VA JONLI ANIMATSIYALAR -->
+  <script>
+    // 1. TO'LIQ 4 TILLI LUG'AT TIZIMI (UZ, RU, EN, KO)
+    const translations = {
+      uz: {
+        flag: '🇺🇿',
+        langName: 'O‘zbek',
+        pageTitle: 'SHOHJAHON (@woxjahon_224) | Shaxsiy Link Hub',
+        share: 'Ulashish',
+        modeDay: 'Bahor (Kunduz)',
+        modeStars: 'Yulduz & Oy',
+        modeRain: 'Yomg‘ir',
+        themeNight: 'Tun',
+        themeDay: 'Kunduz',
+        themeStorm: 'Bo‘ron',
+        verifiedBadge: 'Tasdiqlangan profil',
+        statusDot: 'Faol',
+        bioHeadline: "IT sohasi (5 ta yo'nalish) & Koreys tili talabasi",
+        bioDescription: "Hozirda zamonaviy IT sohasi bo'yicha 5 ta asosiy yo'nalish hamda koreys tilini chuqur o'rganmoqdaman. Zamonaviy dasturiy yechimlar ustida ishlayapman.",
+        location: "Farg‘ona, Qo‘shtepa, Polakor 20-uy",
+        weatherDay: "Bahor: Quyosh, Katta Daraxt & Qaldirg‘och",
+        weatherStars: "Yulduzli Tun: 3D To‘lin Oy & Meteorlar",
+        weatherRain: "Kechqurun: Bo‘ronli Yomg‘ir & Chaqmoq",
+        linkTelegramChannelTitle: "Telegram Kanalim",
+        badgeChannel: "Kanal",
+        linkTelegramChannelSub: "@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar",
+        linkTelegramPersonalTitle: "Shaxsiy Telegramim (@wox_224)",
+        linkTelegramPersonalSub: "Menga to‘g‘ridan-to‘g‘ri shaxsiy xabar yozish",
+        linkInstagramTitle: "Instagram (@woxjahon_224)",
+        linkInstagramSub: "Kundalik stories, postlar va hayotiy blog",
+        linkPhoneTitle: "Telefon Raqamim",
+        linkPhoneSub: "+998 95 544 90 80 • Qo‘ng‘iroq qilish",
+        linkPortfolioTitle: "IT Sohasi & Portfolio",
+        linkPortfolioSub: "5 ta IT yo‘nalishi bo‘yicha o‘rganayotgan loyihalarim",
+        linkFriendTitle: "Yaqin Do‘stim (@Nematov_shuhratjon)",
+        badgeFriend: "Zaxira",
+        linkFriendSub: "Menga tusholmasangiz, do‘stimga murojaat qiling",
+        linkContactTitle: "Bog‘lanish / Aloqa",
+        linkContactSub: "Telegram orqali to‘g‘ridan-to‘g‘ri yozish (@wox_224)",
+        footerRights: "Barcha huquqlar himoyalangan.",
+        toastCopied: "Profil havolasi buferga nusxalandi!",
+        toastModeDay: "☀️ Kunduzgi Bahor: Katta daraxt, quyosh va qaldirg‘ochlar faollashdi!",
+        toastModeStars: "🌙 Kechqurun: 3D To‘lin Oy va Yulduzli Tun faollashdi!",
+        toastModeRain: "⛈️ Kechqurun: Bo‘ronli Yomg‘ir, bulutlar va chaqmoq faollashdi!",
+        toastLangSwitched: "Til o‘zgartirildi: O‘zbekcha",
+        socialChannelTip: "Telegram Kanal: @idrok_fikr",
+        socialTgTip: "Shaxsiy Telegram: @wox_224",
+        socialInstaTip: "Instagram: @woxjahon_224",
+        socialPhoneTip: "Telefon: +998 95 544 90 80",
+        socialFriendTip: "Do‘stim: @Nematov_shuhratjon",
+        socialGithubTip: "GitHub: @hasanboyevfahriddin17-cmyk"
+      },
+      ru: {
+        flag: '🇷🇺',
+        langName: 'Русский',
+        pageTitle: 'ШОХЖАХОН (@woxjahon_224) | Персональный Link Hub',
+        share: 'Поделиться',
+        modeDay: 'Весна (День)',
+        modeStars: 'Звезды и Луна',
+        modeRain: 'Дождь и Гроза',
+        themeNight: 'Ночь',
+        themeDay: 'День',
+        themeStorm: 'Шторм',
+        verifiedBadge: 'Подтвержденный профиль',
+        statusDot: 'В сети',
+        bioHeadline: 'Студент IT (5 направлений) и корейского языка',
+        bioDescription: 'Изучаю современные информационные технологии по 5 ключевым направлениям и корейский язык. Работаю над перспективными проектами.',
+        location: 'Фергана, Куштепа, Полакор 20-дом',
+        weatherDay: 'Весна: Солнце, цветущее дерево и ласточки',
+        weatherStars: 'Звездная ночь: 3D Луна и метеоры',
+        weatherRain: 'Грозовой дождь, тучи и молнии',
+        linkTelegramChannelTitle: 'Мой Telegram Канал',
+        badgeChannel: 'Канал',
+        linkTelegramChannelSub: '@idrok_fikr • Мысли, анализ и IT-контент',
+        linkTelegramPersonalTitle: 'Личный Telegram (@wox_224)',
+        linkTelegramPersonalSub: 'Написать мне напрямую личное сообщение',
+        linkInstagramTitle: 'Instagram (@woxjahon_224)',
+        linkInstagramSub: 'Истории, посты и лайфстайл блог',
+        linkPhoneTitle: 'Номер телефона',
+        linkPhoneSub: '+998 95 544 90 80 • Позвонить',
+        linkPortfolioTitle: 'IT-Сфера и Портфолио',
+        linkPortfolioSub: 'Мои проекты и практика по 5 направлениям IT',
+        linkFriendTitle: 'Близкий друг (@Nematov_shuhratjon)',
+        badgeFriend: 'Резерв',
+        linkFriendSub: 'Если я недоступен, обратитесь к другу',
+        linkContactTitle: 'Связаться / Контакты',
+        linkContactSub: 'Прямая связь через Telegram (@wox_224)',
+        footerRights: 'Все права защищены.',
+        toastCopied: 'Ссылка скопирована в буфер обмена!',
+        toastModeDay: '☀️ Дневной режим: Весна, цветущее дерево и ласточки!',
+        toastModeStars: '🌙 Звездная ночь: 3D Луна и яркие звезды!',
+        toastModeRain: '⛈️ Грозовой режим: Ливень, тучи и молнии!',
+        toastLangSwitched: 'Язык изменен: Русский',
+        socialChannelTip: 'Telegram-канал: @idrok_fikr',
+        socialTgTip: 'Личный Telegram: @wox_224',
+        socialInstaTip: 'Instagram: @woxjahon_224',
+        socialPhoneTip: 'Телефон: +998 95 544 90 80',
+        socialFriendTip: 'Друг: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
+      },
+      en: {
+        flag: '🇬🇧',
+        langName: 'English',
+        pageTitle: 'SHOHJAHON (@woxjahon_224) | Personal Link Hub',
+        share: 'Share',
+        modeDay: 'Spring (Day)',
+        modeStars: 'Stars & Moon',
+        modeRain: 'Rain & Storm',
+        themeNight: 'Night',
+        themeDay: 'Day',
+        themeStorm: 'Storm',
+        verifiedBadge: 'Verified Profile',
+        statusDot: 'Online',
+        bioHeadline: 'IT Student (5 Fields) & Korean Learner',
+        bioDescription: 'Mastering 5 fundamental disciplines of computer science & learning Korean. Actively developing modern software projects.',
+        location: 'Fergana, Kushtepa, Polakor 20',
+        weatherDay: 'Spring: Radiant Sun, Blossom Tree & Swallows',
+        weatherStars: 'Starry Night: 3D Moon & Meteors',
+        weatherRain: 'Stormy Rain, Thunderclouds & Lightning',
+        linkTelegramChannelTitle: 'My Telegram Channel',
+        badgeChannel: 'Channel',
+        linkTelegramChannelSub: '@idrok_fikr • Thoughts, Analysis & Tech',
+        linkTelegramPersonalTitle: 'Personal Telegram (@wox_224)',
+        linkTelegramPersonalSub: 'Send me a direct personal message',
+        linkInstagramTitle: 'Instagram (@woxjahon_224)',
+        linkInstagramSub: 'Daily stories, posts and personal blog',
+        linkPhoneTitle: 'Phone Number',
+        linkPhoneSub: '+998 95 544 90 80 • Tap to Call',
+        linkPortfolioTitle: 'IT & Projects Portfolio',
+        linkPortfolioSub: 'Projects across 5 software specializations',
+        linkFriendTitle: 'Close Friend (@Nematov_shuhratjon)',
+        badgeFriend: 'Backup',
+        linkFriendSub: 'If unable to reach me, contact my close friend',
+        linkContactTitle: 'Get in Touch / Contact',
+        linkContactSub: 'Message directly via Telegram (@wox_224)',
+        footerRights: 'All rights reserved.',
+        toastCopied: 'Profile link copied to clipboard!',
+        toastModeDay: '☀️ Spring Day: Blossom tree, warm sun & swallows activated!',
+        toastModeStars: '🌙 Starry Night: 3D Moon and shooting stars activated!',
+        toastModeRain: '⛈️ Stormy Night: Heavy rain, dark clouds and lightning activated!',
+        toastLangSwitched: 'Language switched: English',
+        socialChannelTip: 'Telegram Channel: @idrok_fikr',
+        socialTgTip: 'Personal Telegram: @wox_224',
+        socialInstaTip: 'Instagram: @woxjahon_224',
+        socialPhoneTip: 'Phone: +998 95 544 90 80',
+        socialFriendTip: 'Friend: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
+      },
+      ko: {
+        flag: '🇰🇷',
+        langName: '한국어',
+        pageTitle: '쇼흐자혼 (@woxjahon_224) | 퍼스널 링크 허브',
+        share: '공유하기',
+        modeDay: '봄 (낮)',
+        modeStars: '별과 달 (밤)',
+        modeRain: '비와 번개',
+        themeNight: '야간',
+        themeDay: '주간',
+        themeStorm: '폭풍',
+        verifiedBadge: '인증된 프로필',
+        statusDot: '온라인',
+        bioHeadline: 'IT (5개 분야) 및 한국어 학습자',
+        bioDescription: '최신 IT 5개 주요 기술과 한국어를 열정적으로 공부하고 있습니다. 글로벌 소프트웨어 솔루션을 개발 중입니다.',
+        location: '페르가나 주, 쿠슈테파 구, 폴라코르 20번지',
+        weatherDay: '봄: 따스한 햇살, 벚꽃 나무와 제비',
+        weatherStars: '별이 빛나는 밤: 3D 달과 유성우',
+        weatherRain: '폭풍우: 쏟아지는 비, 먹구름과 번개',
+        linkTelegramChannelTitle: '텔레그램 채널',
+        badgeChannel: '채널',
+        linkTelegramChannelSub: '@idrok_fikr • 생각과 분석, IT 콘텐츠',
+        linkTelegramPersonalTitle: '개인 텔레그램 (@wox_224)',
+        linkTelegramPersonalSub: '직접 개인 메시지 보내기',
+        linkInstagramTitle: '인스타그램 (@woxjahon_224)',
+        linkInstagramSub: '일상 스토리, 게시물 및 라이프 블로그',
+        linkPhoneTitle: '전화번호',
+        linkPhoneSub: '+998 95 544 90 80 • 전화 걸기',
+        linkPortfolioTitle: 'IT 분야 및 포트폴리오',
+        linkPortfolioSub: '5개 IT 분야에서 학습 및 개발한 프로젝트',
+        linkFriendTitle: '절친한 친구 (@Nematov_shuhratjon)',
+        badgeFriend: '비상연락',
+        linkFriendSub: '저에게 연락이 안 될 경우 친구에게 문의하세요',
+        linkContactTitle: '문의 및 연락하기',
+        linkContactSub: '텔레그램으로 바로 메시지 보내기 (@wox_224)',
+        footerRights: '모든 권리 보유.',
+        toastCopied: '프로필 링크가 클립보드에 복사되었습니다!',
+        toastModeDay: '☀️ 봄 모드: 벚꽃 나무와 제비가 활성화되었습니다!',
+        toastModeStars: '🌙 별밤 모드: 3D 달과 유성우가 활성화되었습니다!',
+        toastModeRain: '⛈️ 비 모드: 폭풍우와 먹구름, 번개가 활성화되었습니다!',
+        toastLangSwitched: '언어가 한국어로 변경되었습니다',
+        socialChannelTip: '텔레그램 채널: @idrok_fikr',
+        socialTgTip: '개인 텔레그램: @wox_224',
+        socialInstaTip: '인스타그램: @woxjahon_224',
+        socialPhoneTip: '전화: +998 95 544 90 80',
+        socialFriendTip: '친구: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
+      }
+    };
+
+    // Aqlli til aniqlash funktsiyasi
+    function getInitialLanguage() {
+      const saved = localStorage.getItem('hub_lang');
+      if (saved && translations[saved]) return saved;
+
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pLang = urlParams.get('lang');
+        if (pLang && translations[pLang]) return pLang;
+      } catch (e) {}
+
+      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (navLang.startsWith('ru')) return 'ru';
+      if (navLang.startsWith('ko')) return 'ko';
+      if (navLang.startsWith('en')) return 'en';
+      if (navLang.startsWith('uz')) return 'uz';
+
+      return 'uz';
+    }
+
+    let currentLang = getInitialLanguage();
+
+    function setLanguage(lang, showToastNotification = true) {
+      if (!translations[lang]) lang = 'uz';
+      currentLang = lang;
+      localStorage.setItem('hub_lang', lang);
+      document.documentElement.lang = lang;
+      const t = translations[lang];
+
+      // Brauzer sarlavhasi
+      document.title = t.pageTitle;
+
+      // 1. Yuqori panel elementlari
+      const curFlag = document.getElementById('currentFlag');
+      if (curFlag) curFlag.textContent = t.flag;
+      const curLangTxt = document.getElementById('currentLangText');
+      if (curLangTxt) curLangTxt.textContent = t.langName;
+      const txtShare = document.getElementById('txtShare');
+      if (txtShare) txtShare.textContent = t.share;
+      const txtModeDay = document.getElementById('txtModeDay');
+      if (txtModeDay) txtModeDay.textContent = t.modeDay;
+      const txtModeStars = document.getElementById('txtModeStars');
+      if (txtModeStars) txtModeStars.textContent = t.modeStars;
+      const txtModeRain = document.getElementById('txtModeRain');
+      if (txtModeRain) txtModeRain.textContent = t.modeRain;
+
+      // 2. Profil va Bio
+      const verBadge = document.getElementById('verifiedBadge');
+      if (verBadge) verBadge.title = t.verifiedBadge;
+      const statusDot = document.getElementById('statusDotBadge');
+      if (statusDot) statusDot.title = t.statusDot;
+
+      const txtBioHead = document.getElementById('txtBioHeadline');
+      if (txtBioHead) txtBioHead.textContent = t.bioHeadline;
+      const txtBioDesc = document.getElementById('txtBioDescription');
+      if (txtBioDesc) txtBioDesc.textContent = t.bioDescription;
+      const txtLoc = document.getElementById('txtLocation');
+      if (txtLoc) txtLoc.textContent = t.location;
+
+      // 3. Barcha Asosiy Havolalar
+      const t1 = document.getElementById('txtLinkTelegramChannelTitle');
+      if (t1) t1.textContent = t.linkTelegramChannelTitle;
+      const b1 = document.getElementById('txtBadgeChannel');
+      if (b1) b1.textContent = t.badgeChannel;
+      const s1 = document.getElementById('txtLinkTelegramChannelSub');
+      if (s1) s1.textContent = t.linkTelegramChannelSub;
+
+      const t2 = document.getElementById('txtLinkTelegramPersonalTitle');
+      if (t2) t2.textContent = t.linkTelegramPersonalTitle;
+      const s2 = document.getElementById('txtLinkTelegramPersonalSub');
+      if (s2) s2.textContent = t.linkTelegramPersonalSub;
+
+      const t3 = document.getElementById('txtLinkInstagramTitle');
+      if (t3) t3.textContent = t.linkInstagramTitle;
+      const s3 = document.getElementById('txtLinkInstagramSub');
+      if (s3) s3.textContent = t.linkInstagramSub;
+
+      const t4 = document.getElementById('txtLinkPhoneTitle');
+      if (t4) t4.textContent = t.linkPhoneTitle;
+      const s4 = document.getElementById('txtLinkPhoneSub');
+      if (s4) s4.textContent = t.linkPhoneSub;
+
+      const t5 = document.getElementById('txtLinkPortfolioTitle');
+      if (t5) t5.textContent = t.linkPortfolioTitle;
+      const s5 = document.getElementById('txtLinkPortfolioSub');
+      if (s5) s5.textContent = t.linkPortfolioSub;
+
+      const t6 = document.getElementById('txtLinkFriendTitle');
+      if (t6) t6.textContent = t.linkFriendTitle;
+      const b6 = document.getElementById('txtBadgeFriend');
+      if (b6) b6.textContent = t.badgeFriend;
+      const s6 = document.getElementById('txtLinkFriendSub');
+      if (s6) s6.textContent = t.linkFriendSub;
+
+      const t7 = document.getElementById('txtLinkContactTitle');
+      if (t7) t7.textContent = t.linkContactTitle;
+      const s7 = document.getElementById('txtLinkContactSub');
+      if (s7) s7.textContent = t.linkContactSub;
+
+      // 4. Dumaloq Ijtimoiy Tarmoq Ikonkalari Tooltip matnlari
+      const sc = document.getElementById('socialChannel');
+      if (sc) { sc.title = t.socialChannelTip; sc.setAttribute('aria-label', t.socialChannelTip); }
+      const st = document.getElementById('socialTg');
+      if (st) { st.title = t.socialTgTip; st.setAttribute('aria-label', t.socialTgTip); }
+      const si = document.getElementById('socialInsta');
+      if (si) { si.title = t.socialInstaTip; si.setAttribute('aria-label', t.socialInstaTip); }
+      const sp = document.getElementById('socialPhone');
+      if (sp) { sp.title = t.socialPhoneTip; sp.setAttribute('aria-label', t.socialPhoneTip); }
+      const sf = document.getElementById('socialFriend');
+      if (sf) { sf.title = t.socialFriendTip; sf.setAttribute('aria-label', t.socialFriendTip); }
+      const sg = document.getElementById('socialGithub');
+      if (sg) { sg.title = t.socialGithubTip; sg.setAttribute('aria-label', t.socialGithubTip); }
+
+      // 5. Footer
+      const fr = document.getElementById('txtFooterRights');
+      if (fr) fr.textContent = t.footerRights;
+
+      // 6. Checkmark indikatorlari
+      ['uz', 'ru', 'en', 'ko'].forEach(l => {
+        const checkEl = document.getElementById('check-' + l);
+        if (checkEl) {
+          if (l === lang) checkEl.classList.remove('hidden');
+          else checkEl.classList.add('hidden');
+        }
+      });
+
+      // 7. Ob-havo ko'rsatkichi va rejim matnlari
+      updateWeatherBadgeAndThemeText();
+
+      // 8. Menyu yopilishi
+      const langMenu = document.getElementById('langMenu');
+      const chevron = document.getElementById('langChevron');
+      if (langMenu) langMenu.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+
+      if (showToastNotification) {
+        showToast(t.toastLangSwitched);
+      }
+    }
+
+    // Til tanlash tugmalariga to'g'ridan-to'g'ri tinglovchi ulash
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lang = btn.getAttribute('data-lang');
+        setLanguage(lang, true);
+      });
+    });
+
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    const langMenu = document.getElementById('langMenu');
+    const langChevron = document.getElementById('langChevron');
+
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = langMenu.classList.contains('hidden');
+        if (isHidden) {
+          langMenu.classList.remove('hidden');
+          langChevron.classList.add('rotate-180');
+        } else {
+          langMenu.classList.add('hidden');
+          langChevron.classList.remove('rotate-180');
+        }
+      });
+    }
+
+    document.addEventListener('click', () => {
+      if (langMenu) langMenu.classList.add('hidden');
+      if (langChevron) langChevron.classList.remove('rotate-180');
+    });
+
+    // 2. MAVZULAR VA REJIMLARNI BOSHQARISH
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeToggleText = document.getElementById('themeToggleText');
+
+    const modeBtnDay = document.getElementById('modeBtnDay');
+    const modeBtnStars = document.getElementById('modeBtnStars');
+    const modeBtnRain = document.getElementById('modeBtnRain');
+    const activeWeatherBadge = document.getElementById('activeWeatherBadge');
+
+    const moonContainer = document.getElementById('moonContainer');
+    const stormClouds = document.getElementById('stormCloudsContainer');
+
+    let currentMode = 'stars';
+    let nightWeatherMode = 'stars';
+
+    function updateWeatherBadgeAndThemeText() {
+      const t = translations[currentLang] || translations.uz;
+      if (currentMode === 'day') {
+        if (themeToggleText) themeToggleText.textContent = t.themeDay;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-seedling text-emerald-500"></i> ${t.weatherDay}`;
+        }
+      } else if (currentMode === 'stars') {
+        if (themeToggleText) themeToggleText.textContent = t.themeNight;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-moon text-amber-400"></i> ${t.weatherStars}`;
+        }
+      } else if (currentMode === 'rain') {
+        if (themeToggleText) themeToggleText.textContent = t.themeStorm;
+        if (activeWeatherBadge) {
+          activeWeatherBadge.innerHTML = `<i class="fa-solid fa-cloud-bolt text-sky-400"></i> ${t.weatherRain}`;
+        }
+      }
+    }
+
+    function updateModeButtons() {
+      const inactiveClass = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-transparent cursor-pointer';
+      
+      if (modeBtnDay) modeBtnDay.className = inactiveClass;
+      if (modeBtnStars) modeBtnStars.className = inactiveClass;
+      if (modeBtnRain) modeBtnRain.className = inactiveClass;
+
+      if (currentMode === 'day' && modeBtnDay) {
+        modeBtnDay.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white shadow-md scale-[1.02] cursor-pointer';
+      } else if (currentMode === 'stars' && modeBtnStars) {
+        modeBtnStars.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md scale-[1.02] cursor-pointer';
+      } else if (currentMode === 'rain' && modeBtnRain) {
+        modeBtnRain.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-md scale-[1.02] cursor-pointer';
+      }
+    }
+
+    function setActiveMode(mode, showNotification = true) {
+      currentMode = mode;
+      localStorage.setItem('hub_mode', mode);
+      const t = translations[currentLang] || translations.uz;
+
+      if (mode === 'day') {
+        htmlEl.classList.remove('dark');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-sun text-sm text-amber-500';
+        if (moonContainer) moonContainer.style.display = 'none';
+        if (stormClouds) stormClouds.classList.add('opacity-0');
+        if (showNotification) showToast(t.toastModeDay);
+
+      } else if (mode === 'stars') {
+        htmlEl.classList.add('dark');
+        nightWeatherMode = 'stars';
+        if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-sm text-amber-400';
+        if (moonContainer) moonContainer.style.display = 'block';
+        if (stormClouds) stormClouds.classList.add('opacity-0');
+        if (showNotification) showToast(t.toastModeStars);
+
+      } else if (mode === 'rain') {
+        htmlEl.classList.add('dark');
+        nightWeatherMode = 'rain';
+        if (themeIcon) themeIcon.className = 'fa-solid fa-cloud-bolt text-sm text-sky-400';
+        if (moonContainer) moonContainer.style.display = 'none';
+        if (stormClouds) stormClouds.classList.remove('opacity-0');
+        triggerLightning();
+        if (showNotification) showToast(t.toastModeRain);
+      }
+
+      updateWeatherBadgeAndThemeText();
+      updateModeButtons();
+    }
+
+    if (modeBtnDay) modeBtnDay.addEventListener('click', () => setActiveMode('day'));
+    if (modeBtnStars) modeBtnStars.addEventListener('click', () => setActiveMode('stars'));
+    if (modeBtnRain) modeBtnRain.addEventListener('click', () => setActiveMode('rain'));
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const isDark = htmlEl.classList.contains('dark');
+        setActiveMode(isDark ? 'day' : 'stars');
+      });
+    }
+
+    // 3. HAVOLANI NUSXALASH
+    const copyBtn = document.getElementById('copyProfileBtn');
+    const toast = document.getElementById('toast');
+    let toastTimeout;
+
+    function showToast(message) {
+      const toastMsg = document.getElementById('toastMsg');
+      if (message && toastMsg) toastMsg.textContent = message;
+      
+      if (toast) {
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        }, 2500);
+      }
+    }
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const currentUrl = 'https://ulvis.net/wox224';
+        const t = translations[currentLang] || translations.uz;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(currentUrl);
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = currentUrl;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            textArea.remove();
+          }
+          showToast(t.toastCopied);
+        } catch (err) {
+          showToast(currentUrl);
+        }
+      });
+    }
+
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // 4. DINAMIK CANVAS: YULDUZLAR, METEORLAR, YOMG'IR, CHAQMOQ, SAKURA VA QALDIRG'OCH
+    const canvas = document.getElementById('weatherCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let stars = [];
+    let meteors = [];
+    let raindrops = [];
+    let splashes = [];
+    let springPetals = [];
+    let swallows = [];
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+    let lightningBranches = [];
+    let lightningFlashAlpha = 0;
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initAllElements();
+    }
+
+    function initAllElements() {
+      // 1. Qaldirg'ochlar
+      swallows = [
+        { x: -50, y: height * 0.16, size: 14, speedX: 2.6, speedY: 0.3, flap: 0, flapSpeed: 0.28, angle: 0.05 },
+        { x: -180, y: height * 0.24, size: 11, speedX: 2.2, speedY: -0.2, flap: 1.5, flapSpeed: 0.32, angle: -0.04 },
+        { x: -320, y: height * 0.12, size: 13, speedX: 2.8, speedY: 0.4, flap: 3.0, flapSpeed: 0.26, angle: 0.08 }
+      ];
+
+      // 2. Sakura barglari
+      springPetals = [];
+      const petalCount = Math.floor(Math.min(width, 1200) / 16);
+      const petalColors = ['#f472b6', '#fda4af', '#fbcfe8', '#ec4899', '#fff1f2'];
+      for (let i = 0; i < petalCount; i++) {
+        springPetals.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 8 + 5,
+          speedY: Math.random() * 1.2 + 0.8,
+          speedX: Math.random() * 1.5 + 0.8,
+          angle: Math.random() * Math.PI * 2,
+          angleSpeed: (Math.random() - 0.5) * 0.04,
+          swing: Math.random() * Math.PI * 2,
+          swingSpeed: Math.random() * 0.025 + 0.015,
+          color: petalColors[Math.floor(Math.random() * petalColors.length)],
+          opacity: Math.random() * 0.35 + 0.6
+        });
+      }
+
+      // 3. Tungi yorqin yulduzlar
+      stars = [];
+      const starCount = Math.max(220, Math.floor((width * height) / 3200));
+      const starColors = ['#ffffff', '#fef08a', '#93c5fd', '#f472b6', '#c084fc', '#e0e7ff'];
+
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.4 + 0.4,
+          color: starColors[Math.floor(Math.random() * starColors.length)],
+          alpha: Math.random() * 0.85 + 0.15,
+          twinkleSpeed: Math.random() * 0.03 + 0.008,
+          parallaxFactor: Math.random() * 0.7 + 0.3
+        });
+      }
+
+      // 4. Yomg'ir tomchilari
+      raindrops = [];
+      const rainCount = Math.floor(Math.min(width, 1200) / 3.2);
+      for (let i = 0; i < rainCount; i++) {
+        raindrops.push({
+          x: Math.random() * (width + 200) - 100,
+          y: Math.random() * height,
+          length: Math.random() * 26 + 18,
+          speed: Math.random() * 18 + 22,
+          wind: Math.random() * 3.5 + 4.5,
+          alpha: Math.random() * 0.45 + 0.35,
+          thickness: Math.random() * 0.9 + 0.8
+        });
+      }
+
+      meteors = [];
+      splashes = [];
+    }
+
+    function drawSwallow(sw) {
+      ctx.save();
+      ctx.translate(sw.x, sw.y);
+      ctx.rotate(sw.angle);
+      
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, sw.size * 0.8, sw.size * 0.22, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.7, -sw.size * 0.1);
+      ctx.lineTo(-sw.size * 1.6, -sw.size * 0.4);
+      ctx.lineTo(-sw.size * 1.1, 0);
+      ctx.lineTo(-sw.size * 1.6, sw.size * 0.4);
+      ctx.lineTo(-sw.size * 0.7, sw.size * 0.1);
+      ctx.closePath();
+      ctx.fill();
+
+      const wingY = Math.sin(sw.flap) * (sw.size * 0.85);
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.2, 0);
+      ctx.quadraticCurveTo(sw.size * 0.2, -sw.size * 1.2 + wingY, sw.size * 0.9, -sw.size * 1.5 + wingY);
+      ctx.quadraticCurveTo(sw.size * 0.4, -sw.size * 0.5 + wingY * 0.5, 0, 0);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.2, 0);
+      ctx.quadraticCurveTo(sw.size * 0.2, sw.size * 1.2 - wingY, sw.size * 0.9, sw.size * 1.5 - wingY);
+      ctx.quadraticCurveTo(sw.size * 0.4, sw.size * 0.5 - wingY * 0.5, 0, 0);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function createMeteor() {
+      if (currentMode !== 'stars' || !htmlEl.classList.contains('dark')) return;
+      const startX = Math.random() * (width * 0.8) + width * 0.1;
+      const startY = Math.random() * (height * 0.35);
+      const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.25;
+      const length = Math.random() * 120 + 80;
+      const speed = Math.random() * 12 + 15;
+
+      meteors.push({
+        x: startX,
+        y: startY,
+        length: length,
+        speed: speed,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 1,
+        color: '#fef08a'
+      });
+    }
+
+    function meteorLoop() {
+      if (Math.random() < 0.4) {
+        createMeteor();
+      }
+      setTimeout(meteorLoop, Math.random() * 2500 + 1500);
+    }
+
+    function triggerLightning() {
+      lightningFlashAlpha = 0.95;
+      lightningBranches = [];
+
+      const startX = Math.random() * (width * 0.6) + width * 0.2;
+      let currentPoint = { x: startX, y: 0 };
+      const mainPath = [ { ...currentPoint } ];
+
+      while (currentPoint.y < height * 0.75) {
+        currentPoint.y += Math.random() * 25 + 15;
+        currentPoint.x += (Math.random() - 0.5) * 45;
+        mainPath.push({ ...currentPoint });
+
+        if (Math.random() < 0.35) {
+          const branchPath = [ { ...currentPoint } ];
+          let bPt = { ...currentPoint };
+          const bSteps = Math.floor(Math.random() * 4) + 2;
+          for (let b = 0; b < bSteps; b++) {
+            bPt.y += Math.random() * 18 + 10;
+            bPt.x += (Math.random() - 0.35) * 35;
+            branchPath.push({ ...bPt });
+          }
+          lightningBranches.push(branchPath);
+        }
+      }
+      lightningBranches.push(mainPath);
+
+      setTimeout(() => { lightningFlashAlpha = 0.8; }, 60);
+      setTimeout(() => { lightningBranches = []; }, 220);
+    }
+
+    function lightningLoop() {
+      const isDark = htmlEl.classList.contains('dark');
+      if (isDark && nightWeatherMode === 'rain') {
+        triggerLightning();
+      }
+      setTimeout(lightningLoop, Math.random() * 4000 + 3500);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.targetX = (e.clientX - width / 2) * 0.03;
+      mouse.targetY = (e.clientY - height / 2) * 0.03;
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      const isDark = htmlEl.classList.contains('dark');
+
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+      if (!isDark) {
+        // Kunduzgi Bahor: Qaldirg'ochlar
+        for (let sw of swallows) {
+          sw.x += sw.speedX;
+          sw.y += Math.sin(sw.x * 0.012) * 0.7 + sw.speedY * 0.2;
+          sw.flap += sw.flapSpeed;
+          sw.angle = Math.sin(sw.x * 0.012) * 0.12;
+
+          if (sw.x > width + 70) {
+            sw.x = -60 - Math.random() * 120;
+            sw.y = Math.random() * (height * 0.45) + 30;
+          }
+          drawSwallow(sw);
+        }
+
+        // Kunduzgi Bahor: Sakura barglari
+        for (let p of springPetals) {
+          p.y += p.speedY;
+          p.x += Math.sin(p.swing) * 1.5 + p.speedX * 0.4;
+          p.swing += p.swingSpeed;
+          p.angle += p.angleSpeed;
+
+          if (p.y > height + 20 || p.x > width + 40) {
+            p.y = -20;
+            p.x = Math.random() * (width * 0.8) - 100;
+          }
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.size, p.size * 0.5, 0, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.opacity;
+          ctx.fill();
+          ctx.restore();
+        }
+      } else {
+        // Tungi rejim
+        if (nightWeatherMode === 'stars') {
+          // Yulduzlar
+          for (let star of stars) {
+            star.alpha += star.twinkleSpeed;
+            if (star.alpha > 1 || star.alpha < 0.2) {
+              star.twinkleSpeed = -star.twinkleSpeed;
+            }
+
+            const pX = star.x + mouse.x * star.parallaxFactor;
+            const pY = star.y + mouse.y * star.parallaxFactor;
+
+            ctx.beginPath();
+            ctx.arc(pX, pY, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = star.color;
+            ctx.globalAlpha = Math.max(0.1, Math.min(1, star.alpha));
+            ctx.fill();
+          }
+
+          // Meteorlar
+          for (let i = meteors.length - 1; i >= 0; i--) {
+            const m = meteors[i];
+            m.x += m.vx;
+            m.y += m.vy;
+            m.alpha -= 0.02;
+
+            if (m.alpha <= 0) {
+              meteors.splice(i, 1);
+              continue;
+            }
+
+            const tailX = m.x - (m.vx / m.speed) * m.length;
+            const tailY = m.y - (m.vy / m.speed) * m.length;
+
+            const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+            grad.addColorStop(0, 'rgba(254, 240, 138, 0)');
+            grad.addColorStop(1, `rgba(254, 240, 138, ${m.alpha})`);
+
+            ctx.beginPath();
+            ctx.moveTo(tailX, tailY);
+            ctx.lineTo(m.x, m.y);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+        } else if (nightWeatherMode === 'rain') {
+          // Chaqmoq chaqnashi
+          if (lightningFlashAlpha > 0.02) {
+            ctx.fillStyle = `rgba(224, 242, 254, ${lightningFlashAlpha * 0.4})`;
+            ctx.fillRect(0, 0, width, height);
+            lightningFlashAlpha *= 0.82;
+          }
+
+          // Chaqmoq novdalari
+          if (lightningBranches.length > 0) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowColor = 'rgba(186, 230, 253, 0.9)';
+            ctx.shadowBlur = 18;
+            ctx.lineWidth = 2.8;
+
+            for (const branch of lightningBranches) {
+              ctx.beginPath();
+              ctx.moveTo(branch[0].x, branch[0].y);
+              for (let pt = 1; pt < branch.length; pt++) {
+                ctx.lineTo(branch[pt].x, branch[pt].y);
+              }
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+
+          // Yomg'ir tomchilari
+          ctx.save();
+          ctx.strokeStyle = 'rgba(186, 230, 253, 0.65)';
+          ctx.lineWidth = 1.3;
+
+          for (let drop of raindrops) {
+            drop.y += drop.speed;
+            drop.x += drop.wind;
+
+            if (drop.y > height) {
+              if (Math.random() < 0.28) {
+                splashes.push({
+                  x: drop.x,
+                  y: height - Math.random() * 15,
+                  radius: 1,
+                  maxRadius: Math.random() * 6 + 4,
+                  alpha: 0.65
+                });
+              }
+              drop.y = -drop.length - Math.random() * 40;
+              drop.x = Math.random() * (width + 200) - 100;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(drop.x, drop.y);
+            ctx.lineTo(drop.x + drop.wind * 0.9, drop.y + drop.length);
+            ctx.stroke();
+          }
+          ctx.restore();
+
+          // Yomg'ir sachrashi
+          for (let i = splashes.length - 1; i >= 0; i--) {
+            const s = splashes[i];
+            s.radius += 0.45;
+            s.alpha -= 0.04;
+
+            if (s.alpha <= 0 || s.radius >= s.maxRadius) {
+              splashes.splice(i, 1);
+              continue;
+            }
+
+            ctx.beginPath();
+            ctx.ellipse(s.x, s.y, s.radius * 2.2, s.radius * 0.7, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(186, 230, 253, ${s.alpha})`;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    setLanguage(currentLang, false);
+
+    const initialSavedMode = localStorage.getItem('hub_mode') || 'stars';
+    setActiveMode(initialSavedMode, false);
+
+    meteorLoop();
+    lightningLoop();
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
