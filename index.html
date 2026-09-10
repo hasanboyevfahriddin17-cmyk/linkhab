@@ -96,6 +96,16 @@
       filter: blur(14px);
       opacity: 0.9;
     }
+
+    /* Equalizer ovoz to'lqini animatsiyasi */
+    @keyframes soundwave {
+      0%, 100% { height: 4px; }
+      50% { height: 14px; }
+    }
+    .animate-soundwave-1 { animation: soundwave 1s ease-in-out infinite 0.1s; }
+    .animate-soundwave-2 { animation: soundwave 1.2s ease-in-out infinite 0.3s; }
+    .animate-soundwave-3 { animation: soundwave 0.8s ease-in-out infinite 0.2s; }
+    .animate-soundwave-4 { animation: soundwave 1.1s ease-in-out infinite 0.4s; }
   </style>
 </head>
 <body id="pageBody" class="bg-gradient-to-b from-sky-100/90 via-rose-50/40 to-emerald-50/40 text-slate-800 dark:bg-none dark:bg-[#050714] dark:text-zinc-100 min-h-screen flex flex-col items-center justify-between transition-colors duration-700 selection:bg-pink-500 selection:text-white relative overflow-x-hidden">
@@ -304,6 +314,42 @@
           <span id="activeWeatherBadge" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
             <i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun: 3D To‘lin Oy & Meteorlar
           </span>
+        </div>
+      </section>
+
+      <!-- 🌿 TINCHLANTIRUVCHI FON MUSIQASI PLEYERI (RELAXING BACKGROUND MUSIC PLAYER) -->
+      <section id="musicPlayerCard" class="w-full mt-4 rounded-3xl p-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-emerald-500/30 dark:border-emerald-500/40 shadow-xl shadow-emerald-500/10 transition-all duration-300 animate-fade-in">
+        <div class="flex items-center justify-between gap-3">
+          <!-- Chap qism: Play/Pause tugmasi, Equalizer va Nomi -->
+          <div class="flex items-center gap-3 min-w-0">
+            <button type="button" id="musicPlayBtn" onclick="togglePlayMusic()" aria-label="Musiqani tinglash"
+                    class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all flex-shrink-0 cursor-pointer">
+              <i id="musicPlayIcon" class="fa-solid fa-play ml-1"></i>
+            </button>
+            <div class="text-left min-w-0">
+              <div class="flex items-center gap-2">
+                <h3 id="txtMusicTitle" class="text-sm font-extrabold text-slate-900 dark:text-white truncate">Спокойная музыка 🌿</h3>
+                <!-- Animatsion Equalizer Chiziqchalari -->
+                <div id="soundWave" class="hidden flex items-end gap-1 h-3.5 flex-shrink-0">
+                  <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-1 h-3"></span>
+                  <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-2 h-2"></span>
+                  <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-3 h-3.5"></span>
+                  <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-4 h-2"></span>
+                </div>
+              </div>
+              <p id="txtMusicSub" class="text-xs text-slate-500 dark:text-zinc-400 truncate mt-0.5">Восстанавливает силы, успокаивает сердце и нервную систему</p>
+            </div>
+          </div>
+
+          <!-- O'ng qism: Ovoz sozlamasi va mute tugmasi -->
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button type="button" id="btnMuteMusic" onclick="toggleMuteMusic()" title="Ovozni o'chirish/yoqish" 
+                    class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 flex items-center justify-center text-sm hover:bg-slate-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer">
+              <i id="musicVolIcon" class="fa-solid fa-volume-low text-emerald-500"></i>
+            </button>
+            <input type="range" id="musicVolSlider" min="0" max="1" step="0.05" value="0.20" oninput="changeMusicVolume(this.value)" 
+                   class="w-16 sm:w-20 h-1.5 bg-slate-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-emerald-500" title="Ovoz balandligi (20% past ovoz)">
+          </div>
         </div>
       </section>
 
@@ -588,6 +634,10 @@
         floatingMsgTooltip: "Menga xabar yozish",
         msgSuccess: "Xabaringiz tayyorlandi! Ilova ochilmoqda...",
         msgValidation: "Iltimos, ismingiz va xabaringizni yozing!",
+        musicCardTitle: "Yoqimli musiqa 🌿",
+        musicCardSub: "Kuchni tiklaydi, yurak va asab tizimini tinchlantiradi",
+        toastMusicPlaying: "🌿 Yoqimli musiqa yangramoqda (past ovozda)",
+        toastMusicPaused: "⏸️ Musiqa to‘xtatildi",
         linkTelegramChannelTitle: "Telegram Kanalim",
         badgeChannel: "Kanal",
         linkTelegramChannelSub: "@idrok_fikr • Idrok va Fikr, tahlil va IT kontentlar",
@@ -652,6 +702,10 @@
         floatingMsgTooltip: "Написать мне",
         msgSuccess: "Сообщение готово! Приложение открывается...",
         msgValidation: "Пожалуйста, укажите имя и сообщение!",
+        musicCardTitle: "Спокойная музыка 🌿",
+        musicCardSub: "Восстанавливает силы, успокаивает сердце и нервную систему",
+        toastMusicPlaying: "🌿 Спокойная музыка играет (тихий звук)",
+        toastMusicPaused: "⏸️ Музыка приостановлена",
         linkTelegramChannelTitle: 'Мой Telegram Канал',
         badgeChannel: 'Канал',
         linkTelegramChannelSub: '@idrok_fikr • Мысли, анализ и IT-контент',
@@ -716,6 +770,10 @@
         floatingMsgTooltip: "Message me",
         msgSuccess: "Message ready! Opening app...",
         msgValidation: "Please enter your name and message!",
+        musicCardTitle: "Calm & Healing Music 🌿",
+        musicCardSub: "Restores energy, calms the heart and nervous system",
+        toastMusicPlaying: "🌿 Calm music is playing (gentle volume)",
+        toastMusicPaused: "⏸️ Music paused",
         linkTelegramChannelTitle: 'My Telegram Channel',
         badgeChannel: 'Channel',
         linkTelegramChannelSub: '@idrok_fikr • Thoughts, Analysis & Tech',
@@ -780,6 +838,10 @@
         floatingMsgTooltip: "메시지 보내기",
         msgSuccess: "메시지 준비 완료! 앱이 실행됩니다...",
         msgValidation: "성함과 메시지를 입력해 주세요!",
+        musicCardTitle: "마음을 편안하게 해주는 음악 🌿",
+        musicCardSub: "기력을 회복하고 심장과 신경계를 편안하게 안정시켜 줍니다",
+        toastMusicPlaying: "🌿 힐링 음악이 부드럽게 재생 중입니다",
+        toastMusicPaused: "⏸️ 음악 일시정지",
         linkTelegramChannelTitle: '텔레그램 채널',
         badgeChannel: '채널',
         linkTelegramChannelSub: '@idrok_fikr • 생각과 분석, IT 콘텐츠',
@@ -925,6 +987,11 @@
       const bEmail = document.getElementById('btnTxtEmail'); if (bEmail && t.btnSendEmail) bEmail.textContent = t.btnSendEmail;
       const sNote = document.getElementById('txtSecureNote'); if (sNote && t.txtSecureNote) sNote.textContent = t.txtSecureNote;
       const fTip = document.getElementById('floatingMsgTooltip'); if (fTip && t.floatingMsgTooltip) fTip.textContent = t.floatingMsgTooltip;
+
+      // 3.6. Musiqa Pleyeri
+      const mTitle = document.getElementById('txtMusicTitle'); if (mTitle && t.musicCardTitle) mTitle.textContent = t.musicCardTitle;
+      const mSub = document.getElementById('txtMusicSub'); if (mSub && t.musicCardSub) mSub.textContent = t.musicCardSub;
+      const fMTitle = document.getElementById('txtFloatingMusicTitle'); if (fMTitle && t.musicCardTitle) fMTitle.textContent = t.musicCardTitle;
 
       // 4. Dumaloq Ijtimoiy Tarmoq Ikonkalari Tooltip matnlari
       const sc = document.getElementById('socialChannel');
@@ -1602,10 +1669,136 @@
       }
     }
 
+    // --- FON MUSIQASI (CALMING BACKGROUND MUSIC) ---
+    const bgMusic = document.getElementById('bgMusic');
+    let isMusicPlaying = false;
+
+    if (bgMusic) {
+      bgMusic.volume = 0.20; // 20% mayin va past ovozda
+    }
+
+    function updateMusicUI(playing) {
+      isMusicPlaying = playing;
+      const pIcon = document.getElementById('musicPlayIcon');
+      const fIcon = document.getElementById('floatingMusicIcon');
+      const wave = document.getElementById('soundWave');
+      const fWave = document.getElementById('floatingSoundWave');
+
+      if (playing) {
+        if (pIcon) { pIcon.className = 'fa-solid fa-pause'; }
+        if (fIcon) { fIcon.className = 'fa-solid fa-pause'; }
+        if (wave) wave.classList.remove('hidden');
+        if (fWave) fWave.classList.remove('hidden');
+      } else {
+        if (pIcon) { pIcon.className = 'fa-solid fa-play ml-1'; }
+        if (fIcon) { fIcon.className = 'fa-solid fa-play ml-0.5'; }
+        if (wave) wave.classList.add('hidden');
+        if (fWave) fWave.classList.add('hidden');
+      }
+    }
+
+    function togglePlayMusic() {
+      if (!bgMusic) return;
+      const t = translations[currentLang] || translations.uz;
+      if (bgMusic.paused) {
+        bgMusic.volume = parseFloat(document.getElementById('musicVolSlider')?.value || 0.20);
+        bgMusic.play().then(() => {
+          updateMusicUI(true);
+          showToast(t.toastMusicPlaying || "🌿 Musiqa yangramoqda");
+        }).catch(err => {
+          console.warn('Playback error:', err);
+        });
+      } else {
+        bgMusic.pause();
+        updateMusicUI(false);
+        showToast(t.toastMusicPaused || "⏸️ Musiqa to‘xtatildi");
+      }
+    }
+
+    function toggleMuteMusic() {
+      if (!bgMusic) return;
+      bgMusic.muted = !bgMusic.muted;
+      const vIcon = document.getElementById('musicVolIcon');
+      if (vIcon) {
+        if (bgMusic.muted || bgMusic.volume === 0) {
+          vIcon.className = 'fa-solid fa-volume-xmark text-rose-500';
+        } else {
+          vIcon.className = 'fa-solid fa-volume-low text-emerald-500';
+        }
+      }
+    }
+
+    function changeMusicVolume(val) {
+      if (!bgMusic) return;
+      bgMusic.volume = parseFloat(val);
+      bgMusic.muted = false;
+      const vIcon = document.getElementById('musicVolIcon');
+      if (vIcon) {
+        if (bgMusic.volume == 0) {
+          vIcon.className = 'fa-solid fa-volume-xmark text-rose-500';
+        } else if (bgMusic.volume < 0.5) {
+          vIcon.className = 'fa-solid fa-volume-low text-emerald-500';
+        } else {
+          vIcon.className = 'fa-solid fa-volume-high text-emerald-500';
+        }
+      }
+    }
+
+    // Brauzer siyosatiga mos avtomatik yoqish: sahifaga kirganda yoki ilk tegish/bosishda
+    function initAutoPlayMusic() {
+      if (!bgMusic) return;
+      bgMusic.volume = 0.20;
+
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updateMusicUI(true);
+        }).catch(() => {
+          // Brauzer avtomatik ijroni cheklagan bo'lsa, ilk foydalanuvchi harakatida boshlanadi
+          const startOnInteraction = () => {
+            if (bgMusic.paused) {
+              bgMusic.play().then(() => {
+                updateMusicUI(true);
+              }).catch(() => {});
+            }
+            ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+              document.removeEventListener(evt, startOnInteraction);
+            });
+          };
+          ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, startOnInteraction, { once: true, passive: true });
+          });
+        });
+      }
+    }
+
+    initAutoPlayMusic();
+
     meteorLoop();
     lightningLoop();
     requestAnimationFrame(animate);
   </script>
+
+  <!-- Fon musiqasi audio tegi (Erik Satie - Gymnopedie No 1, Tinchlantiruvchi va Yoqimli) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Suzuvchi Kichik Musiqa Tugmasi (Floating Music Pill) -->
+  <div id="floatingMusicPill" class="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-3 py-2 rounded-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-emerald-500/40 shadow-xl shadow-emerald-500/20 transition-all duration-300 hover:scale-105 select-none">
+    <button type="button" onclick="togglePlayMusic()" aria-label="Musiqa" 
+            class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xs shadow-md shadow-emerald-500/30 hover:scale-110 active:scale-95 transition-all cursor-pointer">
+      <i id="floatingMusicIcon" class="fa-solid fa-play ml-0.5"></i>
+    </button>
+    <div class="flex items-center gap-1.5 cursor-pointer pr-1" onclick="togglePlayMusic()">
+      <span class="text-xs font-extrabold text-slate-800 dark:text-zinc-100 whitespace-nowrap" id="txtFloatingMusicTitle">Спокойная музыка 🌿</span>
+      <div id="floatingSoundWave" class="hidden flex items-end gap-0.5 h-3 flex-shrink-0">
+        <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-1 h-2.5"></span>
+        <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-2 h-1.5"></span>
+        <span class="w-0.5 bg-emerald-500 rounded-full animate-soundwave-3 h-3"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- Suzuvchi Xabar Yozish Tugmasi (Floating Quick Contact) -->
   <button id="floatingContactBtn" onclick="scrollToContact()" aria-label="Xabar yozish" 
