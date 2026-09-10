@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHOHJAHON (@woxjahon_224) | Personal Link Hub</title>
+  <title id="pageTitle">SHOHJAHON (@woxjahon_224) | Personal Link Hub</title>
   
   <!-- Meta tags -->
   <meta name="description" content="Shohjahon - IT Sohasi (5 ta yo'nalish) va Koreys Tili talabasi. Farg'ona, Qo'shtepa. Shaxsiy Link Hub & Portfolio sahifasi.">
@@ -31,39 +31,39 @@
           },
           animation: {
             'fade-in': 'fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
-            'spin-slow': 'spin 35s linear infinite',
-            'tree-sway': 'treeSway 9s ease-in-out infinite',
-            'cloud-float-1': 'cloudFloat1 50s linear infinite',
-            'cloud-float-2': 'cloudFloat2 70s linear infinite',
+            'pulse-glow': 'pulseGlow 3.5s ease-in-out infinite',
+            'spin-slow': 'spin 30s linear infinite',
+            'tree-sway': 'treeSway 6s ease-in-out infinite alternate',
+            'cloud-float-1': 'cloudFloat1 35s linear infinite',
+            'cloud-float-2': 'cloudFloat2 48s linear infinite',
             'cloud-float-3': 'cloudFloat3 60s linear infinite',
           },
           keyframes: {
             fadeIn: {
-              '0%': { opacity: '0', transform: 'translateY(16px)' },
+              '0%': { opacity: '0', transform: 'translateY(12px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' },
             },
             pulseGlow: {
-              '0%, 100%': { opacity: '0.85', transform: 'scale(1)' },
-              '50%': { opacity: '1', transform: 'scale(1.03)' },
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.92' },
+              '50%': { transform: 'scale(1.05)', opacity: '1' },
             },
             treeSway: {
-              '0%, 100%': { transform: 'rotate(0deg) skewX(0deg)' },
-              '35%': { transform: 'rotate(0.9deg) skewX(0.4deg)' },
-              '70%': { transform: 'rotate(-0.6deg) skewX(-0.3deg)' },
+              '0%': { transform: 'rotate(0deg) scale(1)' },
+              '50%': { transform: 'rotate(0.8deg) scale(1.008)' },
+              '100%': { transform: 'rotate(-0.8deg) scale(1)' },
             },
             cloudFloat1: {
-              '0%': { transform: 'translateX(-20%)' },
-              '100%': { transform: 'translateX(120%)' },
+              '0%': { transform: 'translateX(-15%)' },
+              '100%': { transform: 'translateX(115%)' },
             },
             cloudFloat2: {
-              '0%': { transform: 'translateX(120%)' },
-              '100%': { transform: 'translateX(-30%)' },
+              '0%': { transform: 'translateX(110%)' },
+              '100%': { transform: 'translateX(-20%)' },
             },
             cloudFloat3: {
-              '0%': { transform: 'translateX(-10%)' },
-              '100%': { transform: 'translateX(130%)' },
-            }
+              '0%': { transform: 'translateX(-25%)' },
+              '100%': { transform: 'translateX(110%)' },
+            },
           }
         }
       }
@@ -71,17 +71,16 @@
   </script>
 
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Maxsus silliq o'tishlar va optimallashtirish */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
-    .delay-600 { animation-delay: 600ms; }
-
-    /* Canvas (Dinamik ob-havo, yulduzlar, meteorlar, yomg'ir & gullar) */
+    input, textarea {
+      user-select: auto;
+    }
+    
+    /* Dinamik ob-havo kanvasi */
     #weatherCanvas {
       position: fixed;
       top: 0;
@@ -92,7 +91,7 @@
       z-index: 1;
     }
 
-    /* Qora va qalin bo'ron bulutlari */
+    /* Qalin bo'ron bulutlari */
     .storm-cloud {
       filter: blur(14px);
       opacity: 0.9;
@@ -223,36 +222,36 @@
       <!-- O'ng tomondagi tugmalar: Ulashish va Kun/Tun -->
       <div class="flex items-center gap-2">
         <!-- Ulashish -->
-        <button id="copyProfileBtn" title="Havolani nusxalash" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all">
+        <button id="copyProfileBtn" title="Havolani nusxalash" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all cursor-pointer">
           <i class="fa-solid fa-share-nodes text-xs text-pink-500"></i>
           <span id="txtShare">Ulashish</span>
         </button>
 
         <!-- Mavzu almashuvi (Kunduz / Kechqurun) -->
-        <button id="themeToggle" title="Mavzuni almashtirish" aria-label="Mavzuni almashtirish" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:scale-105 active:scale-95 transition-all">
+        <button id="themeToggle" title="Mavzuni almashtirish" aria-label="Mavzuni almashtirish" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/90 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
           <i id="themeIcon" class="fa-solid fa-moon text-sm text-amber-400"></i>
           <span id="themeToggleText" class="text-xs font-bold">Tun</span>
         </button>
       </div>
     </header>
 
-    <!-- 2. REJIM TANLASH PANELI (3 TA REJIM: BAHOR, YULDUZ & OY, YOMG'IR) -->
+    <!-- 2. REJIM TANLASH PANELI (3 TA REJIM: BAHOR, YULDUZ & OY, YOMG'IR) (Z-INDEX: 20) -->
     <div class="w-full max-w-md my-2.5 animate-fade-in delay-100 relative z-20">
       <div class="flex items-center justify-between p-1.5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md rounded-2xl border border-slate-200/90 dark:border-zinc-800 shadow-lg gap-1.5">
         <!-- 1. Kunduzgi Bahor -->
-        <button id="modeBtnDay" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+        <button id="modeBtnDay" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
           <i class="fa-solid fa-seedling text-sm text-emerald-500"></i>
           <span id="txtModeDay" class="tracking-tight">Bahor (Kunduz)</span>
         </button>
 
         <!-- 2. Yulduzli Tun & Oy -->
-        <button id="modeBtnStars" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+        <button id="modeBtnStars" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
           <i class="fa-solid fa-moon text-sm text-amber-400"></i>
           <span id="txtModeStars" class="tracking-tight">Yulduz & Oy</span>
         </button>
 
         <!-- 3. Yomg'ir & Bo'ron -->
-        <button id="modeBtnRain" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5">
+        <button id="modeBtnRain" type="button" class="flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer">
           <i class="fa-solid fa-cloud-bolt text-sm text-sky-400"></i>
           <span id="txtModeRain" class="tracking-tight">Yomg‘ir</span>
         </button>
@@ -274,7 +273,7 @@
             class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-[center_18%] ring-4 ring-white dark:ring-zinc-900 shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]"
           />
           <!-- Faollik belgisi -->
-          <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center shadow" title="Faol">
+          <span id="statusDotBadge" class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-zinc-900 rounded-full flex items-center justify-center shadow" title="Faol">
             <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
           </span>
         </div>
@@ -284,10 +283,10 @@
           <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             SHOHJAHON
           </h1>
-          <i class="fa-solid fa-circle-check text-blue-500 text-lg" title="Tasdiqlangan profil"></i>
+          <i id="verifiedBadge" class="fa-solid fa-circle-check text-blue-500 text-lg" title="Tasdiqlangan profil"></i>
         </div>
 
-        <!-- Mutaxassislik / Yo'nalishlar (Foydalanuvchi so'ragan yangilangan matn) -->
+        <!-- Mutaxassislik / Yo'nalishlar (Yangilangan matn) -->
         <p id="txtBioHeadline" class="mt-2 text-sm font-bold text-sky-600 dark:text-sky-400 max-w-xs leading-snug">
           IT sohasi (5 ta yo'nalish) & Koreys tili talabasi
         </p>
@@ -303,7 +302,7 @@
           </span>
           <span class="text-slate-300 dark:text-zinc-700">•</span>
           <span id="activeWeatherBadge" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
-            <i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun & 3D Oy
+            <i class="fa-solid fa-moon text-amber-400"></i> Yulduzli Tun: 3D To‘lin Oy & Meteorlar
           </span>
         </div>
       </section>
@@ -427,37 +426,37 @@
       <!-- Dumaloq Ijtimoiy Tarmoq Ikonkalari -->
       <section class="mt-8 flex items-center justify-center gap-3.5 animate-fade-in delay-500">
         <!-- Telegram Kanal -->
-        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" aria-label="Telegram Kanal" title="Telegram Kanal: @idrok_fikr"
+        <a href="https://t.me/idrok_fikr" target="_blank" rel="noopener noreferrer" id="socialChannel" aria-label="Telegram Kanal" title="Telegram Kanal: @idrok_fikr"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
           <i class="fa-solid fa-bullhorn text-base"></i>
         </a>
 
         <!-- Telegram Shaxsiy -->
-        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" aria-label="Shaxsiy Telegram" title="Shaxsiy Telegram: @wox_224"
+        <a href="https://t.me/wox_224" target="_blank" rel="noopener noreferrer" id="socialTg" aria-label="Shaxsiy Telegram" title="Shaxsiy Telegram: @wox_224"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-sky-500 hover:border-sky-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-200">
           <i class="fa-brands fa-telegram text-lg"></i>
         </a>
         
         <!-- Instagram -->
-        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram: @woxjahon_224"
+        <a href="https://instagram.com/woxjahon_224" target="_blank" rel="noopener noreferrer" id="socialInsta" aria-label="Instagram" title="Instagram: @woxjahon_224"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:border-transparent hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-200">
           <i class="fa-brands fa-instagram text-lg"></i>
         </a>
 
         <!-- Telefon -->
-        <a href="tel:+998955449080" aria-label="Telefon" title="Telefon: +998 95 544 90 80"
+        <a href="tel:+998955449080" id="socialPhone" aria-label="Telefon" title="Telefon: +998 95 544 90 80"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-200">
           <i class="fa-solid fa-phone text-base"></i>
         </a>
 
         <!-- Do'stim Shuhratjon -->
-        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" aria-label="Do'stim Shuhratjon" title="Do'stim: @Nematov_shuhratjon"
+        <a href="https://t.me/Nematov_shuhratjon" target="_blank" rel="noopener noreferrer" id="socialFriend" aria-label="Do'stim Shuhratjon" title="Do'stim: @Nematov_shuhratjon"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-purple-600 hover:border-purple-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-600/30 transition-all duration-200">
           <i class="fa-solid fa-user-group text-base"></i>
         </a>
 
         <!-- GitHub -->
-        <a href="https://github.com/hasanboyevfahriddin17-cmyk/linkhab" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"
+        <a href="https://github.com/hasanboyevfahriddin17-cmyk/linkhab" target="_blank" rel="noopener noreferrer" id="socialGithub" aria-label="GitHub" title="GitHub: @hasanboyevfahriddin17-cmyk"
            class="w-11 h-11 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-slate-200/90 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-white hover:bg-zinc-900 dark:hover:bg-white dark:hover:text-zinc-900 hover:border-zinc-900 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
           <i class="fa-brands fa-github text-lg"></i>
         </a>
@@ -480,11 +479,12 @@
 
   <!-- JAVASCRIPT: BARCHA TILLAR, MAVZULAR VA JONLI ANIMATSIYALAR -->
   <script>
-    // 1. KO'P TILLI TIZIM (MULTI-LANGUAGE: UZ, RU, EN, KO)
+    // 1. TO'LIQ 4 TILLI LUG'AT TIZIMI (UZ, RU, EN, KO)
     const translations = {
       uz: {
         flag: '🇺🇿',
         langName: 'O‘zbek',
+        pageTitle: 'SHOHJAHON (@woxjahon_224) | Shaxsiy Link Hub',
         share: 'Ulashish',
         modeDay: 'Bahor (Kunduz)',
         modeStars: 'Yulduz & Oy',
@@ -492,6 +492,8 @@
         themeNight: 'Tun',
         themeDay: 'Kunduz',
         themeStorm: 'Bo‘ron',
+        verifiedBadge: 'Tasdiqlangan profil',
+        statusDot: 'Faol',
         bioHeadline: "IT sohasi (5 ta yo'nalish) & Koreys tili talabasi",
         bioDescription: "Hozirda zamonaviy IT sohasi bo'yicha 5 ta asosiy yo'nalish hamda koreys tilini chuqur o'rganmoqdaman. Zamonaviy dasturiy yechimlar ustida ishlayapman.",
         location: "Farg‘ona, Qo‘shtepa, Polakor 20-uy",
@@ -519,11 +521,18 @@
         toastModeDay: "☀️ Kunduzgi Bahor: Katta daraxt, quyosh va qaldirg‘ochlar faollashdi!",
         toastModeStars: "🌙 Kechqurun: 3D To‘lin Oy va Yulduzli Tun faollashdi!",
         toastModeRain: "⛈️ Kechqurun: Bo‘ronli Yomg‘ir, bulutlar va chaqmoq faollashdi!",
-        toastLangSwitched: "Til o‘zgartirildi: O‘zbekcha"
+        toastLangSwitched: "Til o‘zgartirildi: O‘zbekcha",
+        socialChannelTip: "Telegram Kanal: @idrok_fikr",
+        socialTgTip: "Shaxsiy Telegram: @wox_224",
+        socialInstaTip: "Instagram: @woxjahon_224",
+        socialPhoneTip: "Telefon: +998 95 544 90 80",
+        socialFriendTip: "Do‘stim: @Nematov_shuhratjon",
+        socialGithubTip: "GitHub: @hasanboyevfahriddin17-cmyk"
       },
       ru: {
         flag: '🇷🇺',
         langName: 'Русский',
+        pageTitle: 'ШОХЖАХОН (@woxjahon_224) | Персональный Link Hub',
         share: 'Поделиться',
         modeDay: 'Весна (День)',
         modeStars: 'Звезды и Луна',
@@ -531,6 +540,8 @@
         themeNight: 'Ночь',
         themeDay: 'День',
         themeStorm: 'Шторм',
+        verifiedBadge: 'Подтвержденный профиль',
+        statusDot: 'В сети',
         bioHeadline: 'Студент IT (5 направлений) и корейского языка',
         bioDescription: 'Изучаю современные информационные технологии по 5 ключевым направлениям и корейский язык. Работаю над перспективными проектами.',
         location: 'Фергана, Куштепа, Полакор 20-дом',
@@ -549,7 +560,7 @@
         linkPortfolioTitle: 'IT-Сфера и Портфолио',
         linkPortfolioSub: 'Мои проекты и практика по 5 направлениям IT',
         linkFriendTitle: 'Близкий друг (@Nematov_shuhratjon)',
-        badgeFriend: 'Запасной',
+        badgeFriend: 'Резерв',
         linkFriendSub: 'Если я недоступен, обратитесь к другу',
         linkContactTitle: 'Связаться / Контакты',
         linkContactSub: 'Прямая связь через Telegram (@wox_224)',
@@ -558,11 +569,18 @@
         toastModeDay: '☀️ Дневной режим: Весна, цветущее дерево и ласточки!',
         toastModeStars: '🌙 Звездная ночь: 3D Луна и яркие звезды!',
         toastModeRain: '⛈️ Грозовой режим: Ливень, тучи и молнии!',
-        toastLangSwitched: 'Язык изменен: Русский'
+        toastLangSwitched: 'Язык изменен: Русский',
+        socialChannelTip: 'Telegram-канал: @idrok_fikr',
+        socialTgTip: 'Личный Telegram: @wox_224',
+        socialInstaTip: 'Instagram: @woxjahon_224',
+        socialPhoneTip: 'Телефон: +998 95 544 90 80',
+        socialFriendTip: 'Друг: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
       },
       en: {
         flag: '🇬🇧',
         langName: 'English',
+        pageTitle: 'SHOHJAHON (@woxjahon_224) | Personal Link Hub',
         share: 'Share',
         modeDay: 'Spring (Day)',
         modeStars: 'Stars & Moon',
@@ -570,6 +588,8 @@
         themeNight: 'Night',
         themeDay: 'Day',
         themeStorm: 'Storm',
+        verifiedBadge: 'Verified Profile',
+        statusDot: 'Online',
         bioHeadline: 'IT Student (5 Fields) & Korean Learner',
         bioDescription: 'Mastering 5 fundamental disciplines of computer science & learning Korean. Actively developing modern software projects.',
         location: 'Fergana, Kushtepa, Polakor 20',
@@ -597,11 +617,18 @@
         toastModeDay: '☀️ Spring Day: Blossom tree, warm sun & swallows activated!',
         toastModeStars: '🌙 Starry Night: 3D Moon and shooting stars activated!',
         toastModeRain: '⛈️ Stormy Night: Heavy rain, dark clouds and lightning activated!',
-        toastLangSwitched: 'Language switched: English'
+        toastLangSwitched: 'Language switched: English',
+        socialChannelTip: 'Telegram Channel: @idrok_fikr',
+        socialTgTip: 'Personal Telegram: @wox_224',
+        socialInstaTip: 'Instagram: @woxjahon_224',
+        socialPhoneTip: 'Phone: +998 95 544 90 80',
+        socialFriendTip: 'Friend: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
       },
       ko: {
         flag: '🇰🇷',
         langName: '한국어',
+        pageTitle: '쇼흐자혼 (@woxjahon_224) | 퍼스널 링크 허브',
         share: '공유하기',
         modeDay: '봄 (낮)',
         modeStars: '별과 달 (밤)',
@@ -609,6 +636,8 @@
         themeNight: '야간',
         themeDay: '주간',
         themeStorm: '폭풍',
+        verifiedBadge: '인증된 프로필',
+        statusDot: '온라인',
         bioHeadline: 'IT (5개 분야) 및 한국어 학습자',
         bioDescription: '최신 IT 5개 주요 기술과 한국어를 열정적으로 공부하고 있습니다. 글로벌 소프트웨어 솔루션을 개발 중입니다.',
         location: '페르가나 주, 쿠슈테파 구, 폴라코르 20번지',
@@ -636,59 +665,134 @@
         toastModeDay: '☀️ 봄 모드: 벚꽃 나무와 제비가 활성화되었습니다!',
         toastModeStars: '🌙 별밤 모드: 3D 달과 유성우가 활성화되었습니다!',
         toastModeRain: '⛈️ 비 모드: 폭풍우와 먹구름, 번개가 활성화되었습니다!',
-        toastLangSwitched: '언어가 한국어로 변경되었습니다'
+        toastLangSwitched: '언어가 한국어로 변경되었습니다',
+        socialChannelTip: '텔레그램 채널: @idrok_fikr',
+        socialTgTip: '개인 텔레그램: @wox_224',
+        socialInstaTip: '인스타그램: @woxjahon_224',
+        socialPhoneTip: '전화: +998 95 544 90 80',
+        socialFriendTip: '친구: @Nematov_shuhratjon',
+        socialGithubTip: 'GitHub: @hasanboyevfahriddin17-cmyk'
       }
     };
 
-    let currentLang = localStorage.getItem('hub_lang') || 'uz';
+    // Aqlli til aniqlash funktsiyasi
+    function getInitialLanguage() {
+      const saved = localStorage.getItem('hub_lang');
+      if (saved && translations[saved]) return saved;
+
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pLang = urlParams.get('lang');
+        if (pLang && translations[pLang]) return pLang;
+      } catch (e) {}
+
+      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (navLang.startsWith('ru')) return 'ru';
+      if (navLang.startsWith('ko')) return 'ko';
+      if (navLang.startsWith('en')) return 'en';
+      if (navLang.startsWith('uz')) return 'uz';
+
+      return 'uz';
+    }
+
+    let currentLang = getInitialLanguage();
 
     function setLanguage(lang, showToastNotification = true) {
       if (!translations[lang]) lang = 'uz';
       currentLang = lang;
       localStorage.setItem('hub_lang', lang);
+      document.documentElement.lang = lang;
       const t = translations[lang];
 
-      // 1. Yuqori qism
-      document.getElementById('currentFlag').textContent = t.flag;
-      document.getElementById('currentLangText').textContent = t.langName;
-      document.getElementById('txtShare').textContent = t.share;
-      document.getElementById('txtModeDay').textContent = t.modeDay;
-      document.getElementById('txtModeStars').textContent = t.modeStars;
-      document.getElementById('txtModeRain').textContent = t.modeRain;
+      // Brauzer sarlavhasi
+      document.title = t.pageTitle;
+
+      // 1. Yuqori panel elementlari
+      const curFlag = document.getElementById('currentFlag');
+      if (curFlag) curFlag.textContent = t.flag;
+      const curLangTxt = document.getElementById('currentLangText');
+      if (curLangTxt) curLangTxt.textContent = t.langName;
+      const txtShare = document.getElementById('txtShare');
+      if (txtShare) txtShare.textContent = t.share;
+      const txtModeDay = document.getElementById('txtModeDay');
+      if (txtModeDay) txtModeDay.textContent = t.modeDay;
+      const txtModeStars = document.getElementById('txtModeStars');
+      if (txtModeStars) txtModeStars.textContent = t.modeStars;
+      const txtModeRain = document.getElementById('txtModeRain');
+      if (txtModeRain) txtModeRain.textContent = t.modeRain;
 
       // 2. Profil va Bio
-      document.getElementById('txtBioHeadline').textContent = t.bioHeadline;
-      document.getElementById('txtBioDescription').textContent = t.bioDescription;
-      document.getElementById('txtLocation').textContent = t.location;
+      const verBadge = document.getElementById('verifiedBadge');
+      if (verBadge) verBadge.title = t.verifiedBadge;
+      const statusDot = document.getElementById('statusDotBadge');
+      if (statusDot) statusDot.title = t.statusDot;
 
-      // 3. Barcha Havolalar (Links)
-      document.getElementById('txtLinkTelegramChannelTitle').textContent = t.linkTelegramChannelTitle;
-      document.getElementById('txtBadgeChannel').textContent = t.badgeChannel;
-      document.getElementById('txtLinkTelegramChannelSub').textContent = t.linkTelegramChannelSub;
+      const txtBioHead = document.getElementById('txtBioHeadline');
+      if (txtBioHead) txtBioHead.textContent = t.bioHeadline;
+      const txtBioDesc = document.getElementById('txtBioDescription');
+      if (txtBioDesc) txtBioDesc.textContent = t.bioDescription;
+      const txtLoc = document.getElementById('txtLocation');
+      if (txtLoc) txtLoc.textContent = t.location;
 
-      document.getElementById('txtLinkTelegramPersonalTitle').textContent = t.linkTelegramPersonalTitle;
-      document.getElementById('txtLinkTelegramPersonalSub').textContent = t.linkTelegramPersonalSub;
+      // 3. Barcha Asosiy Havolalar
+      const t1 = document.getElementById('txtLinkTelegramChannelTitle');
+      if (t1) t1.textContent = t.linkTelegramChannelTitle;
+      const b1 = document.getElementById('txtBadgeChannel');
+      if (b1) b1.textContent = t.badgeChannel;
+      const s1 = document.getElementById('txtLinkTelegramChannelSub');
+      if (s1) s1.textContent = t.linkTelegramChannelSub;
 
-      document.getElementById('txtLinkInstagramTitle').textContent = t.linkInstagramTitle;
-      document.getElementById('txtLinkInstagramSub').textContent = t.linkInstagramSub;
+      const t2 = document.getElementById('txtLinkTelegramPersonalTitle');
+      if (t2) t2.textContent = t.linkTelegramPersonalTitle;
+      const s2 = document.getElementById('txtLinkTelegramPersonalSub');
+      if (s2) s2.textContent = t.linkTelegramPersonalSub;
 
-      document.getElementById('txtLinkPhoneTitle').textContent = t.linkPhoneTitle;
-      document.getElementById('txtLinkPhoneSub').textContent = t.linkPhoneSub;
+      const t3 = document.getElementById('txtLinkInstagramTitle');
+      if (t3) t3.textContent = t.linkInstagramTitle;
+      const s3 = document.getElementById('txtLinkInstagramSub');
+      if (s3) s3.textContent = t.linkInstagramSub;
 
-      document.getElementById('txtLinkPortfolioTitle').textContent = t.linkPortfolioTitle;
-      document.getElementById('txtLinkPortfolioSub').textContent = t.linkPortfolioSub;
+      const t4 = document.getElementById('txtLinkPhoneTitle');
+      if (t4) t4.textContent = t.linkPhoneTitle;
+      const s4 = document.getElementById('txtLinkPhoneSub');
+      if (s4) s4.textContent = t.linkPhoneSub;
 
-      document.getElementById('txtLinkFriendTitle').textContent = t.linkFriendTitle;
-      document.getElementById('txtBadgeFriend').textContent = t.badgeFriend;
-      document.getElementById('txtLinkFriendSub').textContent = t.linkFriendSub;
+      const t5 = document.getElementById('txtLinkPortfolioTitle');
+      if (t5) t5.textContent = t.linkPortfolioTitle;
+      const s5 = document.getElementById('txtLinkPortfolioSub');
+      if (s5) s5.textContent = t.linkPortfolioSub;
 
-      document.getElementById('txtLinkContactTitle').textContent = t.linkContactTitle;
-      document.getElementById('txtLinkContactSub').textContent = t.linkContactSub;
+      const t6 = document.getElementById('txtLinkFriendTitle');
+      if (t6) t6.textContent = t.linkFriendTitle;
+      const b6 = document.getElementById('txtBadgeFriend');
+      if (b6) b6.textContent = t.badgeFriend;
+      const s6 = document.getElementById('txtLinkFriendSub');
+      if (s6) s6.textContent = t.linkFriendSub;
 
-      // 4. Footer
-      document.getElementById('txtFooterRights').textContent = t.footerRights;
+      const t7 = document.getElementById('txtLinkContactTitle');
+      if (t7) t7.textContent = t.linkContactTitle;
+      const s7 = document.getElementById('txtLinkContactSub');
+      if (s7) s7.textContent = t.linkContactSub;
 
-      // 5. Checkmark ikonkalari yangilanishi
+      // 4. Dumaloq Ijtimoiy Tarmoq Ikonkalari Tooltip matnlari
+      const sc = document.getElementById('socialChannel');
+      if (sc) { sc.title = t.socialChannelTip; sc.setAttribute('aria-label', t.socialChannelTip); }
+      const st = document.getElementById('socialTg');
+      if (st) { st.title = t.socialTgTip; st.setAttribute('aria-label', t.socialTgTip); }
+      const si = document.getElementById('socialInsta');
+      if (si) { si.title = t.socialInstaTip; si.setAttribute('aria-label', t.socialInstaTip); }
+      const sp = document.getElementById('socialPhone');
+      if (sp) { sp.title = t.socialPhoneTip; sp.setAttribute('aria-label', t.socialPhoneTip); }
+      const sf = document.getElementById('socialFriend');
+      if (sf) { sf.title = t.socialFriendTip; sf.setAttribute('aria-label', t.socialFriendTip); }
+      const sg = document.getElementById('socialGithub');
+      if (sg) { sg.title = t.socialGithubTip; sg.setAttribute('aria-label', t.socialGithubTip); }
+
+      // 5. Footer
+      const fr = document.getElementById('txtFooterRights');
+      if (fr) fr.textContent = t.footerRights;
+
+      // 6. Checkmark indikatorlari
       ['uz', 'ru', 'en', 'ko'].forEach(l => {
         const checkEl = document.getElementById('check-' + l);
         if (checkEl) {
@@ -697,10 +801,10 @@
         }
       });
 
-      // 6. Mavzu va ob-havo ko'rsatkichi matnlari
+      // 7. Ob-havo ko'rsatkichi va rejim matnlari
       updateWeatherBadgeAndThemeText();
 
-      // 7. Menyu yopilishi
+      // 8. Menyu yopilishi
       const langMenu = document.getElementById('langMenu');
       const chevron = document.getElementById('langChevron');
       if (langMenu) langMenu.classList.add('hidden');
@@ -711,7 +815,7 @@
       }
     }
 
-    // Til tanlash tugmalariga to'g'ridan-to'g'ri tinglovchi (Event Listener) ulash
+    // Til tanlash tugmalariga to'g'ridan-to'g'ri tinglovchi ulash
     document.querySelectorAll('.lang-option').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -724,21 +828,23 @@
     const langMenu = document.getElementById('langMenu');
     const langChevron = document.getElementById('langChevron');
 
-    langToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isHidden = langMenu.classList.contains('hidden');
-      if (isHidden) {
-        langMenu.classList.remove('hidden');
-        langChevron.classList.add('rotate-180');
-      } else {
-        langMenu.classList.add('hidden');
-        langChevron.classList.remove('rotate-180');
-      }
-    });
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = langMenu.classList.contains('hidden');
+        if (isHidden) {
+          langMenu.classList.remove('hidden');
+          langChevron.classList.add('rotate-180');
+        } else {
+          langMenu.classList.add('hidden');
+          langChevron.classList.remove('rotate-180');
+        }
+      });
+    }
 
     document.addEventListener('click', () => {
-      langMenu.classList.add('hidden');
-      langChevron.classList.remove('rotate-180');
+      if (langMenu) langMenu.classList.add('hidden');
+      if (langChevron) langChevron.classList.remove('rotate-180');
     });
 
     // 2. MAVZULAR VA REJIMLARNI BOSHQARISH
@@ -779,18 +885,18 @@
     }
 
     function updateModeButtons() {
-      const inactiveClass = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-transparent';
+      const inactiveClass = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white bg-transparent cursor-pointer';
       
       if (modeBtnDay) modeBtnDay.className = inactiveClass;
       if (modeBtnStars) modeBtnStars.className = inactiveClass;
       if (modeBtnRain) modeBtnRain.className = inactiveClass;
 
       if (currentMode === 'day' && modeBtnDay) {
-        modeBtnDay.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white shadow-md scale-[1.02]';
+        modeBtnDay.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-rose-500 text-white shadow-md scale-[1.02] cursor-pointer';
       } else if (currentMode === 'stars' && modeBtnStars) {
-        modeBtnStars.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md scale-[1.02]';
+        modeBtnStars.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md scale-[1.02] cursor-pointer';
       } else if (currentMode === 'rain' && modeBtnRain) {
-        modeBtnRain.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-md scale-[1.02]';
+        modeBtnRain.className = 'flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-md scale-[1.02] cursor-pointer';
       }
     }
 
@@ -801,25 +907,25 @@
 
       if (mode === 'day') {
         htmlEl.classList.remove('dark');
-        themeIcon.className = 'fa-solid fa-sun text-sm text-amber-500';
-        moonContainer.style.display = 'none';
-        stormClouds.classList.add('opacity-0');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-sun text-sm text-amber-500';
+        if (moonContainer) moonContainer.style.display = 'none';
+        if (stormClouds) stormClouds.classList.add('opacity-0');
         if (showNotification) showToast(t.toastModeDay);
 
       } else if (mode === 'stars') {
         htmlEl.classList.add('dark');
         nightWeatherMode = 'stars';
-        themeIcon.className = 'fa-solid fa-moon text-sm text-amber-400';
-        moonContainer.style.display = 'block';
-        stormClouds.classList.add('opacity-0');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-sm text-amber-400';
+        if (moonContainer) moonContainer.style.display = 'block';
+        if (stormClouds) stormClouds.classList.add('opacity-0');
         if (showNotification) showToast(t.toastModeStars);
 
       } else if (mode === 'rain') {
         htmlEl.classList.add('dark');
         nightWeatherMode = 'rain';
-        themeIcon.className = 'fa-solid fa-cloud-bolt text-sm text-sky-400';
-        moonContainer.style.display = 'none';
-        stormClouds.classList.remove('opacity-0');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-cloud-bolt text-sm text-sky-400';
+        if (moonContainer) moonContainer.style.display = 'none';
+        if (stormClouds) stormClouds.classList.remove('opacity-0');
         triggerLightning();
         if (showNotification) showToast(t.toastModeRain);
       }
@@ -832,10 +938,12 @@
     if (modeBtnStars) modeBtnStars.addEventListener('click', () => setActiveMode('stars'));
     if (modeBtnRain) modeBtnRain.addEventListener('click', () => setActiveMode('rain'));
 
-    themeToggleBtn.addEventListener('click', () => {
-      const isDark = htmlEl.classList.contains('dark');
-      setActiveMode(isDark ? 'day' : 'stars');
-    });
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const isDark = htmlEl.classList.contains('dark');
+        setActiveMode(isDark ? 'day' : 'stars');
+      });
+    }
 
     // 3. HAVOLANI NUSXALASH
     const copyBtn = document.getElementById('copyProfileBtn');
@@ -844,42 +952,47 @@
 
     function showToast(message) {
       const toastMsg = document.getElementById('toastMsg');
-      if (message) toastMsg.textContent = message;
+      if (message && toastMsg) toastMsg.textContent = message;
       
-      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
-      toast.classList.add('opacity-100', 'translate-y-0');
+      if (toast) {
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+        toast.classList.add('opacity-100', 'translate-y-0');
 
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
-      }, 2500);
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        }, 2500);
+      }
     }
 
-    copyBtn.addEventListener('click', async () => {
-      const currentUrl = 'https://ulvis.net/wox224';
-      const t = translations[currentLang] || translations.uz;
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(currentUrl);
-        } else {
-          const textArea = document.createElement('textarea');
-          textArea.value = currentUrl;
-          textArea.style.position = 'fixed';
-          textArea.style.left = '-999999px';
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
-          document.execCommand('copy');
-          textArea.remove();
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const currentUrl = 'https://ulvis.net/wox224';
+        const t = translations[currentLang] || translations.uz;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(currentUrl);
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = currentUrl;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            textArea.remove();
+          }
+          showToast(t.toastCopied);
+        } catch (err) {
+          showToast(currentUrl);
         }
-        showToast(t.toastCopied);
-      } catch (err) {
-        showToast(currentUrl);
-      }
-    });
+      });
+    }
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     // 4. DINAMIK CANVAS: YULDUZLAR, METEORLAR, YOMG'IR, CHAQMOQ, SAKURA VA QALDIRG'OCH
     const canvas = document.getElementById('weatherCanvas');
@@ -938,179 +1051,124 @@
       const starColors = ['#ffffff', '#fef08a', '#93c5fd', '#f472b6', '#c084fc', '#e0e7ff'];
 
       for (let i = 0; i < starCount; i++) {
-        const isSparkle = Math.random() < 0.18;
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          baseRadius: isSparkle ? Math.random() * 3.2 + 2.2 : Math.random() * 1.8 + 0.6,
-          isSparkle: isSparkle,
+          radius: Math.random() * 1.4 + 0.4,
           color: starColors[Math.floor(Math.random() * starColors.length)],
-          alpha: Math.random() * 0.7 + 0.3,
-          twinkleSpeed: Math.random() * 0.04 + 0.01,
-          phase: Math.random() * Math.PI * 2,
-          depth: Math.random() * 0.6 + 0.4
+          alpha: Math.random() * 0.85 + 0.15,
+          twinkleSpeed: Math.random() * 0.03 + 0.008,
+          parallaxFactor: Math.random() * 0.7 + 0.3
         });
       }
 
-      // 4. Kuchli yomg'ir tomchilari
+      // 4. Yomg'ir tomchilari
       raindrops = [];
-      const rainCount = Math.max(160, Math.floor(width / 6));
+      const rainCount = Math.floor(Math.min(width, 1200) / 3.2);
       for (let i = 0; i < rainCount; i++) {
         raindrops.push({
           x: Math.random() * (width + 200) - 100,
           y: Math.random() * height,
           length: Math.random() * 26 + 18,
-          speedY: Math.random() * 14 + 18,
-          speedX: -Math.random() * 3.5 - 2.0,
-          opacity: Math.random() * 0.5 + 0.4,
-          thickness: Math.random() * 1.6 + 0.9
+          speed: Math.random() * 18 + 22,
+          wind: Math.random() * 3.5 + 4.5,
+          alpha: Math.random() * 0.45 + 0.35,
+          thickness: Math.random() * 0.9 + 0.8
         });
       }
+
+      meteors = [];
+      splashes = [];
     }
 
-    function drawSwallow(sObj) {
+    function drawSwallow(sw) {
       ctx.save();
-      ctx.translate(sObj.x, sObj.y);
-      ctx.rotate(sObj.angle);
-      const s = sObj.size;
-      const wingFlap = Math.sin(sObj.flap) * 0.55;
-
-      ctx.beginPath();
-      ctx.fillStyle = '#0f172a';
-      ctx.moveTo(s * 0.9, 0);
-      ctx.quadraticCurveTo(s * 0.4, -s * 0.22, 0, -s * 0.18);
-      ctx.quadraticCurveTo(-s * 0.6, -s * 0.18, -s * 1.0, 0);
-      ctx.lineTo(-s * 1.7, -s * 0.4);
-      ctx.lineTo(-s * 1.15, 0);
-      ctx.lineTo(-s * 1.7, s * 0.4);
-      ctx.lineTo(-s * 1.0, 0);
-      ctx.quadraticCurveTo(-s * 0.5, s * 0.25, 0, s * 0.22);
-      ctx.quadraticCurveTo(s * 0.4, s * 0.2, s * 0.9, 0);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.fillStyle = '#f8fafc';
-      ctx.ellipse(s * 0.15, s * 0.05, s * 0.35, s * 0.13, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.save();
-      ctx.translate(-s * 0.1, -s * 0.08);
-      ctx.rotate(-0.3 + wingFlap);
-      ctx.beginPath();
+      ctx.translate(sw.x, sw.y);
+      ctx.rotate(sw.angle);
+      
       ctx.fillStyle = '#1e293b';
-      ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(s * 0.45, -s * 0.9, s * 0.25, -s * 1.7);
-      ctx.quadraticCurveTo(-s * 0.35, -s * 0.9, -s * 0.45, 0);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      ctx.save();
-      ctx.translate(-s * 0.1, s * 0.08);
-      ctx.rotate(0.3 - wingFlap);
       ctx.beginPath();
-      ctx.fillStyle = '#0f172a';
-      ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(s * 0.35, s * 0.75, s * 0.2, s * 1.4);
-      ctx.quadraticCurveTo(-s * 0.3, s * 0.75, -s * 0.4, 0);
+      ctx.ellipse(0, 0, sw.size * 0.8, sw.size * 0.22, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.7, -sw.size * 0.1);
+      ctx.lineTo(-sw.size * 1.6, -sw.size * 0.4);
+      ctx.lineTo(-sw.size * 1.1, 0);
+      ctx.lineTo(-sw.size * 1.6, sw.size * 0.4);
+      ctx.lineTo(-sw.size * 0.7, sw.size * 0.1);
       ctx.closePath();
       ctx.fill();
-      ctx.restore();
+
+      const wingY = Math.sin(sw.flap) * (sw.size * 0.85);
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.2, 0);
+      ctx.quadraticCurveTo(sw.size * 0.2, -sw.size * 1.2 + wingY, sw.size * 0.9, -sw.size * 1.5 + wingY);
+      ctx.quadraticCurveTo(sw.size * 0.4, -sw.size * 0.5 + wingY * 0.5, 0, 0);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-sw.size * 0.2, 0);
+      ctx.quadraticCurveTo(sw.size * 0.2, sw.size * 1.2 - wingY, sw.size * 0.9, sw.size * 1.5 - wingY);
+      ctx.quadraticCurveTo(sw.size * 0.4, sw.size * 0.5 - wingY * 0.5, 0, 0);
+      ctx.fill();
 
       ctx.restore();
     }
 
-    function drawSpringPetal(petal) {
-      ctx.save();
-      ctx.translate(petal.x, petal.y);
-      ctx.rotate(petal.angle);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-petal.size / 2, -petal.size / 2, -petal.size / 2, petal.size / 2, 0, petal.size);
-      ctx.bezierCurveTo(petal.size / 2, petal.size / 2, petal.size / 2, -petal.size / 2, 0, 0);
-      ctx.fillStyle = petal.color;
-      ctx.globalAlpha = petal.opacity;
-      ctx.fill();
-      ctx.restore();
-    }
+    function createMeteor() {
+      if (currentMode !== 'stars' || !htmlEl.classList.contains('dark')) return;
+      const startX = Math.random() * (width * 0.8) + width * 0.1;
+      const startY = Math.random() * (height * 0.35);
+      const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.25;
+      const length = Math.random() * 120 + 80;
+      const speed = Math.random() * 12 + 15;
 
-    function drawSparkle(cx, cy, outerRadius, innerRadius, alpha, color) {
-      let rot = Math.PI / 2 * 3;
-      let x = cx;
-      let y = cy;
-      let step = Math.PI / 4;
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - outerRadius);
-      for (let i = 0; i < 4; i++) {
-        x = cx + Math.cos(rot) * outerRadius;
-        y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-      }
-      ctx.lineTo(cx, cy - outerRadius);
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.globalAlpha = alpha;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = color;
-      ctx.fill();
-      ctx.restore();
-    }
-
-    function spawnMeteor() {
       meteors.push({
-        x: Math.random() * width * 1.2 - width * 0.1,
-        y: Math.random() * (height * 0.4),
-        length: Math.random() * 110 + 70,
-        speed: Math.random() * 8 + 10,
-        size: Math.random() * 2.2 + 1.2,
-        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
-        opacity: 1,
-        fade: Math.random() * 0.02 + 0.015,
+        x: startX,
+        y: startY,
+        length: length,
+        speed: speed,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        alpha: 1,
+        color: '#fef08a'
       });
     }
 
     function meteorLoop() {
-      const isDark = htmlEl.classList.contains('dark');
-      if (isDark && nightWeatherMode === 'stars' && Math.random() < 0.55) {
-        spawnMeteor();
-      }
-      setTimeout(meteorLoop, Math.random() * 2800 + 1600);
-    }
-
-    function createLightningBranch(x1, y1, x2, y2, depth) {
-      if (depth === 0) {
-        lightningBranches.push({ x1, y1, x2, y2 });
-        return;
-      }
-      const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * 45;
-      const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * 25;
-      createLightningBranch(x1, y1, midX, midY, depth - 1);
-      createLightningBranch(midX, midY, x2, y2, depth - 1);
-
       if (Math.random() < 0.4) {
-        const branchX = midX + (Math.random() - 0.5) * 70;
-        const branchY = midY + Math.random() * 60;
-        createLightningBranch(midX, midY, branchX, branchY, depth - 1);
+        createMeteor();
       }
+      setTimeout(meteorLoop, Math.random() * 2500 + 1500);
     }
 
     function triggerLightning() {
-      lightningBranches = [];
-      const startX = Math.random() * (width * 0.7) + (width * 0.15);
-      const startY = 0;
-      const endX = startX + (Math.random() - 0.5) * 220;
-      const endY = Math.random() * (height * 0.5) + (height * 0.35);
-
-      createLightningBranch(startX, startY, endX, endY, 5);
       lightningFlashAlpha = 0.95;
+      lightningBranches = [];
+
+      const startX = Math.random() * (width * 0.6) + width * 0.2;
+      let currentPoint = { x: startX, y: 0 };
+      const mainPath = [ { ...currentPoint } ];
+
+      while (currentPoint.y < height * 0.75) {
+        currentPoint.y += Math.random() * 25 + 15;
+        currentPoint.x += (Math.random() - 0.5) * 45;
+        mainPath.push({ ...currentPoint });
+
+        if (Math.random() < 0.35) {
+          const branchPath = [ { ...currentPoint } ];
+          let bPt = { ...currentPoint };
+          const bSteps = Math.floor(Math.random() * 4) + 2;
+          for (let b = 0; b < bSteps; b++) {
+            bPt.y += Math.random() * 18 + 10;
+            bPt.x += (Math.random() - 0.35) * 35;
+            branchPath.push({ ...bPt });
+          }
+          lightningBranches.push(branchPath);
+        }
+      }
+      lightningBranches.push(mainPath);
 
       setTimeout(() => { lightningFlashAlpha = 0.8; }, 60);
       setTimeout(() => { lightningBranches = []; }, 220);
@@ -1137,6 +1195,7 @@
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
       if (!isDark) {
+        // Kunduzgi Bahor: Qaldirg'ochlar
         for (let sw of swallows) {
           sw.x += sw.speedX;
           sw.y += Math.sin(sw.x * 0.012) * 0.7 + sw.speedY * 0.2;
@@ -1150,135 +1209,132 @@
           drawSwallow(sw);
         }
 
-        for (let petal of springPetals) {
-          petal.swing += petal.swingSpeed;
-          petal.angle += petal.angleSpeed;
-          petal.x += Math.sin(petal.swing) * 0.8 + petal.speedX;
-          petal.y += petal.speedY;
+        // Kunduzgi Bahor: Sakura barglari
+        for (let p of springPetals) {
+          p.y += p.speedY;
+          p.x += Math.sin(p.swing) * 1.5 + p.speedX * 0.4;
+          p.swing += p.swingSpeed;
+          p.angle += p.angleSpeed;
 
-          if (petal.y > height + 20 || petal.x > width + 20) {
-            petal.y = Math.random() * (height * 0.7) + 10;
-            petal.x = Math.random() * (width * 0.35) - 30;
+          if (p.y > height + 20 || p.x > width + 40) {
+            p.y = -20;
+            p.x = Math.random() * (width * 0.8) - 100;
           }
-          drawSpringPetal(petal);
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.size, p.size * 0.5, 0, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.opacity;
+          ctx.fill();
+          ctx.restore();
         }
-
       } else {
+        // Tungi rejim
         if (nightWeatherMode === 'stars') {
+          // Yulduzlar
           for (let star of stars) {
-            star.phase += star.twinkleSpeed;
-            const currentAlpha = Math.max(0.2, star.alpha + Math.sin(star.phase) * 0.45);
-            const renderX = star.x + mouse.x * star.depth;
-            const renderY = star.y + mouse.y * star.depth;
-
-            if (star.isSparkle) {
-              drawSparkle(renderX, renderY, star.baseRadius, star.baseRadius * 0.3, currentAlpha, star.color);
-            } else {
-              ctx.beginPath();
-              ctx.arc(renderX, renderY, star.baseRadius, 0, Math.PI * 2);
-              ctx.fillStyle = star.color;
-              ctx.globalAlpha = currentAlpha;
-              ctx.shadowBlur = star.baseRadius > 1.2 ? 8 : 0;
-              ctx.shadowColor = star.color;
-              ctx.fill();
-              ctx.globalAlpha = 1.0;
-              ctx.shadowBlur = 0;
+            star.alpha += star.twinkleSpeed;
+            if (star.alpha > 1 || star.alpha < 0.2) {
+              star.twinkleSpeed = -star.twinkleSpeed;
             }
+
+            const pX = star.x + mouse.x * star.parallaxFactor;
+            const pY = star.y + mouse.y * star.parallaxFactor;
+
+            ctx.beginPath();
+            ctx.arc(pX, pY, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = star.color;
+            ctx.globalAlpha = Math.max(0.1, Math.min(1, star.alpha));
+            ctx.fill();
           }
 
+          // Meteorlar
           for (let i = meteors.length - 1; i >= 0; i--) {
             const m = meteors[i];
-            m.x += Math.cos(m.angle) * m.speed;
-            m.y += Math.sin(m.angle) * m.speed;
-            m.opacity -= m.fade;
+            m.x += m.vx;
+            m.y += m.vy;
+            m.alpha -= 0.02;
 
-            if (m.opacity <= 0 || m.x > width + 100 || m.y > height + 100) {
+            if (m.alpha <= 0) {
               meteors.splice(i, 1);
               continue;
             }
 
-            const tailX = m.x - Math.cos(m.angle) * m.length;
-            const tailY = m.y - Math.sin(m.angle) * m.length;
+            const tailX = m.x - (m.vx / m.speed) * m.length;
+            const tailY = m.y - (m.vy / m.speed) * m.length;
 
-            const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
-            grad.addColorStop(0.3, `rgba(236, 72, 153, ${m.opacity * 0.9})`);
-            grad.addColorStop(1, 'rgba(99, 102, 241, 0)');
+            const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+            grad.addColorStop(0, 'rgba(254, 240, 138, 0)');
+            grad.addColorStop(1, `rgba(254, 240, 138, ${m.alpha})`);
 
+            ctx.beginPath();
+            ctx.moveTo(tailX, tailY);
+            ctx.lineTo(m.x, m.y);
             ctx.strokeStyle = grad;
-            ctx.lineWidth = m.size;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(m.x, m.y);
-            ctx.lineTo(tailX, tailY);
+            ctx.lineWidth = 2;
             ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${m.opacity})`;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = '#ec4899';
-            ctx.fill();
-            ctx.shadowBlur = 0;
           }
-
-        } else {
+        } else if (nightWeatherMode === 'rain') {
+          // Chaqmoq chaqnashi
           if (lightningFlashAlpha > 0.02) {
-            ctx.save();
-            ctx.fillStyle = `rgba(224, 231, 255, ${lightningFlashAlpha * 0.85})`;
+            ctx.fillStyle = `rgba(224, 242, 254, ${lightningFlashAlpha * 0.4})`;
             ctx.fillRect(0, 0, width, height);
-            ctx.restore();
-            lightningFlashAlpha *= 0.85;
+            lightningFlashAlpha *= 0.82;
           }
 
+          // Chaqmoq novdalari
           if (lightningBranches.length > 0) {
             ctx.save();
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 3;
-            ctx.shadowBlur = 25;
-            ctx.shadowColor = '#60a5fa';
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            for (let b of lightningBranches) {
-              ctx.moveTo(b.x1, b.y1);
-              ctx.lineTo(b.x2, b.y2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowColor = 'rgba(186, 230, 253, 0.9)';
+            ctx.shadowBlur = 18;
+            ctx.lineWidth = 2.8;
+
+            for (const branch of lightningBranches) {
+              ctx.beginPath();
+              ctx.moveTo(branch[0].x, branch[0].y);
+              for (let pt = 1; pt < branch.length; pt++) {
+                ctx.lineTo(branch[pt].x, branch[pt].y);
+              }
+              ctx.stroke();
             }
-            ctx.stroke();
             ctx.restore();
           }
 
+          // Yomg'ir tomchilari
           ctx.save();
-          ctx.strokeStyle = '#93c5fd';
-          ctx.lineCap = 'round';
+          ctx.strokeStyle = 'rgba(186, 230, 253, 0.65)';
+          ctx.lineWidth = 1.3;
 
           for (let drop of raindrops) {
-            drop.x += drop.speedX;
-            drop.y += drop.speedY;
+            drop.y += drop.speed;
+            drop.x += drop.wind;
 
-            ctx.lineWidth = drop.thickness;
-            ctx.globalAlpha = drop.opacity;
+            if (drop.y > height) {
+              if (Math.random() < 0.28) {
+                splashes.push({
+                  x: drop.x,
+                  y: height - Math.random() * 15,
+                  radius: 1,
+                  maxRadius: Math.random() * 6 + 4,
+                  alpha: 0.65
+                });
+              }
+              drop.y = -drop.length - Math.random() * 40;
+              drop.x = Math.random() * (width + 200) - 100;
+            }
 
             ctx.beginPath();
             ctx.moveTo(drop.x, drop.y);
-            ctx.lineTo(drop.x + drop.speedX * 2, drop.y + drop.length);
+            ctx.lineTo(drop.x + drop.wind * 0.9, drop.y + drop.length);
             ctx.stroke();
-
-            if (drop.y > height - 15) {
-              if (Math.random() < 0.3) {
-                splashes.push({
-                  x: drop.x,
-                  y: height - Math.random() * 8,
-                  radius: 1,
-                  maxRadius: Math.random() * 5 + 3,
-                  alpha: 0.7,
-                });
-              }
-              drop.y = -30;
-              drop.x = Math.random() * (width + 200) - 100;
-            }
           }
           ctx.restore();
 
+          // Yomg'ir sachrashi
           for (let i = splashes.length - 1; i >= 0; i--) {
             const s = splashes[i];
             s.radius += 0.45;
