@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartClub Pro - Fitness CRM</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+      /* Super modern dark mesh gradient */
+      background-image: 
+        radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+    }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+      border-radius: 2rem;
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container {
+      width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, #10B981, #06B6D4);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Inputs */
+    .premium-input {
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1.25rem;
+      padding: 1.25rem; color: white; width: 100%;
+      text-align: center; font-size: 1.25rem; font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .premium-input:focus {
+      outline: none; border-color: #10B981;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .premium-input::placeholder { color: rgba(255,255,255,0.2); font-weight: 500; }
+
+    /* Selection Cards */
+    .select-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1.5rem;
+      padding: 1.5rem; cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem;
+    }
+    .select-card:hover {
+      background: rgba(255, 255, 255, 0.05); transform: translateY(-4px);
+    }
+    .select-card.active {
+      background: rgba(16, 185, 129, 0.1); border-color: #10B981;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Main Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: white; font-weight: 800; font-size: 1.1rem;
+      padding: 1.25rem 2rem; border-radius: 1.25rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+      width: 100%; display: flex; justify-content: center; items-center: center; gap: 0.5rem;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px); box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.5);
+    }
+    .btn-primary:active { transform: translateY(1px); }
+
+    /* Step Transitions */
+    .step-container {
+      opacity: 0; transform: translateY(20px); pointer-events: none;
+      position: absolute; top: 0; left: 0; width: 100%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-container.active-step {
+      opacity: 1; transform: translateY(0); pointer-events: auto; position: relative;
+    }
+
+    /* Dashboard specifics */
+    .dash-gradient-text {
+      background: linear-gradient(to right, #34D399, #22D3EE);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+  body.light-mode { background-color: #f1f5f9; background-image: none; color: #0f172a; } body.light-mode .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1); } body.light-mode .text-white { color: #0f172a !important; } body.light-mode .text-gray-400 { color: #64748b !important; } body.light-mode .text-gray-300 { color: #475569 !important; } body.light-mode .bg-black { background-color: #ffffff !important; } body.light-mode .bg-black\\/40, body.light-mode .bg-black\\/50, body.light-mode .bg-black\\/60 { background-color: rgba(255,255,255,0.8) !important; } body.light-mode .bg-white\\/5 { background-color: rgba(0,0,0,0.03) !important; } body.light-mode .border-white\\/10 { border-color: rgba(0,0,0,0.1) !important; } body.light-mode .border-white\\/5 { border-color: rgba(0,0,0,0.05) !important; } body.light-mode .select-card { background: rgba(255,255,255,1); border-color: rgba(0,0,0,0.1); } body.light-mode .select-card:hover { background: rgba(248,250,252,1); } body.light-mode .select-card.active { background: rgba(16, 185, 129, 0.1); border-color: #10b981; } body.light-mode input.bg-transparent, body.light-mode select.bg-transparent { color: #0f172a; } body.light-mode .bg-gray-900 { background-color: #e2e8f0 !important; } body.light-mode .border-gray-800 { border-color: #cbd5e1 !important; } body.light-mode #theme-toggle { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #0f172a; }</style>
+</head>
+<body class="flex flex-col items-center justify-center p-4 sm:p-8"> <button id="theme-toggle" onclick="toggleTheme()" class="absolute top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur text-white hover:bg-white/20 transition"> <i id="theme-icon" class="fa-solid fa-sun text-xl text-amber-400"></i> </button>
+
+  <div class="glass-panel w-full max-w-2xl p-6 sm:p-10 relative overflow-hidden min-h-[600px] flex flex-col">
+    
+    <!-- Progress Header -->
+    <div class="text-center mb-8 relative">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-black/40 rounded-3xl border border-white/10 mb-4 shadow-xl relative z-10">
+        <i class="fa-solid fa-bolt text-4xl text-emerald-400"></i>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-widest text-white mb-2">SmartClub Pro</h1>
+      <p class="text-gray-400 text-sm">Klub mijozlarini ro'yxatga olish tizimi</p>
+      <div class="progress-bar-container max-w-xs mx-auto mt-4">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 20%"></div>
+      </div>
+    </div>
+
+    <!-- STEPS WRAPPER -->
+    <div class="relative flex-1">
+      
+      <!-- STEP 1: REGISTRATION -->
+      <div class="step-container active-step" id="step-1">
+        <!-- Language Badge like Telegram app -->
+        <div class="flex justify-end mb-2">
+          <div class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-xs font-semibold text-gray-200 border border-white/10">
+            <span>🇺🇿 O'zbekcha</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
+          </div>
+        </div>
+
+        <h2 class="text-3xl font-black text-center mb-1 text-white">Tizimga kirish</h2>
+        <p class="text-center text-gray-400 mb-6 text-sm">Iltimos, telefon raqam va ma'lumotlaringizni kiriting</p>
+        
+        <div class="space-y-4 max-w-sm mx-auto">
+          <div>
+            <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Telefon raqam</div>
+            <input type="tel" id="inp-phone" class="premium-input text-left" placeholder="+998 95 544 90 80" value="+998 ">
+          </div>
+          <div>
+            <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Ism</div>
+            <input type="text" id="inp-nik" class="premium-input text-left" placeholder="Shohjahon">
+          </div>
+          <div>
+            <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Familiya</div>
+            <input type="text" id="inp-surname" class="premium-input text-left" placeholder="Hasanboy">
+          </div>
+          <button onclick="nextStep()" class="btn-primary mt-6 !bg-emerald-500 hover:!bg-emerald-400 !shadow-[0_10px_25px_rgba(16,185,129,0.4)]">
+            Kod olish <i class="fa-solid fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: AVATAR -->
+      <div class="step-container" id="step-2">
+        <h2 class="text-3xl font-black text-center mb-2">Avataringiz</h2>
+        <p class="text-center text-gray-400 mb-8 text-sm">O'zingizga yoqqan rasmni tanlang yoki yuklang</p>
+        
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          <!-- Erkaklar (3ta) -->
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+          
+          <!-- Ayollar (3ta) -->
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/3755498/pexels-photo-3755498.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/3755498/pexels-photo-3755498.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+          <div class="select-card !p-1 sm:!p-2 avatar-opt" onclick="selectAvatar('https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=300', this)">
+            <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=300" class="w-full h-24 sm:h-28 object-cover rounded-xl">
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <label class="cursor-pointer inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-4 rounded-2xl font-bold text-white transition">
+            <i class="fa-solid fa-camera text-emerald-400 text-xl"></i> O'z rasmingizni yuklash
+            <input type="file" id="inp-avatar-upload" class="hidden" accept="image/*" onchange="uploadAvatar(this)">
+          </label>
+        </div>
+      </div>
+
+      <!-- STEP 3: JINSI VA MAQSAD -->
+      <div class="step-container" id="step-3">
+        <h2 class="text-3xl font-black text-center mb-8">Jins va Maqsad</h2>
+        
+        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Jinsingizni tanlang</div>
+        <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto mb-8">
+          <div class="select-card" onclick="selectOption('gender', 'male', this, false)">
+            <i class="fa-solid fa-mars text-4xl text-cyan-400"></i>
+            <span class="font-black text-lg">Erkak</span>
+          </div>
+          <div class="select-card" onclick="selectOption('gender', 'female', this, false)">
+            <i class="fa-solid fa-venus text-4xl text-rose-400"></i>
+            <span class="font-black text-lg">Ayol</span>
+          </div>
+        </div>
+
+        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Asosiy maqsadingiz</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="select-card" onclick="selectOption('goal', 'loss', this, true)">
+            <i class="fa-solid fa-fire text-3xl text-amber-500"></i>
+            <span class="font-bold">Ozish</span>
+          </div>
+          <div class="select-card" onclick="selectOption('goal', 'gain', this, true)">
+            <i class="fa-solid fa-dumbbell text-3xl text-emerald-400"></i>
+            <span class="font-bold">Mushak</span>
+          </div>
+          <div class="select-card" onclick="selectOption('goal', 'maintain', this, true)">
+            <i class="fa-solid fa-scale-balanced text-3xl text-cyan-400"></i>
+            <span class="font-bold">Saqlash</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW STEP 4: FAOLLIK DARAJASI -->
+      <div class="step-container" id="step-4">
+        <h2 class="text-3xl font-black text-center mb-2">Faollik Darajasi</h2>
+        <p class="text-center text-gray-400 mb-8 text-sm">Kunlik harakatingiz qanday? (Bu kaloriyani aniq hisoblash uchun kerak)</p>
+        
+        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+          <div class="select-card !flex-row !justify-start gap-4" onclick="selectOption('activity', 'low', this, true)">
+            <i class="fa-solid fa-laptop text-2xl text-gray-400 w-8"></i>
+            <div class="text-left">
+              <div class="font-bold">Kam harakat (Ofis ishi)</div>
+              <div class="text-xs text-gray-400">Kuningiz ko'pincha o'tirib o'tadi</div>
+            </div>
+          </div>
+          <div class="select-card !flex-row !justify-start gap-4" onclick="selectOption('activity', 'mid', this, true)">
+            <i class="fa-solid fa-person-walking text-2xl text-emerald-400 w-8"></i>
+            <div class="text-left">
+              <div class="font-bold">O'rtacha harakat</div>
+              <div class="text-xs text-gray-400">Kuniga 1-2 soat piyoda yoki yengil mashq</div>
+            </div>
+          </div>
+          <div class="select-card !flex-row !justify-start gap-4" onclick="selectOption('activity', 'high', this, true)">
+            <i class="fa-solid fa-person-running text-2xl text-amber-500 w-8"></i>
+            <div class="text-left">
+              <div class="font-bold">Juda faol (Sportchi)</div>
+              <div class="text-xs text-gray-400">Og'ir jismoniy mehnat yoki har kuni sport</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW STEP 5: MUAMMOLI ZONA -->
+      <div class="step-container" id="step-5">
+        <h2 class="text-3xl font-black text-center mb-2">Asosiy E'tibor</h2>
+        <p class="text-center text-gray-400 mb-8 text-sm">Qaysi qismga ko'proq ishlamoqchisiz?</p>
+        
+        <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+          <div class="select-card" onclick="selectOption('focus', 'belly', this, true)">
+            <i class="fa-solid fa-child text-3xl text-rose-400"></i>
+            <span class="font-bold">Qorin va Biqin</span>
+          </div>
+          <div class="select-card" onclick="selectOption('focus', 'arms', this, true)">
+            <i class="fa-solid fa-hand-back-fist text-3xl text-cyan-400"></i>
+            <span class="font-bold">Ko'krak va Qo'l</span>
+          </div>
+          <div class="select-card" onclick="selectOption('focus', 'legs', this, true)">
+            <i class="fa-solid fa-shoe-prints text-3xl text-amber-500"></i>
+            <span class="font-bold">Oyoq va Bo'ksa</span>
+          </div>
+          <div class="select-card" onclick="selectOption('focus', 'full', this, true)">
+            <i class="fa-solid fa-person text-3xl text-emerald-400"></i>
+            <span class="font-bold">Butun Tana</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: PARAMETRLAR -->
+      <div class="step-container" id="step-6">
+        <h2 class="text-3xl font-black text-center mb-2">Tana Parametrlari</h2>
+        <p class="text-center text-gray-400 mb-8 text-sm">Aniq hisob-kitoblar uchun ma'lumotlarni kiriting</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-2xl mx-auto">
+          <div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Yosh</div>
+            <div class="relative">
+              <input type="number" id="inp-age" class="premium-input">
+            </div>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Bo'y (sm)</div>
+            <input type="number" id="inp-height" class="premium-input">
+          </div>
+          <div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Vazn (kg)</div>
+            <input type="number" id="inp-weight" class="premium-input">
+          </div>
+        </div>
+        
+        <div class="max-w-xs mx-auto mt-8">
+          <button onclick="nextStep()" class="btn-primary">Davom etish <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 7: BIRINCHI KUNGI RASM -->
+      <div class="step-container" id="step-7">
+        <h2 class="text-3xl font-black text-center mb-2">Day-1 Holati</h2>
+        <p class="text-center text-gray-400 mb-8 text-sm">O'zgarishni his qilish uchun bugungi rasmingizni yuklang</p>
+        
+        <div class="max-w-md mx-auto text-center bg-black/40 border-2 border-dashed border-emerald-500/40 rounded-3xl p-10 hover:bg-emerald-500/10 transition cursor-pointer relative overflow-hidden group" onclick="document.getElementById('inp-day1').click()">
+          <div class="absolute inset-0 bg-gradient-to-t from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <i class="fa-solid fa-cloud-arrow-up text-6xl text-emerald-400 mb-4 group-hover:scale-110 transition duration-300"></i>
+          <h3 class="text-xl font-black text-white mb-2" id="day1-text">Rasmni yuklash</h3>
+          <p class="text-sm text-gray-400">Kamera yoki Galereyadan tanlang</p>
+          <input type="file" id="inp-day1" class="hidden" accept="image/*" onchange="uploadDay1(this, event)">
+          <img id="day1-preview" class="absolute inset-0 w-full h-full object-cover rounded-3xl hidden z-10" />
+        </div>
+      </div>
+
+      <!-- DASHBOARD (CLIENT) -->
+      <div class="step-container w-full" id="step-dashboard">
+        
+        <!-- Dashboard Profile (ZabonGo / Koleso Style) -->
+        <div class="bg-black/60 p-6 rounded-3xl border border-white/10 mb-6 flex flex-col sm:flex-row items-center gap-5 relative overflow-hidden backdrop-blur-xl">
+          <button onclick="clearData()" class="absolute top-4 right-4 text-gray-500 hover:text-red-400 bg-white/5 hover:bg-white/10 p-2 rounded-xl z-20 transition" title="Profilni o'chirish va boshidan boshlash">
+            <i class="fa-solid fa-rotate-right"></i> Qayta boshlash
+          </button>
+
+          <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/20 blur-3xl rounded-full"></div>
+          
+          <img id="dash-avatar" src="" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border-2 border-emerald-500/50 object-cover shadow-[0_0_25px_rgba(16,185,129,0.3)] z-10">
+          <div class="text-center sm:text-left z-10 flex-1">
+            <div class="flex items-center justify-center sm:justify-start gap-2">
+              <h2 class="text-2xl font-black text-white" id="dash-nik">Shohjahon</h2>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5 flex items-center justify-center sm:justify-start gap-1">
+              <i class="fa-solid fa-location-dot text-emerald-400"></i> O'zbekiston — Farg'ona
+            </p>
+            <p class="text-emerald-400 font-bold text-xs mt-1.5"><i class="fa-solid fa-phone mr-1"></i> <span id="dash-phone"></span></p>
+          </div>
+        </div>
+
+        <!-- STREAK & COINS (ZabonGo uslubida) -->
+        <div class="space-y-3 mb-6">
+          <!-- Streak Card -->
+          <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4 rounded-2xl border border-amber-500/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-fire"></i>
+              </div>
+              <div>
+                <div class="font-black text-white text-sm">1 kun ketma-ket</div>
+                <div class="text-[11px] text-gray-400">bonusgacha 6 kun • rekord sari</div>
+              </div>
+            </div>
+            <div class="flex gap-1">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span class="w-2 h-2 rounded-full bg-white/20"></span>
+              <span class="w-2 h-2 rounded-full bg-white/20"></span>
+              <span class="w-2 h-2 rounded-full bg-white/20"></span>
+              <span class="w-2 h-2 rounded-full bg-white/20"></span>
+            </div>
+          </div>
+
+          <!-- Coins Card -->
+          <div class="bg-gradient-to-r from-yellow-500/10 via-yellow-500/5 to-transparent p-4 rounded-2xl border border-yellow-500/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-lg font-black">
+                🪙
+              </div>
+              <div>
+                <div class="font-black text-white text-sm">100 FitCoin</div>
+                <div class="text-[11px] text-gray-400">Klubdagi bonus tangalaringiz</div>
+              </div>
+            </div>
+            <button onclick="alert('🎉 Bugungi 20 FitCoin bonusi hisobingizga qo\'shildi!')" class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-yellow-500/20">
+              Olish
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 STAT CARDS (ZabonGo uslubida) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-xl mb-1">💧</div>
+            <div class="text-lg font-black text-white" id="stat-water">2.5 L</div>
+            <div class="text-[11px] text-gray-400">Kunlik suv</div>
+          </div>
+          <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-xl mb-1">🔥</div>
+            <div class="text-lg font-black text-white" id="stat-calories">2400</div>
+            <div class="text-[11px] text-gray-400">Kaloriya normasi</div>
+          </div>
+          <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-xl mb-1">🥩</div>
+            <div class="text-lg font-black text-white" id="stat-protein">125 g</div>
+            <div class="text-[11px] text-gray-400">Oqsil normasi</div>
+          </div>
+          <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-xl mb-1">⏱</div>
+            <div class="text-lg font-black text-white">2 Soat</div>
+            <div class="text-[11px] text-gray-400">Zaldagi mashg'ulot</div>
+          </div>
+        </div>
+
+        <!-- REYTING BLOKLARI (ZabonGo uslubida) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div class="bg-gradient-to-br from-emerald-600 to-emerald-800 p-5 rounded-2xl text-white relative overflow-hidden shadow-lg shadow-emerald-900/30">
+            <div class="text-[10px] font-black uppercase tracking-wider text-emerald-200">FARG'ONA BO'YICHA</div>
+            <div class="text-3xl font-black mt-1">1-o'rin</div>
+            <div class="text-xs text-emerald-100/80 mt-0.5">Klub a'zolari orasida</div>
+            <div class="absolute right-4 bottom-2 text-4xl opacity-20">🥇</div>
+          </div>
+          <div class="bg-gradient-to-br from-amber-600 to-amber-800 p-5 rounded-2xl text-white relative overflow-hidden shadow-lg shadow-amber-900/30">
+            <div class="text-[10px] font-black uppercase tracking-wider text-amber-200">O'ZBEKISTON BO'YICHA</div>
+            <div class="text-3xl font-black mt-1">1-o'rin</div>
+            <div class="text-xs text-amber-100/80 mt-0.5">Top natijador sportchilar</div>
+            <div class="absolute right-4 bottom-2 text-4xl opacity-20">🏆</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- PROGRESS GALLERY -->
+          <div class="bg-white/[0.02] p-6 rounded-3xl border border-white/5">
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2"><i class="fa-solid fa-images text-amber-400"></i> Progress Galereyasi</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="group relative">
+                <div class="absolute top-2 left-2 bg-black/60 backdrop-blur px-2 py-1 rounded text-[10px] font-black text-white z-10">1-KUN</div>
+                <img id="dash-day1" class="w-full h-48 object-cover rounded-2xl border border-gray-800 bg-gray-900" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM0ZDM5OSIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMiIgcnk9IjIiPjwvcmVjdD48Y2lyY2xlIGN4PSI4LjUiIGN5PSI4LjUiIHI9IjEuNSI+PC9jaXJjbGU+PHBvbHlsaW5lIHBvaW50cz0iMjEgMTUgMTYgMTAgNSAyMSI+PC9wb2x5bGluZT48L3N2Zz4=">
+              </div>
+              <div>
+                <label class="block w-full h-48 rounded-2xl border-2 border-dashed border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/60 transition cursor-pointer flex flex-col items-center justify-center relative overflow-hidden">
+                  <i class="fa-solid fa-plus text-4xl text-emerald-400 mb-2 transition transform hover:scale-110"></i>
+                  <span class="text-xs text-gray-400 font-bold">Yangi Natija</span>
+                  <input type="file" class="hidden" accept="image/*" onchange="uploadProgress(this)">
+                  <img id="dash-progress" class="absolute inset-0 w-full h-full object-cover hidden">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- TELEGRAM YUBORISH -->
+          <div class="bg-gradient-to-br from-emerald-950/70 via-black to-slate-900 p-6 rounded-3xl border border-emerald-500/30 flex flex-col justify-center text-center relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 w-32 h-32 bg-emerald-500/20 blur-2xl rounded-full"></div>
+            <i class="fa-brands fa-telegram text-5xl text-[#229ED9] mb-3 drop-shadow-[0_0_20px_rgba(34,158,217,0.6)]"></i>
+            <h3 class="text-xl font-bold text-white mb-1">Shaxsiy Telegramingizga Saqlash</h3>
+            <p class="text-xs text-gray-400 mb-5">Hisoblangan barcha ratsion va mashg'ulotlar rejasini Telegramingizga yuboring</p>
+            <div class="hidden" id="result-code"></div>
+            
+            <div class="space-y-3">
+              <button onclick="sendToMyTelegram()" class="btn-primary !bg-[#229ED9] hover:!bg-[#1c8ec4] !shadow-[0_10px_25px_rgba(34,158,217,0.4)] flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane text-lg"></i> Shaxsiy Telegramga Yuborish
+              </button>
+              
+              <button onclick="sendToTelegram()" class="w-full py-3 px-4 rounded-xl text-xs font-bold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-user-shield text-emerald-400"></i> Adminga ma'lumot jo'natish
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- WORKOUT PLAN (CLIENT VIEW) -->
+        <div class="bg-black/50 p-6 sm:p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+          <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-cyan-500/10 blur-3xl rounded-full"></div>
+          <h1 class="text-xl font-black tracking-tight text-white mb-2">SmartClub <span class="text-emerald-400">Pro</span></h1>
+          <h3 class="text-xl font-black text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-dumbbell text-cyan-400"></i> Dastlabki Mashqlar Dasturi (3 kunlik)</h3>
+          <div id="dash-workout" class="text-gray-300 text-sm sm:text-base whitespace-pre-line leading-relaxed relative z-10">
+            <!-- Workout generated here -->
+          </div>
+        <!-- BOTTOM NAVIGATION BAR (ZabonGo Uslubida) -->
+        <div class="sticky bottom-3 z-40 max-w-sm mx-auto mt-6">
+          <div class="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 flex items-center justify-around shadow-2xl">
+            <button class="flex flex-col items-center gap-1 py-1.5 px-3.5 rounded-xl bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">
+              <i class="fa-solid fa-house text-base"></i>
+              <span>Bosh</span>
+            </button>
+            <button onclick="document.getElementById('dash-workout')?.scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
+              <i class="fa-solid fa-dumbbell text-base"></i>
+              <span>Mashqlar</span>
+            </button>
+            <button onclick="sendToMyTelegram()" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
+              <i class="fa-solid fa-apple-whole text-base"></i>
+              <span>Ratsion</span>
+            </button>
+            <button onclick="alert('🏆 Siz Farg\'ona viloyati bo\'yicha 1-o\'rinda turibsiz!')" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
+              <i class="fa-solid fa-trophy text-base"></i>
+              <span>Reyting</span>
+            </button>
+            <button onclick="document.getElementById('dash-nik')?.scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
+              <i class="fa-solid fa-user text-base"></i>
+              <span>Profil</span>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <!-- GLOBAL BACK BUTTON -->
+    <button onclick="prevStep()" class="absolute top-8 left-6 sm:left-10 text-gray-400 hover:text-white transition" id="btn-back" style="visibility: hidden;">
+      <i class="fa-solid fa-arrow-left text-xl"></i>
+    </button>
+
+    </div>
+    
+    <!-- SMS Verification Modal -->
+    <div id="sms-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+      <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl max-w-sm w-full text-center relative shadow-2xl">
+        <div class="w-16 h-16 mx-auto bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-2xl mb-4">
+          <i class="fa-solid fa-comment-sms"></i>
+        </div>
+        <h3 class="text-2xl font-black text-white mb-2">Tasdiqlash KODI</h3>
+        <p class="text-sm text-gray-400 mb-6"><span id="sms-phone-display" class="font-bold text-white"></span> raqamiga yuborilgan 4 xonali kodni kiriting.</p>
+        
+        <div class="flex justify-center gap-3 mb-6">
+          <input type="text" id="sms-1" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-2')">
+          <input type="text" id="sms-2" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-3')">
+          <input type="text" id="sms-3" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-4')">
+          <input type="text" id="sms-4" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="verifySMS()">
+        </div>
+        
+        <p id="sms-error" class="text-red-500 text-sm font-bold hidden mb-4">Kod noto'g'ri! Iltimos qayta kiriting.</p>
+        
+        <div id="sms-actions" class="text-xs text-gray-500 mt-4">
+          Kodni olmadingizmi? <span id="sms-timer" class="font-bold text-white">00:30</span> dan so'ng qayta so'rash mumkin.
+        </div>
+        
+        <div id="call-action" class="hidden mt-4 text-xs text-gray-500">
+          SMS kelmadimi? <button onclick="requestCall()" class="text-emerald-400 font-bold underline transition hover:text-emerald-300"><i class="fa-solid fa-phone"></i> Qo'ng'iroq qilib kodni aytish</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="mt-8 text-center text-gray-500 text-xs tracking-wider pb-6">
+      Dastur muallifi &mdash; Hasanboyev Shohjahon
+    </footer>
+    
+  <script>
+    const state = {
+      nik: null, phone: null, avatar: null,
+      gender: null, goal: null,
+      activity: null, focus: null,
+      age: null, height: null, weight: null,
+      day1Photo: null, joinDate: null
+    };
+
+    let currentStep = 1; function toggleTheme() { document.body.classList.toggle("light-mode"); const icon = document.getElementById("theme-icon"); if(document.body.classList.contains("light-mode")) { icon.classList.remove("fa-sun", "text-amber-400"); icon.classList.add("fa-moon", "text-indigo-500"); } else { icon.classList.remove("fa-moon", "text-indigo-500"); icon.classList.add("fa-sun", "text-amber-400"); } }
+    const totalSteps = 7;
+
+    window.onload = () => {
+      const saved = localStorage.getItem('smartFitnessClient');
+      if(saved) {
+        const d = JSON.parse(saved);
+        Object.assign(state, d);
+        if(state.nik) {
+          currentStep = 8; 
+        }
+      }
+      updateView();
+    };
+
+    function saveState() {
+      localStorage.setItem('smartFitnessClient', JSON.stringify(state));
+    }
+
+    function selectOption(key, value, el, autoAdvance = true) {
+      state[key] = value;
+      const siblings = el.parentElement.children;
+      for(let i=0; i<siblings.length; i++) siblings[i].classList.remove('active');
+      el.classList.add('active');
+      
+      // Custom auto-advance logic
+      let canAdvance = false;
+      if(key === 'gender' || key === 'goal') { if(state.gender && state.goal) canAdvance = true; }
+      else canAdvance = true;
+
+      if(autoAdvance && canAdvance) {
+        setTimeout(() => nextStep(), 400);
+      }
+    }
+
+    function selectAvatar(url, el) {
+      state.avatar = url;
+      const all = document.querySelectorAll('.avatar-opt');
+      all.forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+      setTimeout(() => nextStep(), 400);
+    }
+
+    function uploadAvatar(input) {
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        state.avatar = e.target.result;
+        nextStep();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadDay1(input, e) {
+      e.stopPropagation();
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        state.day1Photo = ev.target.result;
+        document.getElementById('day1-preview').src = state.day1Photo;
+        document.getElementById('day1-preview').classList.remove('hidden');
+        document.getElementById('day1-text').innerText = "Rasm yuklandi!";
+        setTimeout(() => nextStep(), 800);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadProgress(input) {
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('dash-progress').src = e.target.result;
+        document.getElementById('dash-progress').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateView() {
+      document.querySelectorAll('.step-container').forEach(p => p.classList.remove('active-step'));
+      
+      if(currentStep <= totalSteps) {
+        document.getElementById('step-' + currentStep).classList.add('active-step');
+        document.getElementById('main-header').style.display = 'block';
+        document.getElementById('btn-back').style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+        
+        // Update Progress Bar
+        const progress = ((currentStep - 1) / totalSteps) * 100 + 10;
+        document.getElementById('progress-bar').style.width = progress + '%';
+      } else {
+        document.getElementById('step-dashboard').classList.add('active-step');
+        document.getElementById('main-header').style.display = 'none';
+        document.getElementById('btn-back').style.display = 'none';
+        renderDashboard();
+      }
+    }
+
+    let fakeSMSCode = "1234";
+    let countdownInterval;
+
+    function focusNext(current, nextId) {
+      if(current.value.length === 1) {
+        document.getElementById(nextId).focus();
+      }
+    }
+    
+    function verifySMS() {
+      const code = document.getElementById('sms-1').value + document.getElementById('sms-2').value + document.getElementById('sms-3').value + document.getElementById('sms-4').value;
+      if(code.length === 4) {
+        if(code === fakeSMSCode || code === "0000") {
+          // Success
+          state.smsVerified = true;
+          document.getElementById('sms-modal').classList.add('hidden');
+          clearInterval(countdownInterval);
+          nextStep();
+        } else {
+          document.getElementById('sms-error').classList.remove('hidden');
+          setTimeout(() => document.getElementById('sms-error').classList.add('hidden'), 2000);
+        }
+      }
+    }
+
+    function startSMSTimer() {
+      document.getElementById('sms-actions').classList.remove('hidden');
+      document.getElementById('call-action').classList.add('hidden');
+      document.getElementById('call-action').innerHTML = `SMS kelmadimi? <button onclick="requestCall()" class="text-emerald-400 font-bold underline transition hover:text-emerald-300"><i class="fa-solid fa-phone"></i> Qo'ng'iroq qilib kodni aytish</button>`;
+      
+      let timeLeft = 30;
+      document.getElementById('sms-timer').innerText = `00:${timeLeft}`;
+      clearInterval(countdownInterval);
+      
+      countdownInterval = setInterval(() => {
+        timeLeft--;
+        if(timeLeft < 10) document.getElementById('sms-timer').innerText = `00:0${timeLeft}`;
+        else document.getElementById('sms-timer').innerText = `00:${timeLeft}`;
+        
+        if(timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('sms-actions').classList.add('hidden');
+          document.getElementById('call-action').classList.remove('hidden');
+        }
+      }, 1000);
+    }
+
+    function requestCall() {
+      document.getElementById('call-action').innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-phone fa-shake"></i> Qo'ng'iroq qilinmoqda... Go'shakni ko'taring!</span>`;
+      fakeSMSCode = "7777"; 
+      setTimeout(() => {
+        alert("📞 Telefoningizga qo'ng'iroq bo'lyapti...\nAvtomatik ovoz: \"Sizning tasdiqlash kodingiz: 7 7 7 7\"");
+      }, 2000);
+    }
+
+    function nextStep() {
+      if(currentStep === 1) {
+        state.nik = document.getElementById('inp-nik').value.trim();
+        const surInp = document.getElementById('inp-surname');
+        state.surname = surInp ? surInp.value.trim() : '';
+        state.phone = document.getElementById('inp-phone').value.trim();
+        
+        if(!state.nik || !state.phone) return alert("Iltimos, Ism va Telefon raqamingizni kiriting!");
+        
+        // Strict Phone Validation
+        const phoneRegex = /^\+998 \d{2} \d{3} \d{2} \d{2}$/;
+        if(!phoneRegex.test(state.phone)) {
+          return alert("XATO: Telefon raqam noto'g'ri kiritildi!\nIltimos, to'liq va to'g'ri raqam kiriting. Masalan: +998 90 123 45 67");
+        }
+
+        if(!state.joinDate) state.joinDate = new Date().toLocaleDateString('uz-UZ');
+
+        // SMS Verification flow
+        if(!state.smsVerified) {
+          document.getElementById('sms-phone-display').innerText = state.phone;
+          document.getElementById('sms-modal').classList.remove('hidden');
+          document.getElementById('sms-1').focus();
+          startSMSTimer();
+          return;
+        }
+      }
+      if(currentStep === 2 && !state.avatar) return alert("Avatarni tanlang yoki rasm yuklang!");
+      if(currentStep === 3 && (!state.gender || !state.goal)) return alert("Jins va Maqsadni tanlang!");
+      if(currentStep === 4 && !state.activity) return alert("Faollik darajasini tanlang!");
+      if(currentStep === 5 && !state.focus) return alert("Muammoli zonani tanlang!");
+      if(currentStep === 6) {
+        state.age = parseInt(document.getElementById('inp-age').value);
+        state.height = parseInt(document.getElementById('inp-height').value);
+        state.weight = parseInt(document.getElementById('inp-weight').value);
+        
+        if(!state.age || !state.height || !state.weight) return alert("Barcha parametrlarni kiriting!");
+        
+        // Yosh (10 - 100 yosh oralig'ida bo'lishi kerak)
+        if(state.age < 10 || state.age > 100) {
+          return alert("XATO: Yoshni to'g'ri kiriting! (10 dan 100 gacha)");
+        }
+        
+        // Bo'y (100 sm dan 250 sm gacha bo'lishi kerak)
+        if(state.height < 100 || state.height > 250) {
+          return alert("XATO: Bo'y balandligini to'g'ri kiriting! (sm hisobida, masalan: 175)");
+        }
+        
+        // Vazn (30 kg dan 250 kg gacha bo'lishi kerak)
+        if(state.weight < 30 || state.weight > 250) {
+          return alert("XATO: Vaznni to'g'ri kiriting! (kg hisobida, masalan: 70)");
+        }
+
+        // Qoidalarni buzish: 3 xil parametr bir xil bo'lishi (masalan 17, 17, 17)
+        if(state.age === state.height || state.height === state.weight) {
+          return alert("XATO: Bo'y, vazn va yosh bir xil son bo'lishi mumkin emas!");
+        }
+
+        // Hayotiy mantiq (BMI) - Bo'y va vazn nisbati mantiqan to'g'ri kelishi kerak
+        let heightM = state.height / 100;
+        let bmi = state.weight / (heightM * heightM);
+        
+        if (bmi < 13 || bmi > 60) {
+          return alert("XATO: Kiritilgan bo'y (" + state.height + " sm) va vazn (" + state.weight + " kg) nisbati hayotiy emas!\nIltimos, ma'lumotlarni to'g'ri kiritganingizga ishonch hosil qiling.");
+        }
+      }
+
+      if(currentStep === totalSteps) {
+        saveState();
+      }
+
+      currentStep++;
+      updateView();
+    }
+
+    // Phone Auto-Formatter
+    document.getElementById('inp-phone').addEventListener('input', function (e) {
+      let val = e.target.value.replace(/\D/g, ''); // faqat raqamlarni olamiz
+      
+      if (val.startsWith('998')) {
+        val = val.substring(3); 
+      }
+      
+      val = val.substring(0, 9); // +998 dan keyin 9 ta raqam bo'ladi (max)
+      
+      let formatted = '+998';
+      if (val.length > 0) formatted += ' ' + val.substring(0, 2);
+      if (val.length > 2) formatted += ' ' + val.substring(2, 5);
+      if (val.length > 5) formatted += ' ' + val.substring(5, 7);
+      if (val.length > 7) formatted += ' ' + val.substring(7, 9);
+      
+      e.target.value = formatted;
+    });
+
+    function prevStep() {
+      if(currentStep > 1) {
+        currentStep--;
+        updateView();
+      }
+    }
+
+    function renderDashboard() {
+      document.getElementById('dash-nik').innerText = state.nik;
+      document.getElementById('dash-phone').innerText = state.phone;
+      document.getElementById('dash-date').innerText = "Qo'shildi: " + state.joinDate;
+      if(state.avatar) document.getElementById('dash-avatar').src = state.avatar;
+      
+      // Fix for Day 1 photo
+      if (state.day1Photo) {
+        if (state.day1Photo.includes('unsplash.com') || state.day1Photo.includes('placeholder.com')) {
+          state.day1Photo = state.avatar;
+        }
+      } else {
+        state.day1Photo = state.avatar;
+      }
+
+      if(state.day1Photo) {
+        const d1 = document.getElementById('dash-day1');
+        d1.src = state.day1Photo;
+        d1.classList.remove('bg-gray-900');
+      }
+
+      const raw = `N:${state.nik}|P:${state.phone}|G:${state.gender}|L:${state.goal}|AC:${state.activity}|FA:${state.focus}|A:${state.age}|H:${state.height}|W:${state.weight}|D:${state.joinDate}`;
+      const encoded = btoa(unescape(encodeURIComponent(raw)));
+      document.getElementById('result-code').innerText = encoded;
+
+      // ZabonGo Stat Cards ni to'ldirish
+      const isMale = state.gender === 'male';
+      const bmr = isMale 
+        ? (10 * state.weight) + (6.25 * state.height) - (5 * state.age) + 5
+        : (10 * state.weight) + (6.25 * state.height) - (5 * state.age) - 161;
+      const mult = state.activity === 'low' ? 1.2 : state.activity === 'high' ? 1.725 : 1.55;
+      let targetCal = bmr * mult;
+      if (state.goal === 'lose') targetCal -= 500;
+      else if (state.goal === 'gain') targetCal += 300;
+      let water = (state.weight * 0.033).toFixed(1);
+      let protein = Math.round(state.weight * 1.8);
+
+      const elWat = document.getElementById('stat-water');
+      if (elWat) elWat.innerText = water + ' L';
+      const elCal = document.getElementById('stat-calories');
+      if (elCal) elCal.innerText = Math.round(targetCal) + ' kcal';
+      const elPro = document.getElementById('stat-protein');
+      if (elPro) elPro.innerText = protein + ' g';
+
+      // Baza uchun saqlash (Admin Panel o'qishi uchun)
+      let db = JSON.parse(localStorage.getItem('smartClubDB') || '[]');
+      // Eskisini o'chirish (agar xuddi shu nomer bo'lsa)
+      db = db.filter(c => c.phone !== state.phone);
+      db.push(state);
+      localStorage.setItem('smartClubDB', JSON.stringify(db));
+
+      const workoutPlanHTML = renderWorkoutHTML(state);
+      document.getElementById('dash-workout').innerHTML = workoutPlanHTML;
+    }
+
+    function getWorkoutData(d) {
+      let data = {
+        monthGuide: [
+          { w: "1-HAFTA", t: "Klubga Moslashuv", d: "Zal uskunalariga o'rganish. 2 soatlik to'liq rejimga moslashuv." },
+          { w: "2-HAFTA", t: "Jadal O'sish", d: "Ishchi vaznlarni oshiramiz. To'liq 2 soatlik og'ir mashg'ulot." },
+          { w: "3-HAFTA", t: "Pik Nuqta", d: "Maksimal vaznlar va jadal krossfit elementlari qo'shiladi." },
+          { w: "4-HAFTA", t: "Natija", d: "Bir oylik transformatsiya tekshiriladi. Yangi bosqichga o'tish." }
+        ],
+        days: [],
+        tips: [
+          "Har bir mashg'ulot aniq 2 soat davom etadi: 15 min qizdirinish, 90 min asosiy mashq, 15 min cho'zilish.",
+          "Klubimizda har mashg'ulotda kamida 1-1.5 litr suv ichishni unutmang.",
+          `Oqsilli ovqatlar normasi: Kuniga ${Math.round(d.weight * 1.8)}g oqsil.`
+        ],
+        promo: "🎉 YAKSHANBA OCHIQ ESHIKLAR: Har Yakshanba barcha mijozlar uchun BEPUL erkin shug'ullanish kuni!"
+      };
+
+      let day1 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
+      let day2 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
+      let day3 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
+
+      if (d.gender === 'male' && d.goal === 'gain') {
+        day1.title = "1-KUN (Ko'krak, Yelka, Triceps)";
+        day1.details = "⏱ 15 min: Yugurish yo'lakchasi (Qizdirinish)\n💪 60 min: Shtanga jjim (4x10), Gantel razvodka (4x12), Qiya skameykada jjim (4x10), Yelka uchun jjim (4x12)\n🔥 30 min: Triceps blok (4x15), Brus (4xMax)\n🧘 15 min: Press mashqlari va Cho'zilish";
+        day1.video = "https://www.youtube.com/results?search_query=kokrak+va+triceps+mashqlari+uzbek+zalda";
+
+        day2.title = "2-KUN (Orqa va Biceps)";
+        day2.details = "⏱ 15 min: Ellips trenajori\n💪 60 min: Turnik keng ushlash (4xMax), Stanovaya tyaga (4x10), Blok tyaga (4x12), Gantel tortish (4x12)\n🔥 30 min: Shtanga bilan biceps (4x12), Skott stulida biceps (4x15)\n🧘 15 min: Gipertenziya va Cho'zilish";
+        day2.video = "https://www.youtube.com/results?search_query=orqa+mashqlari+zalda+uzbek";
+
+        day3.title = "3-KUN (Oyoq va Tana markazi)";
+        day3.details = "⏱ 15 min: Velotrenajor\n💪 60 min: Shtanga bilan prised (4x10), Jjim nogami - Oyoq bilan itarish (4x12), Trenajorda oyoq uzatish va yig'ish (4x15)\n🔥 30 min: Ikra (4x20), Rim stulida press (4x20), Krossfit arqon (5 min)\n🧘 15 min: Turnikda osilish, Cho'zilish";
+        day3.video = "https://www.youtube.com/results?search_query=oyoq+mashqlari+zalda+uzbek";
+      } else if (d.gender === 'female' && (d.focus === 'legs' || d.goal === 'gain')) {
+        day1.title = "1-KUN (Bo'ksa va Oyoq orqasi)";
+        day1.details = "⏱ 15 min: Yugurish yo'lakchasida qiya yurish (Qizdirinish)\n💪 60 min: Yagodichniy mostik smitda (4x15), Ruminiya tyagasi (4x15), Trenajorda oyoq orqaga tepish (4x15)\n🔥 30 min: Krossoverda kikbek (4x15), Girevoy prised (4x15)\n🧘 15 min: Cho'zilish (Shpagat va boshqalar)";
+        day1.video = "https://www.youtube.com/results?search_query=boksa+va+oyoq+mashqlari+uzbek+qizlar+zalda";
+
+        day2.title = "2-KUN (Tana yuqori qismi va Qorin)";
+        day2.details = "⏱ 15 min: Ellips trenajori\n💪 60 min: Vertikal blok tortish (4x15), Gorizontal blok (4x15), Gantel yelka jjim (3x15), Tizzadan otjimaniye (3xMax)\n🔥 30 min: Rim stulida press (4x20), Qiya skameykada oyoq ko'tarish (4x20), Plank (3x1 min)\n🧘 15 min: Yoga / Cho'zilish";
+        day2.video = "https://www.youtube.com/results?search_query=qizlar+uchun+qol+va+orqa+mashqlari+zalda";
+
+        day3.title = "3-KUN (Oyoq oldi qismi va Jadal Kardio)";
+        day3.details = "⏱ 15 min: Velotrenajor (Tez tempda)\n💪 60 min: Prikid (Gantel bilan vipadi 4x15), Smit trenajorida prised (4x15), Trenajorda oyoq uzatish (4x15)\n🔥 30 min: Zalda yugurish yo'lakchasi (HIIT - 1 min yugurish, 1 min yurish x 10 marta)\n🧘 15 min: Bo'ksalarni qizdiruvchi cho'zilish";
+        day3.video = "https://www.youtube.com/results?search_query=uyda+oyoq+mashqlari+uzbek+tilida";
+      } else if (d.goal === 'loss' || d.focus === 'belly') {
+        day1.title = "1-KUN (Yog' yoqish va To'liq Tana)";
+        day1.details = "⏱ 20 min: Yugurish yo'lakchasi (O'rta tempda)\n💪 60 min: Aylanma mashq (Krugovoy) - Prised, Otjimaniye, Blok tortish, Press (Barchasi 3 aylanma, har biri 15-20 martadan tinimsiz)\n🔥 25 min: Maxsus qorin uchun mashqlar majmuasi (Skruchivaniye, Velosiped, Qiya press)\n🧘 15 min: Nafasni tiklash va Cho'zilish";
+        day1.video = "https://www.youtube.com/results?search_query=zalda+ozish+mashqlari+uzbek";
+
+        day2.title = "2-KUN (Kuchli Kardio va Oyoq)";
+        day2.details = "⏱ 20 min: Ellips trenajori (Yuqori qarshilik bilan)\n💪 60 min: Jjim nogami - Trenajorda itarish (4x20), Vipadi (4x15), Gakk prisedaniye (4x15)\n🔥 25 min: Burpi (4x10), Alpinist mashqi (4x25), Step-platformaga chiqib tushish (4x20)\n🧘 15 min: Chuqur cho'zilish";
+        day2.video = "https://www.youtube.com/results?search_query=zalda+oyoq+mashqlari+ozish+uchun";
+
+        day3.title = "3-KUN (HIIT Krossfit va Matbuot)";
+        day3.details = "⏱ 20 min: Velotrenajor (Interval usulda)\n💪 60 min: Arqon (Krossfit qamchi) 10 min, Shina ag'darish yoki og'ir qum qopini ko'tarish (agar klubda bo'lsa), Maxsus turnik tortishish, Gipertenziya (4x20)\n🔥 25 min: Rim stuli (4x20), Plank (3x1.5 min), Ruscha burilish (Gantel bilan 4x20)\n🧘 15 min: To'liq relaksatsiya";
+        day3.video = "https://www.youtube.com/results?search_query=press+chiqarish+mashqlari+uzbek+zalda";
+      } else {
+        day1.title = "1-KUN (Ko'krak, Yelka, Triceps)";
+        day1.details = "⏱ 15 min: Kardio\n💪 60 min: Jjim lyuja (4x12), Gantel jjim (3x15), Triceps blok (4x15)\n🔥 30 min: Otjimaniye va Press (Rim stulida)\n🧘 15 min: Cho'zilish";
+        day1.video = "https://www.youtube.com/results?search_query=kokrak+mashqlari+zalda+uzbek";
+
+        day2.title = "2-KUN (Oyoq va Bo'ksa)";
+        day2.details = "⏱ 15 min: Kardio\n💪 60 min: Prisedaniye smitda (4x15), Jjim nogami (4x15), Vipadi (3x15)\n🔥 30 min: Ikra va Yagodichniy mostik\n🧘 15 min: Cho'zilish";
+        day2.video = "https://www.youtube.com/results?search_query=oyoq+mashqlari+zalda+uzbek";
+
+        day3.title = "3-KUN (Orqa va Biceps)";
+        day3.details = "⏱ 15 min: Kardio\n💪 60 min: Vertikal va Gorizontal blok (4x15), Turnik, Gantel Biceps (4x15)\n🔥 30 min: Ladochka, Gipertenziya, Press\n🧘 15 min: Cho'zilish";
+        day3.video = "https://www.youtube.com/results?search_query=orqa+mashqlari+zalda+uzbek";
+      }
+
+      data.days = [day1, day2, day3];
+      return data;
+    }
+
+    function renderWorkoutHTML(d) {
+      const data = getWorkoutData(d);
+      let html = `
+        <!-- PROMO BANNER -->
+        <div class="mb-8 p-4 bg-gradient-to-r from-red-600/80 to-pink-600/80 rounded-xl border border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.4)] transform hover:scale-[1.02] transition">
+          <h3 class="text-white font-black text-center text-sm md:text-base uppercase tracking-widest">${data.promo}</h3>
+        </div>
+
+        <!-- Month Progress Guide -->
+        <div class="mb-8">
+          <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-calendar-days text-emerald-400"></i> SmartClub Pro: 1-Oylik Rivojlanish Bosqichlari:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      `;
+      data.monthGuide.forEach(g => {
+        html += `
+          <div class="bg-white/5 border border-white/10 rounded-xl p-3 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition">
+            <div class="text-emerald-400 text-xs font-black mb-1">${g.w}</div>
+            <div class="text-white text-sm font-bold mb-1">${g.t}</div>
+            <div class="text-gray-400 text-xs leading-snug">${g.d}</div>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+
+      // Weekly routine that repeats for 4 weeks
+      html += `
+        <div class="mb-6">
+          <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-clock text-cyan-400"></i> Klub Dasturi (Haftada 3 kun, 2 soatdan):</h4>
+          <div class="space-y-4">
+      `;
+      
+      data.days.forEach(day => {
+        html += `
+          <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 font-bold px-3 py-1 text-xs rounded-bl-lg">${day.time}</div>
+            <h4 class="font-black text-cyan-400 mb-4 text-lg pr-24">${day.title}</h4>
+            <div class="mb-5 text-gray-300 leading-relaxed text-sm bg-black/40 p-4 rounded-xl border border-white/5 whitespace-pre-line">${day.details}</div>
+            <a href="${day.video}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-red-600/40 transition border border-red-500/30 w-full sm:w-auto justify-center shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+              <i class="fa-brands fa-youtube text-lg"></i> O'zbekcha Videolarni Izlash
+            </a>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+
+      // Golden Tips
+      html += `
+        <div class="mt-8 p-5 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+          <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Klubning Oltin Qoidalari</h4>
+          <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+      `;
+      data.tips.forEach(tip => {
+        html += `<li>${tip}</li>`;
+      });
+      html += `</ul></div>`;
+
+      return html;
+    }
+
+    function clearData() {
+      if(confirm("Barcha ma'lumotlaringiz o'chib ketadi. Boshidan boshlaysizmi?")) {
+        localStorage.removeItem('smartFitnessClient');
+        location.reload();
+      }
+    }
+
+    function sendToMyTelegram() {
+      const workoutData = getWorkoutData(state);
+      const fullName = (state.nik + (state.surname ? ' ' + state.surname : '')).trim();
+      const goalText = state.goal === 'lose' ? "Ozish va yog' yoqish" : (state.goal === 'gain' ? "Mushak o'stirish" : "Formani saqlash");
+
+      // To'liq hisobot matni
+      let message = `⚡️ SMARTCLUB PRO — SHAXSIY REJA\n\n`;
+      message += `👤 Mijoz: ${fullName}\n`;
+      message += `📞 Telefon: ${state.phone}\n`;
+      message += `🎯 Maqsad: ${goalText}\n`;
+      message += `⚖️ Parametrlar: ${state.age} yosh | ${state.height} sm | ${state.weight} kg\n\n`;
+      message += `🔥 KUNLIK HISOB-KITOB:\n`;
+      message += `• Suv normasi: ${(state.weight * 0.033).toFixed(1)} Litr / kun\n`;
+      message += `• Oqsil normasi: ${Math.round(state.weight * 1.8)} g oqsil\n\n`;
+      message += `🏋️‍♂️ 3 KUNLIK REJA (2 SOATLIK MASHG'ULOT):\n`;
+      workoutData.days.forEach(d => {
+        message += `\n📌 ${d.title}\n${d.details}\n`;
+      });
+      message += `\n🎉 YAKSHANBA KUNLARI — Bepul erkin mashg'ulot kuni!\n`;
+      message += `👨🏻‍💻 Dastur muallifi: Hasanboyev Shohjahon`;
+
+      // Telegramda o'ziga (Saqlangan xabarlarga) yoki do'stlariga ulashish
+      const shareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
+      window.open(shareUrl, '_blank');
+    }
+
+    function sendToTelegram() {
+      const code = document.getElementById('result-code').innerText;
+      const fullName = (state.nik + (state.surname ? ' ' + state.surname : '')).trim();
+      const message = `YANGI MIJOZ QO'SHILDI!\n\n👤 Mijoz: ${fullName}\n📞 Nomer: ${state.phone}\n📅 Sana: ${state.joinDate}\n\n🔐 MIJOZ KODI:\n${code}\n\nIltimos, kodni Admin Panelga kiriting.`;
+      
+      const adminUsername = "dmin_224"; 
+      const url = `https://t.me/${adminUsername}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // TELEGRAM WEB APP INIT
+    document.addEventListener("DOMContentLoaded", () => {
+      const tg = window.Telegram?.WebApp;
+      if (tg) {
+        try {
+          tg.ready();
+          tg.expand();
+          if (tg.enableClosingConfirmation) tg.enableClosingConfirmation();
+          
+          // Telegram foydalanuvchisi ma'lumotlarini avtomatik to'ldirish
+          const tgUser = tg.initDataUnsafe?.user;
+          if (tgUser) {
+            const inpNik = document.getElementById('inp-nik');
+            if (inpNik && tgUser.first_name && !inpNik.value) {
+              inpNik.value = tgUser.first_name;
+            }
+            const inpSur = document.getElementById('inp-surname');
+            if (inpSur && tgUser.last_name && !inpSur.value) {
+              inpSur.value = tgUser.last_name;
+            }
+          }
+        } catch(e) {
+          console.log("Telegram WebApp init:", e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
