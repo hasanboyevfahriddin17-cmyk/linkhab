@@ -309,6 +309,14 @@
             <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Email (ixtiyoriy)</div>
             <input type="email" id="inp-email" class="premium-input text-left" placeholder="shohjahon@gmail.com">
           </div>
+          <div>
+            <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Shahringiz</div>
+            <div onclick="openCityModal()" class="premium-input text-left flex items-center justify-between cursor-pointer hover:border-emerald-500/50 transition">
+              <span id="selected-city-text" class="text-white font-bold text-base">Farg'ona</span>
+              <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">Tanlash <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+            </div>
+            <input type="hidden" id="inp-city" value="Farg'ona">
+          </div>
           <button onclick="nextStep()" class="btn-primary mt-6 !bg-emerald-500 hover:!bg-emerald-400 !shadow-[0_10px_25px_rgba(16,185,129,0.4)]">
             Kod olish <i class="fa-solid fa-arrow-right ml-2"></i>
           </button>
@@ -597,6 +605,10 @@
               <i class="fa-solid fa-apple-whole text-base"></i>
               <span>Ratsion</span>
             </button>
+            <button onclick="openAdminModal()" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-amber-400 hover:text-amber-300 text-[10px] transition">
+              <i class="fa-solid fa-crown text-base"></i>
+              <span>Admin</span>
+            </button>
             <button onclick="document.getElementById('dash-nik')?.scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
               <i class="fa-solid fa-user text-base"></i>
               <span>Profil</span>
@@ -674,6 +686,187 @@
         </div>
       </div>
     </div>
+
+    <!-- CITY SELECTION MODAL (Image 3 Style) -->
+    <div id="city-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[110] hidden flex items-end sm:items-center justify-center p-0 sm:p-4 transition-all duration-300">
+      <div class="bg-gray-900 border border-white/10 rounded-t-3xl sm:rounded-3xl max-w-sm w-full max-h-[85vh] flex flex-col p-6 shadow-2xl relative">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-black text-white">Sizning shahringiz</h3>
+          <button onclick="closeCityModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-gray-400 hover:text-white flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <div class="relative mb-3">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-xs"></i>
+          <input type="text" id="city-search" placeholder="Shaharni qidirish..." oninput="filterCities(this.value)" class="w-full bg-black/60 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div class="overflow-y-auto space-y-1.5 flex-1 pr-1" id="city-list">
+          <!-- Dynamically filled cities -->
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE DETAIL MODAL (Image 1 Style with Mistakes & Breathing Tips) -->
+    <div id="exercise-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[120] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+      <div class="bg-gray-900 border border-emerald-500/30 rounded-3xl max-w-md w-full max-h-[90vh] flex flex-col p-6 shadow-2xl relative overflow-hidden my-auto">
+        
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-3 border-b border-white/10 pb-3">
+          <div>
+            <div class="text-[10px] font-black uppercase tracking-wider text-emerald-400" id="ex-modal-type">QIZIB OLISH (WARM UP)</div>
+            <h2 class="text-2xl font-black text-white tracking-tight" id="ex-modal-title">ARM CIRCLES</h2>
+            <div class="text-xs text-gray-400 mt-0.5" id="ex-modal-equip">Uskuna: Tana vazni</div>
+          </div>
+          <button onclick="closeExerciseModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-gray-400 hover:text-white flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Scrollable content -->
+        <div class="overflow-y-auto pr-1 space-y-4 flex-1">
+          <!-- Animated Visual / SVG Display -->
+          <div class="bg-black/60 border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center relative overflow-hidden" id="ex-visual-container">
+            <div class="text-6xl mb-2 animate-bounce" id="ex-modal-icon">🔄</div>
+            <div class="text-xs text-gray-300 font-semibold" id="ex-modal-reps">Davomiyligi: 00:30 soniya</div>
+            
+            <!-- Interactive Timer -->
+            <div class="flex items-center gap-3 mt-3">
+              <button onclick="adjustTimer(-5)" class="w-7 h-7 rounded-lg bg-white/10 text-white font-black hover:bg-white/20">-</button>
+              <div class="text-2xl font-black text-emerald-400 tracking-wider font-mono" id="ex-timer-display">00:30</div>
+              <button onclick="adjustTimer(5)" class="w-7 h-7 rounded-lg bg-white/10 text-white font-black hover:bg-white/20">+</button>
+              <button onclick="toggleExTimer()" id="btn-timer-toggle" class="bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs px-3.5 py-1.5 rounded-lg transition ml-2 shadow-md">
+                Boshlash ▶
+              </button>
+            </div>
+          </div>
+
+          <!-- Common Mistakes (1, 2, 3, 4) -->
+          <div class="space-y-2.5">
+            <h4 class="text-xs font-black uppercase tracking-wider text-gray-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Keng tarqalgan xatolar:
+            </h4>
+            
+            <div class="flex items-start gap-3 bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <div class="text-xs font-bold text-white" id="ex-mistake-1-t">Kichik harakat amplitudasida bajarish</div>
+                <div class="text-[11px] text-gray-400 leading-relaxed" id="ex-mistake-1-d">Harakatni chala qilish mushakni to'liq ishlatmaydi va mashg'ulot samarasini keskin pasaytiradi.</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <div class="text-xs font-bold text-white" id="ex-mistake-2-t">Noto'g'ri gavda va tirsak burchagi</div>
+                <div class="text-[11px] text-gray-400 leading-relaxed" id="ex-mistake-2-d">Qo'llar va bo'g'inlarni to'g'ri burchakda tutmaslik og'irlikni bo'g'imlarga noto'g'ri taqsimlaydi.</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <div class="text-xs font-bold text-white" id="ex-mistake-3-t">Tana markazini bo'sh qo'yish</div>
+                <div class="text-[11px] text-gray-400 leading-relaxed" id="ex-mistake-3-d">Qorin va bel mushaklarini tarang tutish umurtqa pog'onasini xavfdan himoya qiladi.</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 bg-white/[0.03] p-3 rounded-xl border border-white/5">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+              <div>
+                <div class="text-xs font-bold text-white" id="ex-mistake-4-t">Shoshilib va silkitib ko'tarish</div>
+                <div class="text-[11px] text-gray-400 leading-relaxed" id="ex-mistake-4-d">Og'irlikni silkitib ko'tarmasdan, harakatni nazorat qilib, sekin va aniq bajaring.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Breathing Tips -->
+          <div class="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-3.5">
+            <h4 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-1.5 mb-2">
+              <i class="fa-solid fa-lungs text-sm"></i> Nafas Olish Qoidalari (Breathing Tips):
+            </h4>
+            <ul class="text-[11px] text-gray-300 space-y-1.5 list-disc list-inside leading-relaxed">
+              <li>Og'irlikni ko'targanda (kuch sarflangan pallada) og'izdan chuqur nafas chiqaring.</li>
+              <li>Tushirayotganda burun bilan sokin nafas oling.</li>
+              <li>Aslo nafasni ichingizda ushlab turmang — bu qon bosimi oshishiga sabab bo'ladi.</li>
+            </ul>
+          </div>
+        </div>
+
+        <button onclick="closeExerciseModal()" class="btn-primary !py-3 !text-sm mt-4 !bg-emerald-500 hover:!bg-emerald-400">
+          ✅ Tushundim, bajarishga tayyorman!
+        </button>
+      </div>
+    </div>
+
+    <!-- IN-APP ADMIN MODAL -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/90 backdrop-blur-lg z-[130] hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div class="bg-gray-900 border border-amber-500/40 rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 shadow-2xl relative my-auto">
+        <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i class="fa-solid fa-crown text-sm"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-black text-white">ProForma Admin Paneli</h3>
+              <div class="text-[10px] text-gray-400">Mijozlar bazasi va nazorati</div>
+            </div>
+          </div>
+          <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-gray-400 hover:text-white flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <!-- PIN Screen (if not authenticated) -->
+        <div id="admin-auth-view" class="py-8 text-center space-y-4">
+          <div class="text-4xl">🔐</div>
+          <h4 class="text-base font-bold text-white">Admin PIN Kodini Kiriting</h4>
+          <p class="text-xs text-gray-400 max-w-xs mx-auto">Klub ma'lumotlarini ko'rish uchun maxfiy kodni tering</p>
+          <div class="max-w-[200px] mx-auto">
+            <input type="password" id="inp-admin-pin" maxlength="6" placeholder="PIN kod" class="premium-input text-center tracking-widest text-xl">
+          </div>
+          <button onclick="checkAdminPin()" class="btn-primary max-w-[200px] mx-auto !py-2.5 !text-xs !bg-amber-500 hover:!bg-amber-400 text-black">
+            Kirish 🔓
+          </button>
+        </div>
+
+        <!-- Dashboard View (after PIN) -->
+        <div id="admin-data-view" class="hidden flex-1 overflow-y-auto space-y-4 pr-1">
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white/5 p-3 rounded-2xl border border-white/5 text-center">
+              <div class="text-xl font-black text-amber-400" id="admin-total-clients">0</div>
+              <div class="text-[10px] text-gray-400 font-bold uppercase">Jami Mijozlar</div>
+            </div>
+            <div class="bg-white/5 p-3 rounded-2xl border border-white/5 text-center">
+              <div class="text-xl font-black text-emerald-400" id="admin-today-clients">0</div>
+              <div class="text-[10px] text-gray-400 font-bold uppercase">Yangi Qo'shilganlar</div>
+            </div>
+          </div>
+
+          <!-- Search -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-xs"></i>
+            <input type="text" id="admin-search-input" placeholder="Ism, telefon yoki shahar bo'yicha..." oninput="renderAdminClients(this.value)" class="w-full bg-black/60 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+          </div>
+
+          <!-- Clients List -->
+          <div class="space-y-2" id="admin-clients-list">
+            <!-- Populated via JS -->
+          </div>
+
+          <div class="pt-2 flex gap-2">
+            <button onclick="exportClientsJSON()" class="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-download"></i> Eksport (JSON)
+            </button>
+            <button onclick="clearAdminData()" class="py-2.5 px-3 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold text-xs transition">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- FOOTER -->
     <footer class="mt-8 text-center text-gray-500 text-xs tracking-wider pb-6">
@@ -682,14 +875,622 @@
     
   <script>
     const state = {
-      nik: null, phone: null, avatar: null,
+      nik: null, surname: null, email: null, city: "Farg'ona", phone: null, avatar: null,
       gender: null, goal: null,
       activity: null, focus: null,
       age: null, height: null, weight: null,
-      day1Photo: null, joinDate: null
+      day1Photo: null, joinDate: null, smsVerified: false
     };
 
     let currentStep = 1;
+
+    // CITIES (Image 3 Style)
+    const CITIES = [
+      "Toshkent", "Farg'ona", "Samarqand", "Andijon", "Namangan",
+      "Buxoro", "Navoiy", "Qarshi", "Termiz", "Urganch",
+      "Nukus", "Jizzax", "Guliston", "Qo'qon", "Marg'ilon"
+    ];
+
+    function renderCityList(filter = '') {
+      const container = document.getElementById('city-list');
+      if (!container) return;
+      const q = filter.trim().toLowerCase();
+      const matched = CITIES.filter(c => c.toLowerCase().includes(q));
+      if (matched.length === 0) {
+        container.innerHTML = `<div class="text-xs text-gray-500 text-center py-4">Shahar topilmadi</div>`;
+        return;
+      }
+      container.innerHTML = matched.map(city => {
+        const isSel = (state.city || "Farg'ona") === city;
+        return `
+          <div onclick="selectCity('${city}')" class="p-3 rounded-xl flex items-center justify-between cursor-pointer transition ${isSel ? 'bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30' : 'bg-white/5 hover:bg-white/10 text-gray-200'}">
+            <span class="text-xs font-semibold">${city}</span>
+            ${isSel ? '<i class="fa-solid fa-check text-xs text-emerald-400"></i>' : '<i class="fa-solid fa-chevron-right text-[10px] text-gray-500"></i>'}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openCityModal() {
+      renderCityList();
+      const m = document.getElementById('city-modal');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeCityModal() {
+      const m = document.getElementById('city-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function selectCity(city) {
+      state.city = city;
+      const txt = document.getElementById('selected-city-text');
+      if (txt) txt.innerText = city;
+      const inp = document.getElementById('inp-city');
+      if (inp) inp.value = city;
+      closeCityModal();
+    }
+
+    function filterCities(val) {
+      renderCityList(val);
+    }
+
+    // EXERCISES DATABASE (Image 1 & 5 Style with Common Mistakes and Breathing tips)
+    const EXERCISE_MAP = {
+      // WARM-UP (Image 5 style)
+      "arm_circles": {
+        name: "ARM CIRCLES",
+        type: "QIZIB OLISH (WARM UP)",
+        equip: "Tana vazni (Uskunasiz)",
+        reps: "Davomiyligi: 00:30 soniya / 20 marta",
+        duration: 30,
+        icon: "🔄",
+        desc: "Yelka bo'g'imlarini mashg'ulotga qizdirish va sinovial suyuqlik ajralishini faollashtirish.",
+        mistakes: [
+          { t: "Kichik harakat amplitudasida aylantirish", d: "Qo'llarni chala aylantirish yelka bo'g'imlarini to'liq qizdirmaydi." },
+          { t: "Yelkalarni bo'yinga qisib ko'tarish", d: "Trapetsiya mushaklarini bo'sh qo'ying, faqat yelka bo'g'imidan aylantiring." },
+          { t: "Tana va belni tebrantirish", d: "Qorin mushaklarini tarang tuting, tana qotib turishi kerak." },
+          { t: "Nafasni to'xtatib turish", d: "Bir tekis va sokin nafas oling." }
+        ],
+        breathing: [
+          "Qo'llar yuqoriga va orqaga ketganda nafas oling (ko'krak qafasi kengayadi).",
+          "Qo'llar pastga tushganda nafas chiqaring.",
+          "Aslo nafasni ichingizda ushlab turmang."
+        ]
+      },
+      "dynamic_chest": {
+        name: "DYNAMIC CHEST STRETCH",
+        type: "QIZIB OLISH (WARM UP)",
+        equip: "Tana vazni",
+        reps: "Davomiyligi: 00:30 soniya",
+        duration: 30,
+        icon: "👐",
+        desc: "Ko'krak qafasini keng ochish, yelka oldi boylamlarini cho'zish.",
+        mistakes: [
+          { t: "Belni haddan ortiq orqaga bukchaytirish", d: "Belga zo'riqish bermaslik uchun qorinni ichga torting." },
+          { t: "Qo'llarni yelka chizig'idan pastga tushirish", d: "Qo'llar polga parallel ravishda yelka balandligida bo'lsin." },
+          { t: "Keskin va jarohatlovchi silkinishlar qilish", d: "Cho'zilishni yumshoq dinamikada, me'yorida bajaring." },
+          { t: "Bo'yinni oldinga chiqarib olish", d: "Bosh to'g'ri, nigoh to'g'riga qaragan bo'lishi kerak." }
+        ],
+        breathing: [
+          "Qo'llarni keng ochganda to'yib chuqur nafas oling.",
+          "Qo'llarni oldinda birlashtirganda nafas chiqaring.",
+          "Nafas chuqur va erkin bo'lsin."
+        ]
+      },
+      "punches": {
+        name: "PUNCHES (BOKS ZARBALARI)",
+        type: "QIZIB OLISH (WARM UP)",
+        equip: "Tana vazni (Kardio qizish)",
+        reps: "Davomiyligi: 00:40 soniya",
+        duration: 40,
+        icon: "🥊",
+        desc: "Butun tana mushaklarini, yurak pulsini uyg'otish va qo'l-yelka tezligini oshirish.",
+        mistakes: [
+          { t: "Tirsakni to'liq qotirib urish (pere-razgib)", d: "Tirsak bo'g'imini qattiq qulflamang, sal egilgan tursin." },
+          { t: "Oyoqlarni qotirib, harakatsiz turish", d: "Oyoq uchida engil sakrab, gavda bilan zarbaga kuch bering." },
+          { t: "Zarba berish paytida nafas chiqarmaslik", d: "Har bir zarba bilan qisqa 'ts-ts' qilib nafas chiqaring." },
+          { t: "Yelkalar va bo'yinni tarang qotirib olish", d: "Yelkalarni erkin va engil harakatlantiring." }
+        ],
+        breathing: [
+          "Har bir qo'l zarbasida kuchli va tez nafas chiqaring.",
+          "Qo'lni qaytarayotganda nafas oling.",
+          "Ritmik nafas olish charchoqni kechiktiradi."
+        ]
+      },
+      "torso_twist": {
+        name: "STANDING TORSO TWIST",
+        type: "QIZIB OLISH (WARM UP)",
+        equip: "Tana vazni",
+        reps: "Davomiyligi: 00:30 soniya",
+        duration: 30,
+        icon: "🕺",
+        desc: "Umurtqa pog'onasi, bel va yon qorin mushaklarini burish orqali qizdirish.",
+        mistakes: [
+          { t: "Tizzalarni burab, bo'g'imni qiyshaytirish", d: "Bo'ksa va oyoqlar oldinga mustahkam turishi kerak." },
+          { t: "Juda tez va inersiya bilan silkitish", d: "Umurtqaga ziyon yetkazmaslik uchun burilishni sekin boshqaring." },
+          { t: "Gavdani yonboshga egish", d: "Tana o'qi tik vertikal holda saqlansin." },
+          { t: "Bo'yinni tana bilan birga aylantirmaslik", d: "Bosh va nigoh tana bilan bir ritmda burilsin." }
+        ],
+        breathing: [
+          "O'rtaga qaytganda nafas oling.",
+          "Yonboshga burilganda nafas chiqaring.",
+          "Chuqur diafragma nafasi oling."
+        ]
+      },
+      "jumping_jacks": {
+        name: "JUMPING JACKS",
+        type: "QIZIB OLISH (WARM UP)",
+        equip: "Tana vazni (Kardio qizish)",
+        reps: "Davomiyligi: 00:45 soniya",
+        duration: 45,
+        icon: "⭐",
+        desc: "Yurak qon-tomir tizimini uyg'otish va butun tana haroratini ko'tarish.",
+        mistakes: [
+          { t: "To'piqqa qattiq, tarsillab tushish", d: "Har doim oyoq uchlariga (barmoqlar yostig'iga) yumshoq qo'ning." },
+          { t: "Tizzalarni ichkariga bukib qo'yish", d: "Tizzalar oyoq uchlari yo'nalishida ochilishi shart." },
+          { t: "Qo'llarni chala ko'tarish", d: "Qo'llarni bosh ustida to'liq qarsak darajasigacha ko'taring." },
+          { t: "Boshlang'ich tezlikni juda oshirib yuborish", d: "Pulsni bosqichma-bosqich ko'taring." }
+        ],
+        breathing: [
+          "Sakrab oyoq va qo'llarni ochganda nafas oling.",
+          "Birlashtirganda nafas chiqaring.",
+          "Bir maromda, to'xtovsiz nafas oling."
+        ]
+      },
+
+      // GYM EXERCISES (Weightlifting lessons)
+      "bench_press": {
+        name: "SHTANGA JJIM (BENCH PRESS)",
+        type: "ZALDA OG'IR ATLETIKA",
+        equip: "Shtanga va Gorizontal skameyka",
+        reps: "4 podxod x 10-12 marta",
+        duration: 45,
+        icon: "🏋️‍♂️",
+        desc: "Ko'krak mushaklari, oldingi delta va tricepsni kuchli o'stiruvchi bazaviy mashq.",
+        mistakes: [
+          { t: "Shtangani ko'krak qafasiga urib sakratish (bouncing)", d: "Bu qovurg'alarni jarohatlaydi va mushak ishini o'ldiradi. Pastda 1 soniya nazorat qiling." },
+          { t: "Tirsaklarni 90 darajadan keng ochib yuborish", d: "Tirsaklarni tanaga 45-60 gradus burchakda ushlang — aks holda yelka bo'g'imi shikastlanadi." },
+          { t: "Dumba (bo'ksa)ni skameykadan uzib ko'tarish", d: "Dumba, orqa va bosh doimo skameykaga zich bosilgan bo'lishi shart." },
+          { t: "Bilaklarni orqaga sindirib, og'irlikni barmoqlarga qo'yish", d: "Shtanga kaftning asosida turishi kerak, bilak tekis bo'lsin." }
+        ],
+        breathing: [
+          "Shtangani ko'krakka sekin tushirayotganda burun bilan to'liq nafas oling.",
+          "Ko'krakdan yuqoriga siqib itarish (og'ir pallada) og'izdan kuch bilan nafas chiqaring!",
+          "Nafasni tutib turmang, miya qon bosimi oshib ketmasin."
+        ]
+      },
+      "incline_db_press": {
+        name: "QIYA SKAMEYKADA GANTEL JJIM",
+        type: "ZALDA OG'IR ATLETIKA",
+        equip: "Gantellar va Qiya skameyka (30-45°)",
+        reps: "4 podxod x 12 marta",
+        duration: 45,
+        icon: "💪",
+        desc: "Ko'krakning yuqori qismini bo'rttirib chiqarish va yelka old qismini shakllantirish.",
+        mistakes: [
+          { t: "Skameyka burchagini 45 darajadan yuqori qilish", d: "Burchak 60° bo'lsa og'irlik ko'krakdan yelkaga o'tib ketadi. Optimal burchak: 30°." },
+          { t: "Yuqorida gantellarni bir-biriga urishtirish", d: "Gantellarni urish mushak tarangligini yo'qotadi. Tepada 2-3 sm masofa qoldiring." },
+          { t: "Harakatni chala tushirish (kichik amplituda)", d: "Gantellarni ko'krak chizig'igacha chuqur tushirib, mushakni to'liq cho'zing." },
+          { t: "Oyoqlarni polga tiramaslik", d: "Oyoq tovonlari polga mahkam bosilsin, bu tanani mustahkamlaydi." }
+        ],
+        breathing: [
+          "Gantellarni pastga sekin tushirganda chuqur nafas oling.",
+          "Yuqoriga ko'tarishda ko'krakni siqib kuch bilan nafas chiqaring."
+        ]
+      },
+      "lat_pulldown": {
+        name: "VERTIKAL BLOK TORTISH (QANOT)",
+        type: "ZALDA TRENAJOR MASHQI",
+        equip: "Vertikal blok trenajori",
+        reps: "4 podxod x 12-15 marta",
+        duration: 45,
+        icon: "🦾",
+        desc: "Orqa qanot mushaklarini kengaytirish va 'V-shakl' qomat yaratish.",
+        mistakes: [
+          { t: "Blokni orqaga juda qattiq yotib tortish", d: "Gavdani faqat 10-15 daraja orqaga bering, butun tanangiz bilan tebranmang." },
+          { t: "Tutqichni bosh orqasiga tortish (Bosh orqasiga tyaga)", d: "Bu bo'yin umurtqasi va yelkaga juda xavfli! Doimo ko'krak yuqorisiga torting." },
+          { t: "Tirsaklarni orqaga qaratib qo'yish", d: "Tirsaklar pastga va yon tomonga yo'naltirilgan bo'lishi kerak." },
+          { t: "Faqat bilak va biceps orqali tortish", d: "Harakatni orqa kuraklarni pastga birlashtirish orqali boshlang." }
+        ],
+        breathing: [
+          "Tutqichni ko'krakka tortganda kuraklarni qisib nafas chiqaring.",
+          "Yuqoriga sekin qo'yib yuborayotganda nafas oling."
+        ]
+      },
+      "barbell_row": {
+        name: "SHTANGA TYAGA (BELNI EGIB TORTISH)",
+        type: "ZALDA OG'IR ATLETIKA",
+        equip: "Shtanga",
+        reps: "4 podxod x 10-12 marta",
+        duration: 45,
+        icon: "🏋️‍♂️",
+        desc: "Orqa qalinligini, rombsimon mushaklarni va bel ustunini mustahkamlash.",
+        mistakes: [
+          { t: "Belni dumaloq qilib bukchaytirish (Dumaloq orqa)", d: "Bu disk grijasiga olib kelishi mumkin! Bel doimo to'g'ri, ko'krak oldinda bo'lsin." },
+          { t: "Gavdani deyarli tik qilib olish (70-80°)", d: "Tana 45 daraja egilgan bo'lishi shart, aks holda yuklama trapezga ketadi." },
+          { t: "Shtangani butun tana bilan silkitib tortish (Cheat)", d: "Oyoq va bel qotib tursin, harakat faqat orqa orqali bajarilsin." },
+          { t: "Boshni baland ko'tarib bo'yinni qayirish", d: "Nigoh polga (oldinga 1.5 metr) qaragan, bo'yin orqa bilan bitta chiziqda bo'lsin." }
+        ],
+        breathing: [
+          "Shtangani qorinning pastki qismiga tortganda kuch bilan nafas chiqaring.",
+          "Pastga tushirganda nafas oling."
+        ]
+      },
+      "pull_ups": {
+        name: "TURNIKDA KENG USHLAB TORTILISH",
+        type: "ZAL VA VAZNLI MASHQ",
+        equip: "Turnik / Gravitron trenajori",
+        reps: "4 podxod x 8-12 marta",
+        duration: 40,
+        icon: "🧗‍♂️",
+        desc: "Qanot mushaklari kengligi va tana quvvatini sinovdan o'tkazuvchi asosiy mashq.",
+        mistakes: [
+          { t: "Oyoqlarni silkitib, inersiya bilan chiqish (Kipping)", d: "Gavdani to'g'ri tuting, oyoqlarni qimirlatmang, toza kuch bilan tortiling." },
+          { t: "Jag'ni turnikdan oshirmaslik (chala tortilish)", d: "Har bir martada jag' to'siqdan oshishi, ko'krak turnikka yaqinlashishi kerak." },
+          { t: "Pastga birdan tashlab yuborish", d: "Pastga 2 soniyada sekin tushiring, tirsak boylamlarini asrang." },
+          { t: "Yelkalarni osiltirib bo'shashib qolish", d: "Kuraklarni pastda ham nazorat ostida tuting." }
+        ],
+        breathing: [
+          "Yuqoriga tortilayotganda nafas chiqaring.",
+          "Pastga tushayotganda nafas oling."
+        ]
+      },
+      "barbell_curl": {
+        name: "SHTANGA BILAN BICEPS",
+        type: "ZALDA QO'L MASHQI",
+        equip: "EZ-grif yoki To'g'ri shtanga",
+        reps: "4 podxod x 12 marta",
+        duration: 40,
+        icon: "💪",
+        desc: "Biceps mushaklari hajmi va quvvatini oshiruvchi klassik mashq.",
+        mistakes: [
+          { t: "Belni silkitib, tanani orqaga tashlab ko'tarish", d: "Bel harakatsiz turishi kerak. Agar tebranayotgan bo'lsangiz, vaznni kamaytiring." },
+          { t: "Tirsaklarni oldinga yoki chetga chiqarib yuborish", d: "Tirsaklar qovurg'alarga yopishtirilgan holda bitta nuqtada turishi shart." },
+          { t: "Shtangani tepaga tashlab, pastga tez qo'yib yuborish", d: "Harakatning eng foydali qismi — sekin pastga tushirish (ekssentrik faza)." },
+          { t: "Bilaklarni yuqoriga qayirib olish", d: "Bilaklar tekis tursin, zo'riqish bilakka emas, bicepsga tushsin." }
+        ],
+        breathing: [
+          "Shtangani yuqoriga ko'targanda kuch bilan nafas chiqaring.",
+          "Pastga tushirganda sekin nafas oling."
+        ]
+      },
+      "preacher_curl": {
+        name: "SKOTT SKAMEYKASIDA BICEPS",
+        type: "ZALDA IZOLYATSIYA MASHQI",
+        equip: "Skott skameykasi va EZ-shtanga",
+        reps: "4 podxod x 12-15 marta",
+        duration: 40,
+        icon: "🎯",
+        desc: "Bicepsning pastki va o'rta qismini to'liq izolyatsiya qilib pishirish.",
+        mistakes: [
+          { t: "Pastda tirsakni 180° to'liq qotirib yozish (Over-extension)", d: "Bu tirsak paylarini uzishi mumkin! Pastda tirsakni ozgina bukilgan qoldiring." },
+          { t: "O'rindiqdan sakrab turib ketish", d: "Ko'krak va qo'ltiq skameyka yostig'iga to'liq jipslashgan bo'lsin." },
+          { t: "Og'irlikni haddan tashqari ko'p qo'yish", d: "Skott skameykasida toza texnika og'ir vazndan 10 barobar muhimroq." },
+          { t: "Tepada bicepsni bo'shashtirish", d: "Eng yuqori nuqtada shtangani vertikaldan o'tkazmang, taranglik saqlansin." }
+        ],
+        breathing: [
+          "Shtangani yuqoriga bukayotganda nafas chiqaring.",
+          "Pastga tushirganda nafas oling."
+        ]
+      },
+      "squat": {
+        name: "SHTANGA BILAN PRISED (BACK SQUAT)",
+        type: "ZALDA OYOQ BAZAVIY MASHQI",
+        equip: "Shtanga va Prised stoykasi",
+        reps: "4 podxod x 10-12 marta",
+        duration: 50,
+        icon: "🦵",
+        desc: "Oyoq, son, dumba va butun organizm gormonal tizimini portlatuvchi 1-raqamli mashq.",
+        mistakes: [
+          { t: "Tizzalarni ichkariga burib yiqitish (Knee valgus)", d: "Tizzalar har doim oyoq uchlari qaragan tomonga ochilishi shart!" },
+          { t: "Tovonni poldan uzib, oyoq uchiga og'ish", d: "Butun og'irlik tovon va oyoq tashqi chetiga tushishi shart." },
+          { t: "Belni bukchaytirish va ko'krakni pastga tashlash", d: "Ko'krak g'urur bilan oldinda, bel kamari qat'iy to'g'ri tursin." },
+          { t: "Chala o'tirish (son polga parallel bo'lmasligi)", d: "Son polga kamida 90 gradus parallel bo'lguncha to'liq o'tiring." }
+        ],
+        breathing: [
+          "Pastga chuqur o'tirayotganda burun bilan to'liq nafas oling va qorinni taranglang.",
+          "Tovon bilan poldan itarib yuqoriga chiqayotganda kuchli nafas chiqaring!",
+          "Nafasni to'g'ri olish belni jarohatdan saqlaydi."
+        ]
+      },
+      "leg_press": {
+        name: "JJIM NOGAMI (OYOQ BILAN ITARISH)",
+        type: "ZALDA OYOQ TRENAJORI",
+        equip: "Oyoq itarish trenajori (45°)",
+        reps: "4 podxod x 12-15 marta",
+        duration: 45,
+        icon: "🦿",
+        desc: "Umurtqaga og'irlik tushirmasdan oyoq va sonlarga maksimal og'ir vazn berish.",
+        mistakes: [
+          { t: "Yuqorida tizzalarni to'liq qulflab qotirish (G'oyat xavfli!)", d: "Tizzalarni aslo to'liq to'g'irlamang! Bir lahzada bo'g'im sinishi mumkin. Sal bukilgan tursin." },
+          { t: "Dumba va belni suyanchiqdan uzib olish", d: "Platforma juda pastga tushsa bel bukilib ketadi. Bel doimo o'rindiqqa bosilsin." },
+          { t: "Qo'llar bilan tizzalarni bosib yordam berish", d: "Qo'llaringiz bilan trenajor yonidagi maxsus tutqichlarni mahkam ushlang." },
+          { t: "Oyoqlarni platformaning juda pastiga qo'yish", d: "Oyoqlarni platformaning o'rtasiga yoki yuqorisiga kengroq qo'ying." }
+        ],
+        breathing: [
+          "Platforma pastga kelganda nafas oling.",
+          "Tovon bilan og'irlikni yuqoriga itarganda og'izdan kuch bilan nafas chiqaring!"
+        ]
+      },
+      "leg_extension": {
+        name: "TRENAJORDA OYOQ YOZISH (KVADRICEPS)",
+        type: "ZALDA IZOLYATSIYA MASHQI",
+        equip: "Oyoq uzatish trenajori",
+        reps: "4 podxod x 15 marta",
+        duration: 40,
+        icon: "🦵",
+        desc: "Sonning old qismi (kvadriceps) relyefini va tizza paylarini pishitish.",
+        mistakes: [
+          { t: "Og'irlikni silkitib tepish (inersiya bilan)", d: "Harakat sokin va nazorat ostida bo'lsin, tizza bo'g'imini urmang." },
+          { t: "Yuqori nuqtada pauza qilmaslik", d: "Oyoqni yozganda yuqorida 1-2 soniya ushlab, mushakni qattiq siqing." },
+          { t: "O'rindiq suyanchig'ini noto'g'ri sozlash", d: "Tizza bo'g'imi trenajorning aylanish o'qi bilan bitta chiziqda tursin." },
+          { t: "Vaznni pastga sharaqlatib tashlash", d: "Pastga 2-3 soniya davomida sekin tushiring." }
+        ],
+        breathing: [
+          "Oyoqlarni yuqoriga yozganda nafas chiqaring.",
+          "Pastga sekin tushirganda nafas oling."
+        ]
+      },
+      "overhead_press": {
+        name: "YELKA UCHUN HARBIY JJIM",
+        type: "ZALDA OG'IR ATLETIKA",
+        equip: "Shtanga yoki Gantellar",
+        reps: "4 podxod x 10-12 marta",
+        duration: 45,
+        icon: "🏋️‍♂️",
+        desc: "Yelka deltalari, yuqori ko'krak va gavda barqarorligini rivojlantirish.",
+        mistakes: [
+          { t: "Belni haddan ortiq orqaga bukib qabartish", d: "Bel sinmasligi uchun qorin va dumbani toshdek qattiq qiling." },
+          { t: "Shtangani bosh orqasidan tushirish", d: "Shtangani faqat old tomondan, iyak va ko'krak yuqorisigacha tushiring." },
+          { t: "Tizzalarni bukib itarish (Push-press qilish)", d: "Agar sof qat'iy jjim qilmoqchi bo'lsangiz, oyoqlarni qotirib turing." },
+          { t: "Tepada boshni orqaga tashlab qolish", d: "Shtanga tepaga chiqqanda boshni ozgina oldinga bering, shtanga markazda tursin." }
+        ],
+        breathing: [
+          "Og'irlikni bosh ustiga itarganda nafas chiqaring.",
+          "Pastga iyakka tushirganda nafas oling."
+        ]
+      },
+      "roman_chair": {
+        name: "RIM STULIDA OYOQ KO'TARISH (PRESS)",
+        type: "ZALDA PRESS MASHQI",
+        equip: "Rim stuli trenajori",
+        reps: "4 podxod x 15-20 marta",
+        duration: 45,
+        icon: "⚡",
+        desc: "Qorinning pastki qismi va chuqur press mushaklarini toshdek qattiq qilish.",
+        mistakes: [
+          { t: "Oyoqlarni inersiya bilan oldinga-orqaga silkitish", d: "Tebranmang! Harakat to'liq qorin mushagi kuchi bilan boshqarilsin." },
+          { t: "Yelkalarni osiltirib, bo'yinga osilib qolish", d: "Tirsaklar bilan yostiqchani pastga bosing, bo'yinni erkin tuting." },
+          { t: "Faqat son mushagini ko'tarish", d: "Press ishlashi uchun tizzalarni ko'krakka tortib, chanoqni yuqoriga buring." },
+          { t: "Oyoqlarni pastga birdan tashlash", d: "Pastga sekin va taranglikni yo'qotmay tushiring." }
+        ],
+        breathing: [
+          "Tizzalarni ko'krakka tortganda qorinni siqib butun havoni chiqaring.",
+          "Pastga tushirganda nafas oling."
+        ]
+      },
+      "plank": {
+        name: "PLANK (STATIK MUSTAHKAMLASH)",
+        type: "TANA VAZNI BILAN MASHQ",
+        equip: "Gimnastika gilamchasi (Mat)",
+        reps: "3 podxod x 1 - 1.5 daqiqa",
+        duration: 60,
+        icon: "⏱",
+        desc: "Umurtqa atrofi, chuqur korteks (core) va ichki qorin mushaklarini temirdek qilish.",
+        mistakes: [
+          { t: "Bo'ksani osiltirib belni bukchaytirish", d: "Bel osilib ketsa umurtqaga og'ir zarar yetadi. Bo'ksani siqib turing." },
+          { t: "Bo'ksani o'ta baland qilib 'uycha' yasash", d: "Tana tovonlardan boshgacha to'g'ri taxtadek bitta tekis chiziqda bo'lsin." },
+          { t: "Bo'yinni haddan tashqari egish yoki ko'tarish", d: "Nigoh polga qaratilgan, bo'yin umurtqaning davomi bo'lsin." },
+          { t: "Nafasni to'xtatib turish", d: "Mashq davomida bir tekis va xotirjam nafas olishni aslo unutmang." }
+        ],
+        breathing: [
+          "Sekin, bir maromda burun orqali nafas oling va og'izdan chiqaring.",
+          "Nafas ritmini ushlab turish chidamlilikni 2 barobar oshiradi."
+        ]
+      }
+    };
+
+    // EXERCISE MODAL LOGIC
+    let currentExId = null;
+    let exTimerInterval = null;
+    let exTimeRemaining = 30;
+    let isExTimerRunning = false;
+
+    function openExerciseModal(id) {
+      const ex = EXERCISE_MAP[id] || EXERCISE_MAP['arm_circles'];
+      currentExId = id;
+      
+      const typeEl = document.getElementById('ex-modal-type');
+      if (typeEl) typeEl.innerText = ex.type;
+      const titleEl = document.getElementById('ex-modal-title');
+      if (titleEl) titleEl.innerText = ex.name;
+      const equipEl = document.getElementById('ex-modal-equip');
+      if (equipEl) equipEl.innerText = "Uskuna: " + ex.equip;
+      const iconEl = document.getElementById('ex-modal-icon');
+      if (iconEl) iconEl.innerText = ex.icon;
+      const repsEl = document.getElementById('ex-modal-reps');
+      if (repsEl) repsEl.innerText = ex.reps;
+
+      for (let i = 0; i < 4; i++) {
+        const m = ex.mistakes[i] || { t: "Texnikaga rioya qiling", d: "Mashqni murabbiy ko'rsatmasi bo'yicha bajaring." };
+        const elT = document.getElementById(`ex-mistake-${i+1}-t`);
+        const elD = document.getElementById(`ex-mistake-${i+1}-d`);
+        if (elT) elT.innerText = m.t;
+        if (elD) elD.innerText = m.d;
+      }
+
+      exTimeRemaining = ex.duration || 30;
+      updateTimerDisplay();
+      stopExTimer();
+
+      const modal = document.getElementById('exercise-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeExerciseModal() {
+      stopExTimer();
+      const modal = document.getElementById('exercise-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function updateTimerDisplay() {
+      const min = Math.floor(exTimeRemaining / 60);
+      const sec = exTimeRemaining % 60;
+      const fmt = (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec;
+      const el = document.getElementById('ex-timer-display');
+      if (el) el.innerText = fmt;
+    }
+
+    function adjustTimer(delta) {
+      exTimeRemaining = Math.max(5, exTimeRemaining + delta);
+      updateTimerDisplay();
+    }
+
+    function toggleExTimer() {
+      if (isExTimerRunning) {
+        stopExTimer();
+      } else {
+        startExTimer();
+      }
+    }
+
+    function startExTimer() {
+      isExTimerRunning = true;
+      const btn = document.getElementById('btn-timer-toggle');
+      if (btn) {
+        btn.innerText = "To'xtatish ⏸";
+        btn.className = "bg-amber-500 hover:bg-amber-400 text-black font-black text-xs px-3.5 py-1.5 rounded-lg transition ml-2 shadow-md";
+      }
+      clearInterval(exTimerInterval);
+      exTimerInterval = setInterval(() => {
+        exTimeRemaining--;
+        updateTimerDisplay();
+        if (exTimeRemaining <= 0) {
+          stopExTimer();
+          alert("⏱ Vaqt tugadi! Mashq muvaffaqiyatli bajarildi! Barakalla! 🎉");
+        }
+      }, 1000);
+    }
+
+    function stopExTimer() {
+      isExTimerRunning = false;
+      clearInterval(exTimerInterval);
+      const btn = document.getElementById('btn-timer-toggle');
+      if (btn) {
+        btn.innerText = "Boshlash ▶";
+        btn.className = "bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs px-3.5 py-1.5 rounded-lg transition ml-2 shadow-md";
+      }
+    }
+
+    // ADMIN MODAL LOGIC
+    let isAdminLoggedIn = false;
+
+    function openAdminModal() {
+      const m = document.getElementById('admin-modal');
+      if (m) m.classList.remove('hidden');
+      if (isAdminLoggedIn) {
+        document.getElementById('admin-auth-view').classList.add('hidden');
+        document.getElementById('admin-data-view').classList.remove('hidden');
+        renderAdminClients();
+      } else {
+        document.getElementById('admin-auth-view').classList.remove('hidden');
+        document.getElementById('admin-data-view').classList.add('hidden');
+      }
+    }
+
+    function closeAdminModal() {
+      const m = document.getElementById('admin-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function checkAdminPin() {
+      const pin = document.getElementById('inp-admin-pin').value.trim();
+      if (pin === '7777' || pin === '1234') {
+        isAdminLoggedIn = true;
+        document.getElementById('admin-auth-view').classList.add('hidden');
+        document.getElementById('admin-data-view').classList.remove('hidden');
+        renderAdminClients();
+      } else {
+        alert("XATO: Admin PIN kodi noto'g'ri! (Standart PIN: 7777)");
+      }
+    }
+
+    function getAdminDB() {
+      let db = JSON.parse(localStorage.getItem('smartClubDB') || '[]');
+      if (state.nik && state.phone) {
+        if (!db.some(u => u.phone === state.phone)) {
+          db.push(state);
+        }
+      }
+      return db;
+    }
+
+    function renderAdminClients(filter = '') {
+      const db = getAdminDB();
+      const listEl = document.getElementById('admin-clients-list');
+      const totalEl = document.getElementById('admin-total-clients');
+      const todayEl = document.getElementById('admin-today-clients');
+
+      if (totalEl) totalEl.innerText = db.length;
+      if (todayEl) {
+        const todayStr = new Date().toLocaleDateString('uz-UZ');
+        const countToday = db.filter(u => u.joinDate === todayStr).length;
+        todayEl.innerText = countToday || (db.length > 0 ? 1 : 0);
+      }
+
+      if (!listEl) return;
+      const q = filter.trim().toLowerCase();
+      const matched = db.filter(u => {
+        const name = (u.nik || '') + ' ' + (u.surname || '');
+        return name.toLowerCase().includes(q) || (u.phone || '').includes(q) || (u.city || '').toLowerCase().includes(q);
+      });
+
+      if (matched.length === 0) {
+        listEl.innerHTML = `<div class="text-xs text-gray-500 text-center py-6">Mijozlar topilmadi</div>`;
+        return;
+      }
+
+      listEl.innerHTML = matched.map((u, i) => {
+        const fullName = `${u.nik || 'Mijoz'} ${u.surname || ''}`.trim();
+        const goalTxt = u.goal === 'lose' ? "Ozish" : (u.goal === 'gain' ? "Mushak" : "Forma");
+        return `
+          <div class="bg-white/5 p-3 rounded-xl border border-white/5 hover:border-amber-500/30 transition text-left">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-black text-amber-400">#${i + 1} ${fullName}</span>
+              <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-gray-300 font-bold">${u.city || "Farg'ona"}</span>
+            </div>
+            <div class="text-[11px] text-gray-300 flex items-center gap-2">
+              <span>📞 ${u.phone || 'Noma\'lum'}</span>
+              <span>•</span>
+              <span>🎯 ${goalTxt}</span>
+            </div>
+            <div class="text-[10px] text-gray-400 mt-1 flex items-center justify-between">
+              <span>⚖️ ${u.age || '-'} yosh | ${u.height || '-'} sm | ${u.weight || '-'} kg</span>
+              <span>📅 ${u.joinDate || 'Bugun'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportClientsJSON() {
+      const db = getAdminDB();
+      const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', str);
+      a.setAttribute('download', `proforma_clients_${Date.now()}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function clearAdminData() {
+      if (confirm("Rostdan ham barcha mijozlar bazasini tozalashni xohlaysizmi?")) {
+        localStorage.removeItem('smartClubDB');
+        renderAdminClients();
+      }
+    }
     
     // FONT RESIZE LOGIC
     let currentFontScale = parseFloat(localStorage.getItem('fitFontSize') || '1');
@@ -721,10 +1522,17 @@
       if(saved) {
         const d = JSON.parse(saved);
         Object.assign(state, d);
+        if (state.city) {
+          const txt = document.getElementById('selected-city-text');
+          if (txt) txt.innerText = state.city;
+          const inp = document.getElementById('inp-city');
+          if (inp) inp.value = state.city;
+        }
         if(state.nik) {
           currentStep = 8; 
         }
       }
+      renderCityList();
       updateView();
     };
 
@@ -905,6 +1713,8 @@
         state.surname = surInp ? surInp.value.trim() : '';
         const emInp = document.getElementById('inp-email');
         state.email = emInp ? emInp.value.trim() : '';
+        const cityInp = document.getElementById('inp-city');
+        state.city = cityInp ? cityInp.value.trim() : (state.city || "Farg'ona");
         state.phone = document.getElementById('inp-phone').value.trim();
         
         if(!state.nik || !state.phone) return alert("Iltimos, Ism va Telefon raqamingizni kiriting!");
@@ -1057,82 +1867,87 @@
       db.push(state);
       localStorage.setItem('smartClubDB', JSON.stringify(db));
 
+      // Telegram WebApp orqali botga ma'lumot uzatish
+      if (window.Telegram?.WebApp?.sendData) {
+        try {
+          window.Telegram.WebApp.sendData(JSON.stringify(state));
+        } catch(e) {}
+      }
+
       const workoutPlanHTML = renderWorkoutHTML(state);
       document.getElementById('dash-workout').innerHTML = workoutPlanHTML;
     }
 
     function getWorkoutData(d) {
       let data = {
+        promo: "🎉 YAKSHANBA OCHIQ ESHIKLAR: Har Yakshanba barcha mijozlar uchun BEPUL erkin shug'ullanish kuni!",
         monthGuide: [
-          { w: "1-HAFTA", t: "Klubga Moslashuv", d: "Zal uskunalariga o'rganish. 2 soatlik to'liq rejimga moslashuv." },
-          { w: "2-HAFTA", t: "Jadal O'sish", d: "Ishchi vaznlarni oshiramiz. To'liq 2 soatlik og'ir mashg'ulot." },
+          { w: "1-HAFTA", t: "Klubga Moslashuv", d: "Zal uskunalari va trenajorlar bilan tanishish. 2 soatlik to'liq rejimga moslashuv." },
+          { w: "2-HAFTA", t: "Jadal O'sish", d: "Ishchi vaznlarni oshiramiz. To'liq 2-2.5 soatlik og'ir mashg'ulot va toza texnika." },
           { w: "3-HAFTA", t: "Pik Nuqta", d: "Maksimal vaznlar va jadal krossfit elementlari qo'shiladi." },
           { w: "4-HAFTA", t: "Natija", d: "Bir oylik transformatsiya tekshiriladi. Yangi bosqichga o'tish." }
         ],
-        days: [],
-        tips: [
-          "Har bir mashg'ulot aniq 2 soat davom etadi: 15 min qizdirinish, 90 min asosiy mashq, 15 min cho'zilish.",
-          "Klubimizda har mashg'ulotda kamida 1-1.5 litr suv ichishni unutmang.",
-          `Oqsilli ovqatlar normasi: Kuniga ${Math.round(d.weight * 1.8)}g oqsil.`
+        warmups: [
+          { id: "arm_circles", name: "Arm Circles", time: "00:30", reps: "20 marta", icon: "🔄", equip: "Tana vazni" },
+          { id: "dynamic_chest", name: "Dynamic Chest", time: "00:30", reps: "15 marta", icon: "👐", equip: "Tana vazni" },
+          { id: "punches", name: "Punches (Zarbalar)", time: "00:40", reps: "40 marta", icon: "🥊", equip: "Kardio" },
+          { id: "torso_twist", name: "Torso Twist", time: "00:30", reps: "20 marta", icon: "🕺", equip: "Tana vazni" },
+          { id: "jumping_jacks", name: "Jumping Jacks", time: "00:45", reps: "30 marta", icon: "⭐", equip: "Kardio" }
         ],
-        promo: "🎉 YAKSHANBA OCHIQ ESHIKLAR: Har Yakshanba barcha mijozlar uchun BEPUL erkin shug'ullanish kuni!"
+        days: [
+          {
+            dayNum: "1-KUN",
+            title: "Ko'krak, Yelka va Triceps",
+            time: "2 - 2.5 Soat",
+            target: "Ko'krak qafasi, oldingi deltoidlar va uch boshli qo'l mushagi (Triceps)",
+            breakdown: "⏱ 15 min: Kardio qizish | 💪 80 min: Og'ir atletika | 🧘 15 min: Press va Cho'zilish",
+            video: "https://www.youtube.com/results?search_query=kokrak+va+triceps+mashqlari+uzbek+zalda",
+            exercises: [
+              { id: "bench_press", name: "Shtanga bilan gorizontal skameykada jjim", equip: "Shtanga", sets: "4 podxod x 10-12", badge: "Ko'krak", icon: "🏋️‍♂️" },
+              { id: "incline_db_press", name: "Qiya skameykada gantel jjim (30°)", equip: "Gantellar", sets: "4 podxod x 12", badge: "Yuqori ko'krak", icon: "💪" },
+              { id: "overhead_press", name: "Yelka uchun harbiy jjim", equip: "Shtanga / Gantel", sets: "4 podxod x 10", badge: "Yelka", icon: "🏋️‍♂️" },
+              { id: "dips", name: "Brusda mashq (Triceps & Ko'krak)", equip: "Brus / Trenajor", sets: "4 podxod x Max", badge: "Triceps", icon: "⚡" },
+              { id: "plank", name: "Plank (Yakuniy barqarorlik)", equip: "Gilamcha (Mat)", sets: "3 podxod x 1 min", badge: "Press", icon: "⏱" }
+            ]
+          },
+          {
+            dayNum: "2-KUN",
+            title: "Orqa (Qanot) va Biceps",
+            time: "2 - 2.5 Soat",
+            target: "Qanot mushaklari kengligi, orqa qalinligi va ikki boshli qo'l mushagi (Biceps)",
+            breakdown: "⏱ 15 min: Ellips trenajori | 💪 85 min: Asosiy tyagalar | 🧘 15 min: Cho'zilish va Gipertenziya",
+            video: "https://www.youtube.com/results?search_query=orqa+mashqlari+zalda+uzbek",
+            exercises: [
+              { id: "lat_pulldown", name: "Vertikal blokni ko'krakka tortish", equip: "Blok trenajori", sets: "4 podxod x 12-15", badge: "Qanot", icon: "🦾" },
+              { id: "pull_ups", name: "Turnikda keng ushlab tortilish", equip: "Turnik", sets: "4 podxod x 8-12", badge: "Kenglik", icon: "🧗‍♂️" },
+              { id: "barbell_row", name: "Shtanga tyaga (Belni egib tortish)", equip: "Shtanga", sets: "4 podxod x 10-12", badge: "Orqa qalinligi", icon: "🏋️‍♂️" },
+              { id: "barbell_curl", name: "Shtanga bilan biceps", equip: "EZ-grif", sets: "4 podxod x 12", badge: "Biceps", icon: "💪" },
+              { id: "preacher_curl", name: "Skott skameykasida biceps", equip: "Skott stuli", sets: "4 podxod x 12-15", badge: "Izolyatsiya", icon: "🎯" }
+            ]
+          },
+          {
+            dayNum: "3-KUN",
+            title: "Oyoq, Bo'ksa va Press",
+            time: "2 - 2.5 Soat",
+            target: "Kvadriceps, son orqasi, dumba (bo'ksa) va temirdek qorin pressi",
+            breakdown: "⏱ 15 min: Velotrenajor | 💪 80 min: Kuchli oyoq bazasi | 🧘 15 min: Rim stulida press",
+            video: "https://www.youtube.com/results?search_query=oyoq+mashqlari+zalda+uzbek",
+            exercises: [
+              { id: "squat", name: "Shtanga bilan prised (Back Squat)", equip: "Shtanga va Rama", sets: "4 podxod x 10-12", badge: "Oyoq bazaviy", icon: "🦵" },
+              { id: "leg_press", name: "Jjim nogami - Oyoq bilan itarish", equip: "45° Trenajor", sets: "4 podxod x 12-15", badge: "Son & Dumba", icon: "🦿" },
+              { id: "leg_extension", name: "Trenajorda oyoq yozish", equip: "Trenajor", sets: "4 podxod x 15", badge: "Kvadriceps", icon: "🦵" },
+              { id: "roman_chair", name: "Rim stulida oyoq ko'tarish", equip: "Rim stuli", sets: "4 podxod x 20", badge: "Qorin pressi", icon: "⚡" },
+              { id: "plank", name: "Plank mashqi", equip: "Gilamcha", sets: "3 podxod x 1.5 min", badge: "Korteks", icon: "⏱" }
+            ]
+          }
+        ],
+        tips: [
+          "Har bir mashg'ulot 2 - 2.5 soat davom etadi: 15 min qizdirinish, 80 min asosiy mashq, 15 min press va cho'zilish.",
+          "Zalda tosh ko'tarishda doimo belni to'g'ri tuting va og'irlikni silkitmasdan nazorat qiling.",
+          `Klubimizda har mashg'ulotda kamida 1.5 litr toza suv iching. Kunlik suv me'yoringiz: ${(d.weight * 0.033).toFixed(1)} Litr.`,
+          `Oqsil me'yori: Mushak to'qimalarini tiklash uchun kuniga ${Math.round(d.weight * 1.8)}g oqsil qabul qiling.`
+        ]
       };
-
-      let day1 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
-      let day2 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
-      let day3 = { title: "", time: "Davomiyligi: 2 Soat", details: "", video: "" };
-
-      if (d.gender === 'male' && d.goal === 'gain') {
-        day1.title = "1-KUN (Ko'krak, Yelka, Triceps)";
-        day1.details = "⏱ 15 min: Yugurish yo'lakchasi (Qizdirinish)\n💪 60 min: Shtanga jjim (4x10), Gantel razvodka (4x12), Qiya skameykada jjim (4x10), Yelka uchun jjim (4x12)\n🔥 30 min: Triceps blok (4x15), Brus (4xMax)\n🧘 15 min: Press mashqlari va Cho'zilish";
-        day1.video = "https://www.youtube.com/results?search_query=kokrak+va+triceps+mashqlari+uzbek+zalda";
-
-        day2.title = "2-KUN (Orqa va Biceps)";
-        day2.details = "⏱ 15 min: Ellips trenajori\n💪 60 min: Turnik keng ushlash (4xMax), Stanovaya tyaga (4x10), Blok tyaga (4x12), Gantel tortish (4x12)\n🔥 30 min: Shtanga bilan biceps (4x12), Skott stulida biceps (4x15)\n🧘 15 min: Gipertenziya va Cho'zilish";
-        day2.video = "https://www.youtube.com/results?search_query=orqa+mashqlari+zalda+uzbek";
-
-        day3.title = "3-KUN (Oyoq va Tana markazi)";
-        day3.details = "⏱ 15 min: Velotrenajor\n💪 60 min: Shtanga bilan prised (4x10), Jjim nogami - Oyoq bilan itarish (4x12), Trenajorda oyoq uzatish va yig'ish (4x15)\n🔥 30 min: Ikra (4x20), Rim stulida press (4x20), Krossfit arqon (5 min)\n🧘 15 min: Turnikda osilish, Cho'zilish";
-        day3.video = "https://www.youtube.com/results?search_query=oyoq+mashqlari+zalda+uzbek";
-      } else if (d.gender === 'female' && (d.focus === 'legs' || d.goal === 'gain')) {
-        day1.title = "1-KUN (Bo'ksa va Oyoq orqasi)";
-        day1.details = "⏱ 15 min: Yugurish yo'lakchasida qiya yurish (Qizdirinish)\n💪 60 min: Yagodichniy mostik smitda (4x15), Ruminiya tyagasi (4x15), Trenajorda oyoq orqaga tepish (4x15)\n🔥 30 min: Krossoverda kikbek (4x15), Girevoy prised (4x15)\n🧘 15 min: Cho'zilish (Shpagat va boshqalar)";
-        day1.video = "https://www.youtube.com/results?search_query=boksa+va+oyoq+mashqlari+uzbek+qizlar+zalda";
-
-        day2.title = "2-KUN (Tana yuqori qismi va Qorin)";
-        day2.details = "⏱ 15 min: Ellips trenajori\n💪 60 min: Vertikal blok tortish (4x15), Gorizontal blok (4x15), Gantel yelka jjim (3x15), Tizzadan otjimaniye (3xMax)\n🔥 30 min: Rim stulida press (4x20), Qiya skameykada oyoq ko'tarish (4x20), Plank (3x1 min)\n🧘 15 min: Yoga / Cho'zilish";
-        day2.video = "https://www.youtube.com/results?search_query=qizlar+uchun+qol+va+orqa+mashqlari+zalda";
-
-        day3.title = "3-KUN (Oyoq oldi qismi va Jadal Kardio)";
-        day3.details = "⏱ 15 min: Velotrenajor (Tez tempda)\n💪 60 min: Prikid (Gantel bilan vipadi 4x15), Smit trenajorida prised (4x15), Trenajorda oyoq uzatish (4x15)\n🔥 30 min: Zalda yugurish yo'lakchasi (HIIT - 1 min yugurish, 1 min yurish x 10 marta)\n🧘 15 min: Bo'ksalarni qizdiruvchi cho'zilish";
-        day3.video = "https://www.youtube.com/results?search_query=uyda+oyoq+mashqlari+uzbek+tilida";
-      } else if (d.goal === 'loss' || d.focus === 'belly') {
-        day1.title = "1-KUN (Yog' yoqish va To'liq Tana)";
-        day1.details = "⏱ 20 min: Yugurish yo'lakchasi (O'rta tempda)\n💪 60 min: Aylanma mashq (Krugovoy) - Prised, Otjimaniye, Blok tortish, Press (Barchasi 3 aylanma, har biri 15-20 martadan tinimsiz)\n🔥 25 min: Maxsus qorin uchun mashqlar majmuasi (Skruchivaniye, Velosiped, Qiya press)\n🧘 15 min: Nafasni tiklash va Cho'zilish";
-        day1.video = "https://www.youtube.com/results?search_query=zalda+ozish+mashqlari+uzbek";
-
-        day2.title = "2-KUN (Kuchli Kardio va Oyoq)";
-        day2.details = "⏱ 20 min: Ellips trenajori (Yuqori qarshilik bilan)\n💪 60 min: Jjim nogami - Trenajorda itarish (4x20), Vipadi (4x15), Gakk prisedaniye (4x15)\n🔥 25 min: Burpi (4x10), Alpinist mashqi (4x25), Step-platformaga chiqib tushish (4x20)\n🧘 15 min: Chuqur cho'zilish";
-        day2.video = "https://www.youtube.com/results?search_query=zalda+oyoq+mashqlari+ozish+uchun";
-
-        day3.title = "3-KUN (HIIT Krossfit va Matbuot)";
-        day3.details = "⏱ 20 min: Velotrenajor (Interval usulda)\n💪 60 min: Arqon (Krossfit qamchi) 10 min, Shina ag'darish yoki og'ir qum qopini ko'tarish (agar klubda bo'lsa), Maxsus turnik tortishish, Gipertenziya (4x20)\n🔥 25 min: Rim stuli (4x20), Plank (3x1.5 min), Ruscha burilish (Gantel bilan 4x20)\n🧘 15 min: To'liq relaksatsiya";
-        day3.video = "https://www.youtube.com/results?search_query=press+chiqarish+mashqlari+uzbek+zalda";
-      } else {
-        day1.title = "1-KUN (Ko'krak, Yelka, Triceps)";
-        day1.details = "⏱ 15 min: Kardio\n💪 60 min: Jjim lyuja (4x12), Gantel jjim (3x15), Triceps blok (4x15)\n🔥 30 min: Otjimaniye va Press (Rim stulida)\n🧘 15 min: Cho'zilish";
-        day1.video = "https://www.youtube.com/results?search_query=kokrak+mashqlari+zalda+uzbek";
-
-        day2.title = "2-KUN (Oyoq va Bo'ksa)";
-        day2.details = "⏱ 15 min: Kardio\n💪 60 min: Prisedaniye smitda (4x15), Jjim nogami (4x15), Vipadi (3x15)\n🔥 30 min: Ikra va Yagodichniy mostik\n🧘 15 min: Cho'zilish";
-        day2.video = "https://www.youtube.com/results?search_query=oyoq+mashqlari+zalda+uzbek";
-
-        day3.title = "3-KUN (Orqa va Biceps)";
-        day3.details = "⏱ 15 min: Kardio\n💪 60 min: Vertikal va Gorizontal blok (4x15), Turnik, Gantel Biceps (4x15)\n🔥 30 min: Ladochka, Gipertenziya, Press\n🧘 15 min: Cho'zilish";
-        day3.video = "https://www.youtube.com/results?search_query=orqa+mashqlari+zalda+uzbek";
-      }
-
-      data.days = [day1, day2, day3];
       return data;
     }
 
@@ -1140,13 +1955,40 @@
       const data = getWorkoutData(d);
       let html = `
         <!-- PROMO BANNER -->
-        <div class="mb-8 p-4 bg-gradient-to-r from-red-600/80 to-pink-600/80 rounded-xl border border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.4)] transform hover:scale-[1.02] transition">
-          <h3 class="text-white font-black text-center text-sm md:text-base uppercase tracking-widest">${data.promo}</h3>
+        <div class="mb-8 p-4 bg-gradient-to-r from-red-600/80 to-pink-600/80 rounded-2xl border border-red-400 shadow-[0_0_25px_rgba(220,38,38,0.35)] transform hover:scale-[1.01] transition">
+          <h3 class="text-white font-black text-center text-xs sm:text-sm uppercase tracking-widest">${data.promo}</h3>
         </div>
 
-        <!-- Month Progress Guide -->
+        <!-- 15 DAQIQALIK QIZIB OLISH (WARM-UP) -->
         <div class="mb-8">
-          <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-calendar-days text-emerald-400"></i> SmartClub Pro: 1-Oylik Rivojlanish Bosqichlari:</h4>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-white font-bold flex items-center gap-2 text-sm sm:text-base">
+              <i class="fa-solid fa-fire text-amber-400 animate-pulse"></i> 1-BOSQICH: Qizib Olish (Warm-Up - 15 daqiqa)
+            </h4>
+            <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded-md border border-amber-500/30">Majburiy</span>
+          </div>
+          <p class="text-xs text-gray-400 mb-3">Zal uskunalariga o'tishdan oldin bo'g'im va paylarni jarohatdan himoyalovchi darslar:</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+      `;
+
+      data.warmups.forEach(w => {
+        html += `
+          <div class="bg-white/5 border border-white/10 hover:border-emerald-500/40 rounded-2xl p-3 flex flex-col items-center text-center transition group">
+            <div class="text-3xl mb-1.5 group-hover:scale-110 transition transform">${w.icon}</div>
+            <div class="text-xs font-black text-white mb-0.5 truncate w-full">${w.name}</div>
+            <div class="text-[10px] text-emerald-400 font-bold mb-2">${w.time} | ${w.reps}</div>
+            <button onclick="openExerciseModal('${w.id}')" class="w-full py-1.5 px-2 bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-black font-black text-[10px] rounded-xl transition border border-emerald-500/30 flex items-center justify-center gap-1 shadow-sm">
+              <span>Texnika</span> <i class="fa-solid fa-circle-info text-[9px]"></i>
+            </button>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+
+      // 1-Oylik Rivojlanish Bosqichlari
+      html += `
+        <div class="mb-8">
+          <h4 class="text-white font-bold mb-3 flex items-center gap-2 text-sm sm:text-base"><i class="fa-solid fa-calendar-days text-emerald-400"></i> SmartClub Pro: 1-Oylik Rivojlanish Bosqichlari:</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
       `;
       data.monthGuide.forEach(g => {
@@ -1160,32 +2002,77 @@
       });
       html += `</div></div>`;
 
-      // Weekly routine that repeats for 4 weeks
+      // HAFTALIK 3 KUNLIK SPLIT DASTURI (2-3 SOATDAN)
       html += `
-        <div class="mb-6">
-          <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-clock text-cyan-400"></i> Klub Dasturi (Haftada 3 kun, 2 soatdan):</h4>
-          <div class="space-y-4">
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-white font-bold flex items-center gap-2 text-sm sm:text-base">
+              <i class="fa-solid fa-dumbbell text-cyan-400"></i> Zal Dasturi (Haftada 3 kun, 2-3 soatdan):
+            </h4>
+            <span class="text-[10px] bg-cyan-500/20 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full border border-cyan-500/30">Podxodlar va Uskunalar</span>
+          </div>
+          <div class="space-y-5">
       `;
       
       data.days.forEach(day => {
         html += `
-          <div class="p-5 bg-white/5 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition relative overflow-hidden">
-            <div class="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 font-bold px-3 py-1 text-xs rounded-bl-lg">${day.time}</div>
-            <h4 class="font-black text-cyan-400 mb-4 text-lg pr-24">${day.title}</h4>
-            <div class="mb-5 text-gray-300 leading-relaxed text-sm bg-black/40 p-4 rounded-xl border border-white/5 whitespace-pre-line">${day.details}</div>
-            <a href="${day.video}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-red-600/40 transition border border-red-500/30 w-full sm:w-auto justify-center shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-              <i class="fa-brands fa-youtube text-lg"></i> O'zbekcha Videolarni Izlash
+          <div class="p-5 bg-white/5 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition relative overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div>
+                <span class="text-xs font-black text-emerald-400 uppercase tracking-wider">${day.dayNum}</span>
+                <h4 class="font-black text-white text-lg sm:text-xl">${day.title}</h4>
+              </div>
+              <span class="bg-cyan-500/20 text-cyan-300 font-black px-3 py-1 text-xs rounded-xl border border-cyan-500/30">${day.time}</span>
+            </div>
+
+            <div class="text-xs text-gray-400 mb-2">🎯 <b>Maqsad:</b> ${day.target}</div>
+            <div class="text-xs text-emerald-400 font-semibold bg-black/40 px-3 py-2 rounded-xl mb-4 border border-white/5">
+              ${day.breakdown}
+            </div>
+
+            <!-- Exercises List -->
+            <div class="space-y-2.5 mb-4">
+              <div class="text-[11px] font-black uppercase tracking-wider text-gray-400">Asosiy Zal Mashqlari:</div>
+        `;
+
+        day.exercises.forEach(ex => {
+          html += `
+            <div class="bg-black/50 border border-white/5 hover:border-white/15 p-3 rounded-2xl flex items-center justify-between gap-3 transition">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xl shrink-0">
+                  ${ex.icon}
+                </div>
+                <div class="min-w-0">
+                  <div class="text-xs font-bold text-white truncate">${ex.name}</div>
+                  <div class="flex flex-wrap items-center gap-1.5 mt-0.5">
+                    <span class="text-[10px] bg-emerald-500/15 text-emerald-300 px-2 py-0.5 rounded font-bold border border-emerald-500/20">Uskuna: ${ex.equip}</span>
+                    <span class="text-[10px] bg-cyan-500/15 text-cyan-300 px-2 py-0.5 rounded font-bold border border-cyan-500/20">${ex.sets}</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="openExerciseModal('${ex.id}')" class="shrink-0 py-2 px-3 bg-white/10 hover:bg-emerald-500 hover:text-black text-gray-200 font-black text-xs rounded-xl transition border border-white/10 flex items-center gap-1">
+                <span>Texnika</span> <i class="fa-solid fa-circle-info text-[10px]"></i>
+              </button>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+
+            <a href="${day.video}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 px-4 py-2 rounded-xl text-xs font-bold hover:bg-red-600/40 transition border border-red-500/30 w-full sm:w-auto justify-center shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+              <i class="fa-brands fa-youtube text-base"></i> O'zbekcha Video Darsliklarni Ko'rish
             </a>
           </div>
         `;
       });
       html += `</div></div>`;
 
-      // Golden Tips
+      // Oltin Qoidalar
       html += `
-        <div class="mt-8 p-5 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
-          <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-crown"></i> Klubning Oltin Qoidalari</h4>
-          <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2">
+        <div class="mt-8 p-5 bg-amber-500/10 border border-amber-500/30 rounded-3xl">
+          <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2 text-sm sm:text-base"><i class="fa-solid fa-crown"></i> Klubning Oltin Qoidalari</h4>
+          <ul class="list-disc pl-5 text-gray-300 text-xs sm:text-sm space-y-2">
       `;
       data.tips.forEach(tip => {
         html += `<li>${tip}</li>`;
@@ -1211,17 +2098,28 @@
       let message = `⚡️ SMARTCLUB PRO — SHAXSIY REJA\n\n`;
       message += `👤 Mijoz: ${fullName}\n`;
       message += `📞 Telefon: ${state.phone}\n`;
+      message += `📍 Shahar: ${state.city || "Farg'ona"}\n`;
       message += `🎯 Maqsad: ${goalText}\n`;
       message += `⚖️ Parametrlar: ${state.age} yosh | ${state.height} sm | ${state.weight} kg\n\n`;
       message += `🔥 KUNLIK HISOB-KITOB:\n`;
       message += `• Suv normasi: ${(state.weight * 0.033).toFixed(1)} Litr / kun\n`;
       message += `• Oqsil normasi: ${Math.round(state.weight * 1.8)} g oqsil\n\n`;
-      message += `🏋️‍♂️ HAFTALIK REJA (HAFTASIGA 3 KUN, 2 SOATDAN):\n`;
+      message += `🏋️‍♂️ HAFTALIK ZAL REJASI (HAFTASIGA 3 KUN, 2-2.5 SOATDAN):\n`;
       workoutData.days.forEach(d => {
-        message += `\n📌 ${d.title}\n${d.details}\n`;
+        message += `\n📌 ${d.dayNum}: ${d.title} (${d.time})\n`;
+        message += `🎯 ${d.target}\n`;
+        d.exercises.forEach(e => {
+          message += `   • ${e.name} (${e.sets}) [${e.equip}]\n`;
+        });
       });
       message += `\n🎉 YAKSHANBA KUNLARI — Bepul erkin mashg'ulot kuni!\n`;
       message += `👨🏻‍💻 Dastur muallifi: Hasanboyev Shohjahon`;
+
+      if (window.Telegram?.WebApp?.sendData) {
+        try {
+          window.Telegram.WebApp.sendData(JSON.stringify(state));
+        } catch(e) {}
+      }
 
       // Telegramda o'ziga (Saqlangan xabarlarga) yoki do'stlariga ulashish
       const shareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
