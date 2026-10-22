@@ -17,17 +17,30 @@
   <style>
     :root {
       font-size: 16px;
+    html {
+      scroll-behavior: smooth;
+      height: 100%;
     }
 
     body {
       background-color: #05080e;
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100%;
       margin: 0;
       position: relative;
-      /* Ultra-modern Cyber-Fitness Mesh Background */
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Fixed Smooth Background Layer */
+    #fixed-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-color: #05080e;
       background-image: 
         radial-gradient(rgba(16, 185, 129, 0.18) 1.5px, transparent 1.5px),
         radial-gradient(circle at 10% 15%, rgba(16, 185, 129, 0.25) 0%, transparent 45%),
@@ -35,7 +48,32 @@
         radial-gradient(circle at 50% 85%, rgba(139, 92, 246, 0.2) 0%, transparent 55%),
         linear-gradient(180deg, #070e17 0%, #030508 100%);
       background-size: 32px 32px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-      background-attachment: fixed;
+    }
+
+    /* Star Sparkle Burst Particle Effect */
+    .star-burst-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: var(--size, 16px);
+      user-select: none;
+      will-change: transform, opacity;
+      animation: popSparkle 0.75s cubic-bezier(0.15, 0.9, 0.35, 1) forwards;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.9));
+    }
+    @keyframes popSparkle {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) scale(0.3) rotate(0deg);
+      }
+      45% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(1.35) rotate(var(--rot));
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(calc(var(--dx) * 1.35), calc(var(--dy) * 1.35 + 20px)) scale(0.1) rotate(calc(var(--rot) * 2));
+      }
     }
 
     /* Floating Ambient Glowing Orbs */
@@ -141,13 +179,16 @@
     /* BREATHTAKING RADIANT DAY MODE */
     body.light-mode {
       background-color: #f0fdf4 !important;
+      color: #0f172a !important;
+    }
+    body.light-mode #fixed-bg {
+      background-color: #f0fdf4 !important;
       background-image: 
         radial-gradient(rgba(16, 185, 129, 0.15) 1.5px, transparent 1.5px),
         radial-gradient(circle at 10% 10%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 90% 15%, rgba(251, 191, 36, 0.25) 0%, transparent 45%),
         radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.22) 0%, transparent 55%),
         linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
-      color: #0f172a !important;
     }
     body.light-mode .ambient-glow-1 {
       background: radial-gradient(circle, rgba(52, 211, 153, 0.35) 0%, transparent 70%) !important;
@@ -193,7 +234,10 @@
     body.light-mode .border-gray-800, body.light-mode .border-gray-700 { border-color: #cbd5e1 !important; }
   </style>
 </head>
-<body class="flex flex-col items-center justify-center p-3 sm:p-8 min-h-screen">
+<body class="flex flex-col items-center justify-start p-3 sm:p-8 min-h-screen relative">
+  <!-- Fixed Smooth Background Layer -->
+  <div id="fixed-bg"></div>
+
   <!-- Interactive Animated Stars Canvas -->
   <canvas id="stars-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
@@ -218,7 +262,7 @@
     </button>
   </div>
 
-  <div class="glass-panel w-full max-w-2xl p-6 sm:p-10 relative overflow-hidden min-h-[600px] flex flex-col">
+  <div class="glass-panel w-full max-w-2xl p-6 sm:p-10 relative overflow-hidden min-h-[600px] flex flex-col my-auto mt-14 sm:mt-8">
     
     <!-- Progress Header -->
     <div class="text-center mb-8 relative">
@@ -1302,6 +1346,55 @@
       }
       draw();
     })();
+
+    // DAZZLING STAR SPARKLE BURST ON ANY BUTTON / CARD CLICK
+    function spawnStarBurst(x, y) {
+      const starSymbols = ['⭐', '✨', '🌟', '✦', '⚡', '💫'];
+      const count = 12;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'star-burst-particle';
+        p.textContent = starSymbols[Math.floor(Math.random() * starSymbols.length)];
+        
+        const angle = (Math.PI * 2 / count) * i + (Math.random() * 0.4 - 0.2);
+        const dist = Math.random() * 55 + 30;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        const rot = (Math.random() * 360 - 180) + 'deg';
+        const size = (Math.random() * 8 + 14) + 'px';
+
+        p.style.setProperty('--dx', `${dx}px`);
+        p.style.setProperty('--dy', `${dy}px`);
+        p.style.setProperty('--rot', rot);
+        p.style.setProperty('--size', size);
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 750);
+      }
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      const clickable = e.target.closest('button, .select-card, .avatar-opt, a, [onclick], input[type="file"]');
+      if (clickable) {
+        let x = e.clientX;
+        let y = e.clientY;
+        if (!x && !y) {
+          const rect = clickable.getBoundingClientRect();
+          x = rect.left + rect.width / 2;
+          y = rect.top + rect.height / 2;
+        }
+        spawnStarBurst(x, y);
+
+        // Haptic feedback in Telegram Mini App
+        try {
+          if (window.Telegram?.WebApp?.HapticFeedback) {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+          }
+        } catch(err) {}
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
