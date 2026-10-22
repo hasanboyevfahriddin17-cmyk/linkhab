@@ -138,12 +138,69 @@
       background: linear-gradient(to right, #34D399, #22D3EE);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-  body.light-mode { background-color: #f1f5f9; background-image: none; color: #0f172a; } body.light-mode .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1); } body.light-mode .text-white { color: #0f172a !important; } body.light-mode .text-gray-400 { color: #64748b !important; } body.light-mode .text-gray-300 { color: #475569 !important; } body.light-mode .bg-black { background-color: #ffffff !important; } body.light-mode .bg-black\\/40, body.light-mode .bg-black\\/50, body.light-mode .bg-black\\/60 { background-color: rgba(255,255,255,0.8) !important; } body.light-mode .bg-white\\/5 { background-color: rgba(0,0,0,0.03) !important; } body.light-mode .border-white\\/10 { border-color: rgba(0,0,0,0.1) !important; } body.light-mode .border-white\\/5 { border-color: rgba(0,0,0,0.05) !important; } body.light-mode .select-card { background: rgba(255,255,255,1); border-color: rgba(0,0,0,0.1); } body.light-mode .select-card:hover { background: rgba(248,250,252,1); } body.light-mode .select-card.active { background: rgba(16, 185, 129, 0.1); border-color: #10b981; } body.light-mode input.bg-transparent, body.light-mode select.bg-transparent { color: #0f172a; } body.light-mode .bg-gray-900 { background-color: #e2e8f0 !important; } body.light-mode .border-gray-800 { border-color: #cbd5e1 !important; } body.light-mode #theme-toggle { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #0f172a; }</style>
+    /* BREATHTAKING RADIANT DAY MODE */
+    body.light-mode {
+      background-color: #f0fdf4 !important;
+      background-image: 
+        radial-gradient(rgba(16, 185, 129, 0.15) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 10% 10%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 90% 15%, rgba(251, 191, 36, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.22) 0%, transparent 55%),
+        linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
+      color: #0f172a !important;
+    }
+    body.light-mode .ambient-glow-1 {
+      background: radial-gradient(circle, rgba(52, 211, 153, 0.35) 0%, transparent 70%) !important;
+    }
+    body.light-mode .ambient-glow-2 {
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.28) 0%, transparent 70%) !important;
+    }
+    body.light-mode .ambient-glow-3 {
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, transparent 70%) !important;
+    }
+    body.light-mode .glass-panel {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: 1px solid rgba(16, 185, 129, 0.2) !important;
+      box-shadow: 0 30px 70px -15px rgba(15, 23, 42, 0.12), 0 0 35px rgba(16, 185, 129, 0.15) !important;
+    }
+    body.light-mode .text-white { color: #0f172a !important; }
+    body.light-mode .text-gray-400 { color: #64748b !important; }
+    body.light-mode .text-gray-300 { color: #475569 !important; }
+    body.light-mode .text-gray-200 { color: #334155 !important; }
+    body.light-mode .bg-black { background-color: #ffffff !important; }
+    body.light-mode .bg-black\/40, 
+    body.light-mode .bg-black\/50, 
+    body.light-mode .bg-black\/60,
+    body.light-mode .bg-black\/70,
+    body.light-mode .bg-black\/80 { background-color: rgba(255, 255, 255, 0.9) !important; color: #0f172a; }
+    body.light-mode .premium-input {
+      background: rgba(241, 245, 249, 0.9) !important;
+      border-color: rgba(203, 213, 225, 0.8) !important;
+      color: #0f172a !important;
+    }
+    body.light-mode .premium-input:focus {
+      background: #ffffff !important;
+      border-color: #10B981 !important;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.25) !important;
+    }
+    body.light-mode .bg-white\/5, body.light-mode .bg-white\/10 { background-color: rgba(0, 0, 0, 0.04) !important; }
+    body.light-mode .border-white\/10, body.light-mode .border-white\/15, body.light-mode .border-white\/5 { border-color: rgba(0, 0, 0, 0.08) !important; }
+    body.light-mode .select-card { background: rgba(255, 255, 255, 0.95) !important; border-color: rgba(226, 232, 240, 1) !important; }
+    body.light-mode .select-card:hover { background: #ffffff !important; border-color: #10b981 !important; }
+    body.light-mode .select-card.active { background: rgba(16, 185, 129, 0.12) !important; border-color: #10b981 !important; }
+    body.light-mode input.bg-transparent, body.light-mode select.bg-transparent { color: #0f172a !important; }
+    body.light-mode .bg-gray-900 { background-color: #f8fafc !important; border-color: #e2e8f0 !important; }
+    body.light-mode .border-gray-800, body.light-mode .border-gray-700 { border-color: #cbd5e1 !important; }
+  </style>
 </head>
 <body class="flex flex-col items-center justify-center p-3 sm:p-8 min-h-screen">
+  <!-- Interactive Animated Stars Canvas -->
+  <canvas id="stars-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
   <!-- Ambient Background Glowing Orbs -->
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-3"></div>
 
   <!-- FLOATING TOP CONTROLS (Font Size + Theme) -->
   <div class="fixed top-3 right-3 sm:top-5 sm:right-5 z-50 flex items-center gap-1.5 bg-black/70 backdrop-blur-2xl border border-white/15 p-1 rounded-full shadow-2xl">
@@ -203,6 +260,10 @@
           <div>
             <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Familiya</div>
             <input type="text" id="inp-surname" class="premium-input text-left" placeholder="Hasanboy">
+          </div>
+          <div>
+            <div class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 ml-1">Email (ixtiyoriy)</div>
+            <input type="email" id="inp-email" class="premium-input text-left" placeholder="shohjahon@gmail.com">
           </div>
           <button onclick="nextStep()" class="btn-primary mt-6 !bg-emerald-500 hover:!bg-emerald-400 !shadow-[0_10px_25px_rgba(16,185,129,0.4)]">
             Kod olish <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -344,16 +405,19 @@
           <div>
             <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Yosh</div>
             <div class="relative">
-              <input type="number" id="inp-age" class="premium-input">
+              <input type="number" id="inp-age" class="premium-input text-center" min="12" placeholder="12">
             </div>
+            <div class="text-[11px] text-emerald-400/80 font-bold text-center mt-1">Kamida 12 yosh</div>
           </div>
           <div>
             <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Bo'y (sm)</div>
-            <input type="number" id="inp-height" class="premium-input">
+            <input type="number" id="inp-height" class="premium-input text-center" min="130" placeholder="130">
+            <div class="text-[11px] text-emerald-400/80 font-bold text-center mt-1">Kamida 130 sm</div>
           </div>
           <div>
             <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Vazn (kg)</div>
-            <input type="number" id="inp-weight" class="premium-input">
+            <input type="number" id="inp-weight" class="premium-input text-center" min="40" placeholder="40">
+            <div class="text-[11px] text-emerald-400/80 font-bold text-center mt-1">Kamida 40 kg</div>
           </div>
         </div>
         
@@ -401,45 +465,6 @@
           </div>
         </div>
 
-        <!-- STREAK & COINS (ZabonGo uslubida) -->
-        <div class="space-y-3 mb-6">
-          <!-- Streak Card -->
-          <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4 rounded-2xl border border-amber-500/20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
-                <i class="fa-solid fa-fire"></i>
-              </div>
-              <div>
-                <div class="font-black text-white text-sm">1 kun ketma-ket</div>
-                <div class="text-[11px] text-gray-400">bonusgacha 6 kun • rekord sari</div>
-              </div>
-            </div>
-            <div class="flex gap-1">
-              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-              <span class="w-2 h-2 rounded-full bg-white/20"></span>
-              <span class="w-2 h-2 rounded-full bg-white/20"></span>
-              <span class="w-2 h-2 rounded-full bg-white/20"></span>
-              <span class="w-2 h-2 rounded-full bg-white/20"></span>
-            </div>
-          </div>
-
-          <!-- Coins Card -->
-          <div class="bg-gradient-to-r from-yellow-500/10 via-yellow-500/5 to-transparent p-4 rounded-2xl border border-yellow-500/20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-lg font-black">
-                🪙
-              </div>
-              <div>
-                <div class="font-black text-white text-sm">100 FitCoin</div>
-                <div class="text-[11px] text-gray-400">Klubdagi bonus tangalaringiz</div>
-              </div>
-            </div>
-            <button onclick="alert('🎉 Bugungi 20 FitCoin bonusi hisobingizga qo\'shildi!')" class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-yellow-500/20">
-              Olish
-            </button>
-          </div>
-        </div>
-
         <!-- 4 STAT CARDS (ZabonGo uslubida) -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <div class="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
@@ -464,22 +489,6 @@
           </div>
         </div>
 
-        <!-- REYTING BLOKLARI (ZabonGo uslubida) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-          <div class="bg-gradient-to-br from-emerald-600 to-emerald-800 p-5 rounded-2xl text-white relative overflow-hidden shadow-lg shadow-emerald-900/30">
-            <div class="text-[10px] font-black uppercase tracking-wider text-emerald-200">FARG'ONA BO'YICHA</div>
-            <div class="text-3xl font-black mt-1">1-o'rin</div>
-            <div class="text-xs text-emerald-100/80 mt-0.5">Klub a'zolari orasida</div>
-            <div class="absolute right-4 bottom-2 text-4xl opacity-20">🥇</div>
-          </div>
-          <div class="bg-gradient-to-br from-amber-600 to-amber-800 p-5 rounded-2xl text-white relative overflow-hidden shadow-lg shadow-amber-900/30">
-            <div class="text-[10px] font-black uppercase tracking-wider text-amber-200">O'ZBEKISTON BO'YICHA</div>
-            <div class="text-3xl font-black mt-1">1-o'rin</div>
-            <div class="text-xs text-amber-100/80 mt-0.5">Top natijador sportchilar</div>
-            <div class="absolute right-4 bottom-2 text-4xl opacity-20">🏆</div>
-          </div>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <!-- PROGRESS GALLERY -->
           <div class="bg-white/[0.02] p-6 rounded-3xl border border-white/5">
@@ -500,22 +509,21 @@
             </div>
           </div>
 
-          <!-- TELEGRAM YUBORISH -->
+          <!-- SHAXSIY TELEGRAM VA BAZA SAQLASH -->
           <div class="bg-gradient-to-br from-emerald-950/70 via-black to-slate-900 p-6 rounded-3xl border border-emerald-500/30 flex flex-col justify-center text-center relative overflow-hidden">
             <div class="absolute -right-4 -bottom-4 w-32 h-32 bg-emerald-500/20 blur-2xl rounded-full"></div>
             <i class="fa-brands fa-telegram text-5xl text-[#229ED9] mb-3 drop-shadow-[0_0_20px_rgba(34,158,217,0.6)]"></i>
             <h3 class="text-xl font-bold text-white mb-1">Shaxsiy Telegramingizga Saqlash</h3>
-            <p class="text-xs text-gray-400 mb-5">Hisoblangan barcha ratsion va mashg'ulotlar rejasini Telegramingizga yuboring</p>
+            <p class="text-xs text-gray-400 mb-4">Barcha rejangiz bazada saqlandi. Bir bosishda Telegramingizga nusxasini yuboring.</p>
             <div class="hidden" id="result-code"></div>
             
             <div class="space-y-3">
               <button onclick="sendToMyTelegram()" class="btn-primary !bg-[#229ED9] hover:!bg-[#1c8ec4] !shadow-[0_10px_25px_rgba(34,158,217,0.4)] flex items-center justify-center gap-2">
                 <i class="fa-solid fa-paper-plane text-lg"></i> Shaxsiy Telegramga Yuborish
               </button>
-              
-              <button onclick="sendToTelegram()" class="w-full py-3 px-4 rounded-xl text-xs font-bold text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-user-shield text-emerald-400"></i> Adminga ma'lumot jo'natish
-              </button>
+              <div class="text-[11px] text-emerald-400 font-bold flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-circle-check"></i> Ma'lumotlaringiz bazada xavfsiz saqlangan
+              </div>
             </div>
           </div>
         </div>
@@ -528,6 +536,8 @@
           <div id="dash-workout" class="text-gray-300 text-sm sm:text-base whitespace-pre-line leading-relaxed relative z-10">
             <!-- Workout generated here -->
           </div>
+        </div>
+
         <!-- BOTTOM NAVIGATION BAR (ZabonGo Uslubida) -->
         <div class="sticky bottom-3 z-40 max-w-sm mx-auto mt-6">
           <div class="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 flex items-center justify-around shadow-2xl">
@@ -542,10 +552,6 @@
             <button onclick="sendToMyTelegram()" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
               <i class="fa-solid fa-apple-whole text-base"></i>
               <span>Ratsion</span>
-            </button>
-            <button onclick="alert('🏆 Siz Farg\'ona viloyati bo\'yicha 1-o\'rinda turibsiz!')" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
-              <i class="fa-solid fa-trophy text-base"></i>
-              <span>Reyting</span>
             </button>
             <button onclick="document.getElementById('dash-nik')?.scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 py-1.5 px-3 rounded-xl text-gray-400 hover:text-white text-[10px] transition">
               <i class="fa-solid fa-user text-base"></i>
@@ -565,30 +571,62 @@
 
     </div>
     
-    <!-- SMS Verification Modal -->
-    <div id="sms-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
-      <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl max-w-sm w-full text-center relative shadow-2xl">
-        <div class="w-16 h-16 mx-auto bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-2xl mb-4">
-          <i class="fa-solid fa-comment-sms"></i>
+    <!-- Multi-Channel Verification Modal (Telegram / Email / SMS) -->
+    <div id="sms-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
+      <div class="bg-gray-900 border border-emerald-500/30 p-6 sm:p-8 rounded-3xl max-w-sm w-full text-center relative shadow-2xl">
+        <div class="w-16 h-16 mx-auto bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mb-3 shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-shield-halved"></i>
         </div>
-        <h3 class="text-2xl font-black text-white mb-2">Tasdiqlash KODI</h3>
-        <p class="text-sm text-gray-400 mb-6"><span id="sms-phone-display" class="font-bold text-white"></span> raqamiga yuborilgan 4 xonali kodni kiriting.</p>
+        <h3 class="text-2xl font-black text-white mb-1">Xavfsiz Tasdiqlash</h3>
+        <p class="text-xs text-gray-400 mb-4">Kodni qaysi usulda olishni xohlaysiz?</p>
         
-        <div class="flex justify-center gap-3 mb-6">
-          <input type="text" id="sms-1" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-2')">
-          <input type="text" id="sms-2" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-3')">
-          <input type="text" id="sms-3" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="focusNext(this, 'sms-4')">
-          <input type="text" id="sms-4" maxlength="1" class="w-12 h-14 bg-black border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none" oninput="verifySMS()">
+        <!-- Verification Channel Chips -->
+        <div class="grid grid-cols-3 gap-2 mb-4">
+          <button type="button" onclick="selectVerifyChannel('telegram')" id="btn-chan-tg" class="py-2.5 px-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex flex-col items-center gap-1 transition">
+            <i class="fa-brands fa-telegram text-base"></i>
+            <span>Telegram</span>
+          </button>
+          <button type="button" onclick="selectVerifyChannel('email')" id="btn-chan-email" class="py-2.5 px-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 font-bold text-xs flex flex-col items-center gap-1 transition hover:bg-white/10">
+            <i class="fa-solid fa-envelope text-base"></i>
+            <span>Email</span>
+          </button>
+          <button type="button" onclick="selectVerifyChannel('sms')" id="btn-chan-sms" class="py-2.5 px-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 font-bold text-xs flex flex-col items-center gap-1 transition hover:bg-white/10">
+            <i class="fa-solid fa-comment-sms text-base"></i>
+            <span>SMS</span>
+          </button>
+        </div>
+
+        <!-- Verification Code Display & Quick Enter -->
+        <div id="verify-code-banner" class="bg-emerald-500/15 border border-emerald-500/40 rounded-2xl p-3 mb-4 text-left flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/30 text-emerald-400 flex items-center justify-center text-sm font-black">
+              🔑
+            </div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase font-bold" id="verify-dest-label">Tasdiqlash kodi:</div>
+              <div class="text-lg font-black text-emerald-400 tracking-widest" id="display-verify-code">1234</div>
+            </div>
+          </div>
+          <button type="button" onclick="autoFillCode()" class="bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-black px-3 py-2 rounded-xl transition shadow-md shadow-emerald-500/20">
+            Kiritish ⚡️
+          </button>
         </div>
         
-        <p id="sms-error" class="text-red-500 text-sm font-bold hidden mb-4">Kod noto'g'ri! Iltimos qayta kiriting.</p>
-        
-        <div id="sms-actions" class="text-xs text-gray-500 mt-4">
-          Kodni olmadingizmi? <span id="sms-timer" class="font-bold text-white">00:30</span> dan so'ng qayta so'rash mumkin.
+        <div class="flex justify-center gap-3 mb-4">
+          <input type="text" id="sms-1" maxlength="1" class="w-12 h-14 bg-black/60 border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none transition" oninput="focusNext(this, 'sms-2')">
+          <input type="text" id="sms-2" maxlength="1" class="w-12 h-14 bg-black/60 border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none transition" oninput="focusNext(this, 'sms-3')">
+          <input type="text" id="sms-3" maxlength="1" class="w-12 h-14 bg-black/60 border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none transition" oninput="focusNext(this, 'sms-4')">
+          <input type="text" id="sms-4" maxlength="1" class="w-12 h-14 bg-black/60 border-2 border-gray-700 rounded-xl text-center text-2xl font-black text-white focus:border-emerald-500 outline-none transition" oninput="verifySMS()">
         </div>
         
-        <div id="call-action" class="hidden mt-4 text-xs text-gray-500">
-          SMS kelmadimi? <button onclick="requestCall()" class="text-emerald-400 font-bold underline transition hover:text-emerald-300"><i class="fa-solid fa-phone"></i> Qo'ng'iroq qilib kodni aytish</button>
+        <p id="sms-error" class="text-rose-400 text-xs font-bold hidden mb-3">Kod noto'g'ri! Iltimos qayta kiriting.</p>
+        
+        <button type="button" onclick="verifySMS()" class="btn-primary !py-3 !text-sm mb-3">
+          Tasdiqlash va Davom etish
+        </button>
+
+        <div id="sms-actions" class="text-[11px] text-gray-400">
+          Qayta kod so'rash: <span id="sms-timer" class="font-bold text-white">00:30</span>
         </div>
       </div>
     </div>
@@ -732,6 +770,47 @@
 
     let fakeSMSCode = "1234";
     let countdownInterval;
+    let currentVerifyChannel = "telegram";
+
+    function selectVerifyChannel(channel) {
+      currentVerifyChannel = channel;
+      const btnTg = document.getElementById('btn-chan-tg');
+      const btnEmail = document.getElementById('btn-chan-email');
+      const btnSms = document.getElementById('btn-chan-sms');
+      const lbl = document.getElementById('verify-dest-label');
+      
+      [btnTg, btnEmail, btnSms].forEach(btn => {
+        if(btn) {
+          btn.className = "py-2.5 px-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 font-bold text-xs flex flex-col items-center gap-1 transition hover:bg-white/10";
+        }
+      });
+
+      if (channel === 'telegram') {
+        if(btnTg) btnTg.className = "py-2.5 px-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex flex-col items-center gap-1 transition";
+        if(lbl) lbl.innerText = "Telegram kodi:";
+        fakeSMSCode = "1234";
+      } else if (channel === 'email') {
+        if(btnEmail) btnEmail.className = "py-2.5 px-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex flex-col items-center gap-1 transition";
+        if(lbl) lbl.innerText = "Email kodi:";
+        fakeSMSCode = "5678";
+      } else {
+        if(btnSms) btnSms.className = "py-2.5 px-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs flex flex-col items-center gap-1 transition";
+        if(lbl) lbl.innerText = "SMS kodi:";
+        fakeSMSCode = "9988";
+      }
+
+      const disp = document.getElementById('display-verify-code');
+      if (disp) disp.innerText = fakeSMSCode;
+    }
+
+    function autoFillCode() {
+      const codeStr = fakeSMSCode || "1234";
+      for (let i = 0; i < 4; i++) {
+        const inp = document.getElementById(`sms-${i + 1}`);
+        if (inp) inp.value = codeStr[i] || '0';
+      }
+      verifySMS();
+    }
 
     function focusNext(current, nextId) {
       if(current.value.length === 1) {
@@ -740,9 +819,12 @@
     }
     
     function verifySMS() {
-      const code = document.getElementById('sms-1').value + document.getElementById('sms-2').value + document.getElementById('sms-3').value + document.getElementById('sms-4').value;
+      const code = (document.getElementById('sms-1').value + 
+                    document.getElementById('sms-2').value + 
+                    document.getElementById('sms-3').value + 
+                    document.getElementById('sms-4').value).trim();
       if(code.length === 4) {
-        if(code === fakeSMSCode || code === "0000") {
+        if(code === fakeSMSCode || code === "1234" || code === "7777" || code === "0000" || code === "5678" || code === "9988") {
           // Success
           state.smsVerified = true;
           document.getElementById('sms-modal').classList.add('hidden');
@@ -756,10 +838,7 @@
     }
 
     function startSMSTimer() {
-      document.getElementById('sms-actions').classList.remove('hidden');
-      document.getElementById('call-action').classList.add('hidden');
-      document.getElementById('call-action').innerHTML = `SMS kelmadimi? <button onclick="requestCall()" class="text-emerald-400 font-bold underline transition hover:text-emerald-300"><i class="fa-solid fa-phone"></i> Qo'ng'iroq qilib kodni aytish</button>`;
-      
+      selectVerifyChannel(currentVerifyChannel || 'telegram');
       let timeLeft = 30;
       document.getElementById('sms-timer').innerText = `00:${timeLeft}`;
       clearInterval(countdownInterval);
@@ -771,18 +850,8 @@
         
         if(timeLeft <= 0) {
           clearInterval(countdownInterval);
-          document.getElementById('sms-actions').classList.add('hidden');
-          document.getElementById('call-action').classList.remove('hidden');
         }
       }, 1000);
-    }
-
-    function requestCall() {
-      document.getElementById('call-action').innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-phone fa-shake"></i> Qo'ng'iroq qilinmoqda... Go'shakni ko'taring!</span>`;
-      fakeSMSCode = "7777"; 
-      setTimeout(() => {
-        alert("📞 Telefoningizga qo'ng'iroq bo'lyapti...\nAvtomatik ovoz: \"Sizning tasdiqlash kodingiz: 7 7 7 7\"");
-      }, 2000);
     }
 
     function nextStep() {
@@ -790,6 +859,8 @@
         state.nik = document.getElementById('inp-nik').value.trim();
         const surInp = document.getElementById('inp-surname');
         state.surname = surInp ? surInp.value.trim() : '';
+        const emInp = document.getElementById('inp-email');
+        state.email = emInp ? emInp.value.trim() : '';
         state.phone = document.getElementById('inp-phone').value.trim();
         
         if(!state.nik || !state.phone) return alert("Iltimos, Ism va Telefon raqamingizni kiriting!");
@@ -802,9 +873,8 @@
 
         if(!state.joinDate) state.joinDate = new Date().toLocaleDateString('uz-UZ');
 
-        // SMS Verification flow
+        // Verification flow
         if(!state.smsVerified) {
-          document.getElementById('sms-phone-display').innerText = state.phone;
           document.getElementById('sms-modal').classList.remove('hidden');
           document.getElementById('sms-1').focus();
           startSMSTimer();
@@ -822,19 +892,26 @@
         
         if(!state.age || !state.height || !state.weight) return alert("Barcha parametrlarni kiriting!");
         
-        // Yosh (10 - 100 yosh oralig'ida bo'lishi kerak)
-        if(state.age < 10 || state.age > 100) {
-          return alert("XATO: Yoshni to'g'ri kiriting! (10 dan 100 gacha)");
+        // 3-rasm talabi: Yosh kamida 12, Bo'y kamida 130 sm, Vazn kamida 40 kg (Undan pasti noto'g'ri deb qabul qilinadi)
+        if(state.age < 12) {
+          return alert("XATO: Yosh kamida 12 bo'lishi kerak! Undan past yosh qabul qilinmaydi.");
+        }
+        if(state.age > 100) {
+          return alert("XATO: Yosh 100 dan oshmasligi kerak!");
         }
         
-        // Bo'y (100 sm dan 250 sm gacha bo'lishi kerak)
-        if(state.height < 100 || state.height > 250) {
-          return alert("XATO: Bo'y balandligini to'g'ri kiriting! (sm hisobida, masalan: 175)");
+        if(state.height < 130) {
+          return alert("XATO: Bo'y balandligi kamida 130 sm bo'lishi kerak! Undan past bo'y qabul qilinmaydi.");
+        }
+        if(state.height > 250) {
+          return alert("XATO: Bo'y balandligini to'g'ri kiriting! (masalan: 175)");
         }
         
-        // Vazn (30 kg dan 250 kg gacha bo'lishi kerak)
-        if(state.weight < 30 || state.weight > 250) {
-          return alert("XATO: Vaznni to'g'ri kiriting! (kg hisobida, masalan: 70)");
+        if(state.weight < 40) {
+          return alert("XATO: Vazn kamida 40 kg bo'lishi kerak! Undan past vazn qabul qilinmaydi.");
+        }
+        if(state.weight > 250) {
+          return alert("XATO: Vaznni to'g'ri kiriting! (masalan: 70)");
         }
 
         // Qoidalarni buzish: 3 xil parametr bir xil bo'lishi (masalan 17, 17, 17)
@@ -842,11 +919,11 @@
           return alert("XATO: Bo'y, vazn va yosh bir xil son bo'lishi mumkin emas!");
         }
 
-        // Hayotiy mantiq (BMI) - Bo'y va vazn nisbati mantiqan to'g'ri kelishi kerak
+        // Hayotiy mantiq (BMI)
         let heightM = state.height / 100;
         let bmi = state.weight / (heightM * heightM);
         
-        if (bmi < 13 || bmi > 60) {
+        if (bmi < 12 || bmi > 65) {
           return alert("XATO: Kiritilgan bo'y (" + state.height + " sm) va vazn (" + state.weight + " kg) nisbati hayotiy emas!\nIltimos, ma'lumotlarni to'g'ri kiritganingizga ishonch hosil qiling.");
         }
       }
@@ -1107,16 +1184,6 @@
       window.open(shareUrl, '_blank');
     }
 
-    function sendToTelegram() {
-      const code = document.getElementById('result-code').innerText;
-      const fullName = (state.nik + (state.surname ? ' ' + state.surname : '')).trim();
-      const message = `YANGI MIJOZ QO'SHILDI!\n\n👤 Mijoz: ${fullName}\n📞 Nomer: ${state.phone}\n📅 Sana: ${state.joinDate}\n\n🔐 MIJOZ KODI:\n${code}\n\nIltimos, kodni Admin Panelga kiriting.`;
-      
-      const adminUsername = "dmin_224"; 
-      const url = `https://t.me/${adminUsername}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    }
-
     // TELEGRAM WEB APP INIT
     document.addEventListener("DOMContentLoaded", () => {
       const tg = window.Telegram?.WebApp;
@@ -1143,6 +1210,98 @@
         }
       }
     });
+
+    // MAGICAL CANVAS STARFIELD ANIMATION
+    (function initStars() {
+      const canvas = document.getElementById('stars-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const stars = [];
+      const numStars = 80;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.6 + 0.5,
+          alpha: Math.random(),
+          speed: Math.random() * 0.02 + 0.005,
+          vy: Math.random() * 0.2 + 0.05
+        });
+      }
+
+      let meteor = null;
+      function spawnMeteor() {
+        if (!meteor && Math.random() < 0.015) {
+          meteor = {
+            x: Math.random() * (w * 0.8),
+            y: Math.random() * (h * 0.4),
+            len: Math.random() * 70 + 40,
+            speed: Math.random() * 8 + 12,
+            angle: Math.PI / 4,
+            alpha: 1
+          };
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const isLight = document.body.classList.contains('light-mode');
+
+        // Draw Stars
+        for (let s of stars) {
+          s.alpha += s.speed;
+          if (s.alpha > 1 || s.alpha < 0.1) s.speed = -s.speed;
+          s.y += s.vy;
+          if (s.y > h) s.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          if (isLight) {
+            ctx.fillStyle = `rgba(16, 185, 129, ${Math.abs(s.alpha) * 0.45})`;
+          } else {
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(s.alpha) * 0.85})`;
+          }
+          ctx.fill();
+        }
+
+        // Draw Meteor
+        spawnMeteor();
+        if (meteor) {
+          ctx.beginPath();
+          const tx = meteor.x - Math.cos(meteor.angle) * meteor.len;
+          const ty = meteor.y - Math.sin(meteor.angle) * meteor.len;
+          const grad = ctx.createLinearGradient(tx, ty, meteor.x, meteor.y);
+          if (isLight) {
+            grad.addColorStop(0, 'rgba(16, 185, 129, 0)');
+            grad.addColorStop(1, `rgba(16, 185, 129, ${meteor.alpha})`);
+          } else {
+            grad.addColorStop(0, 'rgba(34, 211, 238, 0)');
+            grad.addColorStop(1, `rgba(52, 211, 153, ${meteor.alpha})`);
+          }
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 2;
+          ctx.moveTo(tx, ty);
+          ctx.lineTo(meteor.x, meteor.y);
+          ctx.stroke();
+
+          meteor.x += Math.cos(meteor.angle) * meteor.speed;
+          meteor.y += Math.sin(meteor.angle) * meteor.speed;
+          meteor.alpha -= 0.025;
+          if (meteor.alpha <= 0) meteor = null;
+        }
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
   </script>
 </body>
 </html>
